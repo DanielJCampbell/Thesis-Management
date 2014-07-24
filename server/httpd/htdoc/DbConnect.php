@@ -1,8 +1,9 @@
 <?php
+//http://codular.com/php-mysqli is website that I've got the info from
 $location = "localhost";
-$username = "Administrator"
-$password = "password"
-$database = "myDatabase"
+$username = "Administrator";
+$password = "password";
+$Database = "myDatabase";
 
 $db = new mysqli($location, $username, $password, $database);
 

@@ -4,3 +4,8 @@
 [Thu Jul 24 11:45:00 2014] [notice] Apache/2.2.27 (Unix) mod_ssl/2.2.27 OpenSSL/1.0.1h DAV/2 PHP/5.4.30 configured -- resuming normal operations
 [Thu Jul 24 11:45:35 2014] [error] [client 127.0.0.1] File does not exist: /u/students/cantwetoma/web/httpd/htdoc/favicon.ico
 [Thu Jul 24 11:51:50 2014] [notice] caught SIGTERM, shutting down
+[Thu Jul 24 15:50:13 2014] [warn] Init: Session Cache is not configured [hint: SSLSessionCache]
+[Thu Jul 24 15:50:13 2014] [notice] Digest: generating secret for digest authentication ...
+[Thu Jul 24 15:50:13 2014] [notice] Digest: done
+[Thu Jul 24 15:50:14 2014] [notice] Apache/2.2.27 (Unix) mod_ssl/2.2.27 OpenSSL/1.0.1h DAV/2 PHP/5.4.30 configured -- resuming normal operations
+[Thu Jul 24 15:53:53 2014] [error] [client 10.140.125.228] script '/u/students/cantwetoma/swen302/Thesis-Management/server/httpd/htdoc/DBconnect.php' not found or unable to stat, referer: http://citron.ecs.vuw.ac.nz:8585/

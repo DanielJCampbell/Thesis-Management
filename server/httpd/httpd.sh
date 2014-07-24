@@ -2,7 +2,7 @@
 #
 # httpd Script starts/stops apache http server
 #
-APACHE_DIR=~/web # points to where the httpd directory is
+APACHE_DIR=~/swen302/Thesis-Management/server/ # points to where the httpd directory is
 APACHE_GROUP=students
 
 export APACHE_DIR APACHE_GROUP
