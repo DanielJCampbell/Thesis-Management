@@ -18,12 +18,14 @@ $sql = <<<SQL
     FROM `Testing`
 SQL;
 
-if(!$result = $db->query($sql)){
-    die('There was an error running the query [' . $db->error . ']');
-}
 //do something with $result
+if ($result = mysqli_query($db, "SELECT * FROM Testing LIMIT 10")) {
+    printf("Select returned %d rows.\n", mysqli_num_rows($result));
+
+    /* free result set */
+    mysqli_free_result($result);
+}
 
 echo "hello world";
-$result->free();
 $db->close();
 ?>
