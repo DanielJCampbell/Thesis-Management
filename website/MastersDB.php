@@ -57,6 +57,7 @@ while ($row = $query->fetch_assoc()) {
     $suspensions->close();
     
     //The timeline (and misc notes and origin)
+    echo "<td>".$row[StartDate]."</td>";
     echo "<td>".$row[ProposalSubmission]."</td>";
     echo "<td>".$row[ProposalConfirmation]."</td>";
     echo "<td>".$row[Report3MonthSubmission]."</td>";

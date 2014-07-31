@@ -50,6 +50,7 @@ while($row = $query->fetch_assoc()){
     }
     echo "<td>".$ss."</td>";
     
+    echo "<td>".$row[StartDate]."</td>";
     echo "<td>".$row[ProposalSubmission]."</td>";
     echo "<td>".$row[ProposalSeminar]."</td>";
     echo "<td>".$row[ProposalConfirmation]."</td>";
