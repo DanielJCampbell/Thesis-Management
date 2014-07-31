@@ -14,6 +14,8 @@ if($db->connect_errno > 0){
 $query = $db->query("select * from MasterStudent");
 if (is_null($query))
   die("How is this null?");
+  
+echo("<p>".$query."</p>");
 
 while ($row = $query->fetch()) {
 
