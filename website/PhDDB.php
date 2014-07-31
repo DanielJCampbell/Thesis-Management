@@ -13,7 +13,8 @@ if($db->connect_errno > 0){
 $query = $db->query("select * from PhDStudent");
 
 while($row = $query->fetch_array()){
-    $student = $db->query("select * from Student s where s.StudentID = ".$row[StudentID])->fetch_array();
+    $stud = $db->query("select * from Student s where s.StudentID = ".$row[StudentID]);
+    $student = $stud->fetch_array();
   
     echo "<tr>";
     echo "<td>".$student[F_Name]." ".$student[L_Name]."</td>";
@@ -26,8 +27,10 @@ while($row = $query->fetch_array()){
     echo "<td>".$student[Scholarship]."</td>";
     
     //Query supervisors
-    $primary = $db->query("select * from Supervisor s where s.SupervisorID = ".$student[Primary_SupervisorID])->fetch_array();
-    $secondary = $db->query("select * from Supervisor s where s.SupervisorID = ".$student[Secondary_SupervisorID])->fetch_array();
+    $p = $db->query("select * from Supervisor s where s.SupervisorID = ".$student[Primary_SupervisorID]);
+    $s = $db->query("select * from Supervisor s where s.SupervisorID = ".$student[Secondary_SupervisorID]);
+    $primary = $p->fetch_array();
+    $secondary = $s->fetch_array();
     
     echo "<td>".$primary[F_Name]." ".$primary[L_Name]." (".$student[Primary_SupervisorPercent]."%)</td>";
     echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$secondary[Secondary_SupervisorPercent]."%)</td>";
