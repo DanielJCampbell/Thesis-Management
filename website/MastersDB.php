@@ -11,11 +11,13 @@ if($db->connect_errno > 0){
 }
 
 //Get all rows from master's table (TO DO: Check for filters and do right thing)
-$query = $db->query("select * from MasterStudent");
-if (is_null($query))
-  die("How is this null?");
-  
-echo("<p>".$query."</p>");
+$query = $db->query("SELECT * FROM MasterStudent");
+
+$test = $db->query("SELECT * FROM Testing");
+
+echo "<p> Real: ".$query."</p>";
+echo "<p> Test: ".$test."</p>";
+
 
 while ($row = $query->fetch()) {
 
