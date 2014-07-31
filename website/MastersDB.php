@@ -11,12 +11,12 @@ if($db->connect_errno > 0){
 }
 
 //Get all rows from master's table (TO DO: Check for filters and do right thing)
-$query = mysqli_query("select * from MasterStudent");
+$query = $db->query("select * from MasterStudent");
 
-while ($row = mysqli_fetch_array($query)) {
+while ($row = $query->fetch_array()) {
 
     //Get the student corresponding to the entry in the MasterStudent table
-    $student = mysqli_fetch_array(mysqli_query("select * from Student s where s.StudentID = ".$row[StudentID]));
+    $student = ($db->query("select * from Student s where s.StudentID = ".$row[StudentID]))->fetch_array();
     
     echo "<tr>";
     echo "<td>".$student[F_Name]." ".$student[L_Name]."</td>";
@@ -29,17 +29,17 @@ while ($row = mysqli_fetch_array($query)) {
     echo "<td>".$student[Scholarship]."</td>";
     
     //Query supervisors
-    $primary = mysqli_fetch_array(mysqli_query("select * from Supervisor s where s.SupervisorID = ".$student[Primary_SupervisorID]));
-    $secondary = mysqli_fetch_array(mysqli_query("select * from Supervisor s where s.SupervisorID = ".$student[Secondary_SupervisorID]));
+    $primary = ($db->query("select * from Supervisor s where s.SupervisorID = ".$student[Primary_SupervisorID]))->fetch_array();
+    $secondary = ($db->query("select * from Supervisor s where s.SupervisorID = ".$student[Secondary_SupervisorID]))->fetch_array();
     
     echo "<td>".$primary[F_Name]." ".$primary[L_Name]." (".$student[Primary_SupervisorPercent]."%)</td>";
     echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$secondary[Secondary_SupervisorPercent]."%)</td>";
     
     //Create a string of all the suspension dates
-    $suspensions = mysqli_query("select * from Suspension s where s.StudentID = ".$student[StudentID]);
+    $suspensions = $db->query("select * from Suspension s where s.StudentID = ".$student[StudentID]);
     $ss = "";
     
-    while ($tmp = mqsqli_fetch_array($suspensions)) {
+    while ($tmp = $suspensions->fetch_array()) {
 	$ss .= ($tmp[SuspensionStartDate]." - ".$tmp[SuspensionEndDate]."<br>");
     }
     echo "<td>".$ss."</td>";

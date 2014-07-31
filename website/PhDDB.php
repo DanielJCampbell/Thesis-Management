@@ -10,12 +10,12 @@ if($db->connect_errno > 0){
     die('Unable to connect to database [' . $db->connect_error . ']');
 }
 
-$query = mysqli_query("select * from PhDStudent");
+$query = $db->query("select * from PhDStudent");
 
-while($row = mysqli_fetch_array($query)){
-  $student = mysqli_fetch_array(mysqli_query("select * from Student s where s.StudentID = ".$row[StudentID]));
+while($row = $query->fetch_array()){
+    $student = ($db->query("select * from Student s where s.StudentID = ".$row[StudentID]))->fetch_array();
   
-  echo "<tr>";
+    echo "<tr>";
     echo "<td>".$student[F_Name]." ".$student[L_Name]."</td>";
     echo "<td>".$row[StudentID]."</td>";
     echo "<td>".$student[Degree]."</td>";
@@ -26,17 +26,17 @@ while($row = mysqli_fetch_array($query)){
     echo "<td>".$student[Scholarship]."</td>";
     
     //Query supervisors
-    $primary = mysqli_fetch_array(mysqli_query("select * from Supervisor s where s.SupervisorID = ".$student[Primary_SupervisorID]));
-    $secondary = mysqli_fetch_array(mysqli_query("select * from Supervisor s where s.SupervisorID = ".$student[Secondary_SupervisorID]));
+    $primary = ($db->query("select * from Supervisor s where s.SupervisorID = ".$student[Primary_SupervisorID]))->fetch_array();
+    $secondary = ($db->query("select * from Supervisor s where s.SupervisorID = ".$student[Secondary_SupervisorID]))->fetch_array();
     
     echo "<td>".$primary[F_Name]." ".$primary[L_Name]." (".$student[Primary_SupervisorPercent]."%)</td>";
     echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$secondary[Secondary_SupervisorPercent]."%)</td>";
     
     //Create a string of all the suspension dates
-    $suspensions = mysqli_query("select * from Suspension s where s.StudentID = ".$student[StudentID]);
+    $suspensions = $db->query("select * from Suspension s where s.StudentID = ".$student[StudentID]);
     $ss = "";
     
-    while ($tmp = mqsqli_fetch_array($suspensions)) {
+    while ($tmp = $suspensions->fetch_array()) {
 	$ss .= ($tmp[SuspensionStartDate]." - ".$tmp[SuspensionEndDate]."<br>");
     }
     echo "<td>".$ss."</td>";
@@ -46,10 +46,10 @@ while($row = mysqli_fetch_array($query)){
     echo "<td>".$row[ProposalConfirmation]."</td>";
     echo "<td>".$row[FGRCompletesExamination]."</td>";
     
-    $sixmonth = mysqli_query("select * from SixMonthlyReport s where s.StudentID = ".$student[StudentID]);
+    $sixmonth = $db->query("select * from SixMonthlyReport s where s.StudentID = ".$student[StudentID]);
     $report = "";
     
-     while ($tmp = mqsqli_fetch_array($sixmonth)) {
+     while ($tmp = $sixmonth->fetch_array()) {
 	$report .= ($tmp[Submission]." - ".$tmp[Confirmation]."<br>");
     }
     echo "<td>".$report."</td>";
