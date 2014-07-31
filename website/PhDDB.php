@@ -2,7 +2,7 @@
 $location = "khmer.ecs.vuw.ac.nz";
 $username = "ThesisTeam";
 $password = "SWEN302";
-$Database = "ThesisTest";
+$database = "ThesisTest";
 
 //Connect to database
 $db = new mysqli($location, $username, $password, $database);

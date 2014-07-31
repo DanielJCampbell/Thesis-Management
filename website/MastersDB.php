@@ -2,12 +2,16 @@
 $location = "khmer.ecs.vuw.ac.nz";
 $username = "ThesisTeam";
 $password = "SWEN302";
-$Database = "ThesisTest";
+$database = "ThesisTest";
 
 //Connect to database
 $db = new mysqli($location, $username, $password, $database);
 if($db->connect_errno > 0){
     die('Unable to connect to database [' . $db->connect_error . ']');
+}
+
+if(!$db->select_db($database)){
+    die('Unable to select database '.$db);
 }
 
 //Get all rows from master's table (TO DO: Check for filters and do right thing)
