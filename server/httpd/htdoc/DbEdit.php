@@ -17,7 +17,7 @@ if (mysqli_query($db, "INSERT INTO Testing L_Name VALUES(Derp)") === TRUE) {
 	printf("something went wrong inserting\n");
 }
 mysqli_select_db($db,"Testing");
-$query_string = "INSERT INTO `Testing` (`L_Name`, `F_Name`, `ID`) VALUES ('guy','lolz',7)";
+$query_string = "INSERT INTO Testing VALUES ('guy','lolz',7)";
 $try = mysqli_query($db,$query_string,1); //valid insert code for db but not vaild in mysqli 
 //php
 if($try){
