@@ -10,10 +10,14 @@ if($db->connect_errno > 0){
     die('Unable to connect to database [' . $db->connect_error . ']');
 }
 
-$query = $db->query("select * from PhDStudent");
+if(!$db->SELECT_db($database)){
+    die('Unable to select database '.$db);
+}
+
+$query = $db->query("SELECT * FROM PhDStudent");
 
 while($row = $query->fetch()){
-    $stud = $db->query("select * from Student s where s.StudentID = ".$row[StudentID]);
+    $stud = $db->query("SELECT * FROM Student s WHERE s.StudentID = ".$row[StudentID]);
     $student = $stud->fetch();
   
     echo "<tr>";
@@ -27,8 +31,8 @@ while($row = $query->fetch()){
     echo "<td>".$student[Scholarship]."</td>";
     
     //Query supervisors
-    $p = $db->query("select * from Supervisor s where s.SupervisorID = ".$student[Primary_SupervisorID]);
-    $s = $db->query("select * from Supervisor s where s.SupervisorID = ".$student[Secondary_SupervisorID]);
+    $p = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$student[Primary_SupervisorID]);
+    $s = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$student[Secondary_SupervisorID]);
     $primary = $p->fetch();
     $secondary = $s->fetch();
     
@@ -36,7 +40,7 @@ while($row = $query->fetch()){
     echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$secondary[Secondary_SupervisorPercent]."%)</td>";
     
     //Create a string of all the suspension dates
-    $suspensions = $db->query("select * from Suspension s where s.StudentID = ".$student[StudentID]);
+    $suspensions = $db->query("SELECT * FROM Suspension s WHERE s.StudentID = ".$student[StudentID]);
     $ss = "";
     
     while ($tmp = $suspensions->fetch()) {
@@ -49,7 +53,7 @@ while($row = $query->fetch()){
     echo "<td>".$row[ProposalConfirmation]."</td>";
     echo "<td>".$row[FGRCompletesExamination]."</td>";
     
-    $sixmonth = $db->query("select * from SixMonthlyReport s where s.StudentID = ".$student[StudentID]);
+    $sixmonth = $db->query("SELECT * FROM SixMonthlyReport s WHERE s.StudentID = ".$student[StudentID]);
     $report = "";
     
      while ($tmp = $sixmonth->fetch()) {

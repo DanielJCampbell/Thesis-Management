@@ -17,16 +17,10 @@ if(!$db->select_db($database)){
 //Get all rows from master's table (TO DO: Check for filters and do right thing)
 $query = $db->query("SELECT * FROM MasterStudent");
 
-$test = $db->query("SELECT * FROM Testing");
-
-echo "<p> Real: ".$query."</p>";
-echo "<p> Test: ".$test."</p>";
-
-
 while ($row = $query->fetch()) {
 
     //Get the student corresponding to the entry in the MasterStudent table
-    $stud = $db->query("select * from Student s where s.StudentID = ".$row[StudentID]);
+    $stud = $db->query("SELECT * FROM Student s WHERE s.StudentID = ".$row[StudentID]);
     $student = $stud->fetch();
     
     echo "<tr>";
@@ -40,8 +34,8 @@ while ($row = $query->fetch()) {
     echo "<td>".$student[Scholarship]."</td>";
     
     //Query supervisors
-    $p = $db->query("select * from Supervisor s where s.SupervisorID = ".$student[Primary_SupervisorID]);
-    $s = $db->query("select * from Supervisor s where s.SupervisorID = ".$student[Secondary_SupervisorID]);
+    $p = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$student[Primary_SupervisorID]);
+    $s = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$student[Secondary_SupervisorID]);
     $primary = $p->fetch();
     $secondary = $s->fetch();
     
@@ -49,7 +43,7 @@ while ($row = $query->fetch()) {
     echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$secondary[Secondary_SupervisorPercent]."%)</td>";
     
     //Create a string of all the suspension dates
-    $suspensions = $db->query("select * from Suspension s where s.StudentID = ".$student[StudentID]);
+    $suspensions = $db->query("SELECT * FROM Suspension s WHERE s.StudentID = ".$student[StudentID]);
     $ss = "";
     
     while ($tmp = $suspensions->fetch()) {
