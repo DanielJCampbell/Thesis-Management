@@ -10,16 +10,16 @@ function verify() {
   
   if (name === "supervisor")
       //href += "/supervisor";
-      href += "/supervisor.html";
+      href += "/supervisor.php";
   else if (name === "coordinator")
       //href += "/coordinator";
-      href += "/coordinator.html";
+      href += "/coordinator.php";
   else if (name === "admin")
       //href += "/admin";
-      href += "/admin.html";
+      href += "/admin.php";
   else if (name === "student")
       //href += "/student";
-      href += "/student.html";
+      href += "/student.php";
   else
       return;
 

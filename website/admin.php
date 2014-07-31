@@ -1,12 +1,12 @@
 <html>
   <head>
-    <title>Coordinator</title>
+    <title>Administrator</title>
     <style>
       table {
 	border: solid 2px;
 	border-collapse: collapse;
 	text-align: center;
-	font-size: 14px;
+	font-size:14px;
       }
       tr {
 	border: solid 1px;
@@ -18,7 +18,7 @@
       border: solid 1px;
       }
     </style>
-    <h1> COORDINATOR MASTERS PAGE MOCKUP </h1> 
+    <h1> ADMINISTRATOR PAGE MOCKUP</h1> 
   </head>
   
   <body>
@@ -26,11 +26,9 @@
   <input type = "button" onclick = "showAll();" value = "Show All"/><br/>
   <input type = "button" onclick = "deadlines();" value = "Show Overdue Students"/><br/>
   <input type = "button" onclick = "showProvisional();" value = "Show Provisional Students"/><br/>
-  <input type = "button" onclick = "showUnassessed();" value = "Show Not Assessed"/><br/>
-  <input type = "button" onclick = "showSupervisor();" value = "Show Supervisor Workload"/><br/>
   </div>
   <div id = "body">
-  Filter On: <select id = "students" onchange = "changeFilter(this.value)">
+  Filter On: <select id = "students" onchange = "changeFilter(this.value)" selected = "masters">
     <option value = "all">All Students</option>
     <option value = "phd">PhD Students</option>
     <option value = "masters" selected = "selected">Masters Students</option>
@@ -60,7 +58,7 @@
     <th>Notes</th>
     <th>Origin</th>
   </tr>
-  <?php require "tableDB.php"?>
+  <?php require "MastersDB.php"?>
   <!--tr>
     <td>John Smith</td>
     <td>300001111</td>
