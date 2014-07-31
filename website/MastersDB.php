@@ -17,11 +17,12 @@ if(!$db->select_db($database)){
 //Get all rows from master's table (TO DO: Check for filters and do right thing)
 $query = $db->query("SELECT * FROM MasterStudent");
 
-while ($row = $query->fetch()) {
+
+while ($row = $query->fetch_assoc()) {
 
     //Get the student corresponding to the entry in the MasterStudent table
-    $stud = $db->query("SELECT * FROM Student s WHERE s.StudentID = ".$row[StudentID]);
-    $student = $stud->fetch();
+    $stud = $db->query("SELECT * FROM Student s WHERE s.StudentID = ".$row[StudentID]);  
+    $student = $stud->fetch_assoc();
     
     echo "<tr>";
     echo "<td>".$student[F_Name]." ".$student[L_Name]."</td>";
@@ -36,22 +37,27 @@ while ($row = $query->fetch()) {
     //Query supervisors
     $p = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$student[Primary_SupervisorID]);
     $s = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$student[Secondary_SupervisorID]);
-    $primary = $p->fetch();
-    $secondary = $s->fetch();
+    $primary = $p->fetch_assoc();
+    $secondary = $s->fetch_assoc();
     
     echo "<td>".$primary[F_Name]." ".$primary[L_Name]." (".$student[Primary_SupervisorPercent]."%)</td>";
     echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$secondary[Secondary_SupervisorPercent]."%)</td>";
+    
+    $p->close();
+    $s->close();
     
     //Create a string of all the suspension dates
     $suspensions = $db->query("SELECT * FROM Suspension s WHERE s.StudentID = ".$student[StudentID]);
     $ss = "";
     
-    while ($tmp = $suspensions->fetch()) {
+    while ($tmp = $suspensions->fetch_assoc()) {
 	$ss .= ($tmp[SuspensionStartDate]." - ".$tmp[SuspensionEndDate]."<br>");
     }
     echo "<td>".$ss."</td>";
+    $suspensions->close();
     
     //The timeline (and misc notes and origin)
+    echo "<td>".$row[StartDate]."</td>";
     echo "<td>".$row[ProposalSubmission]."</td>";
     echo "<td>".$row[ProposalConfirmation]."</td>";
     echo "<td>".$row[Report3MonthSubmission]."</td>";
@@ -67,7 +73,11 @@ while ($row = $query->fetch()) {
     echo "<td>".$student[Origin]."</td>";
     
     echo "</tr>";
+    
+    $stud->close();
 }
+$query->close();
+$db->close();
 
 
 ?>
