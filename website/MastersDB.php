@@ -12,6 +12,8 @@ if($db->connect_errno > 0){
 
 //Get all rows from master's table (TO DO: Check for filters and do right thing)
 $query = $db->query("select * from MasterStudent");
+if (is_null($query))
+  die("How is this null?");
 
 while ($row = $query->fetch()) {
 
