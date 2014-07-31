@@ -16,9 +16,10 @@ if(!$db->SELECT_db($database)){
 
 $query = $db->query("SELECT * FROM PhDStudent");
 
-while($row = $query->fetch()){
+while($row = $query->fetch_assoc()){
     $stud = $db->query("SELECT * FROM Student s WHERE s.StudentID = ".$row[StudentID]);
-    $student = $stud->fetch();
+    
+    $student = $stud->fetch_assoc();
   
     echo "<tr>";
     echo "<td>".$student[F_Name]." ".$student[L_Name]."</td>";
@@ -33,8 +34,9 @@ while($row = $query->fetch()){
     //Query supervisors
     $p = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$student[Primary_SupervisorID]);
     $s = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$student[Secondary_SupervisorID]);
-    $primary = $p->fetch();
-    $secondary = $s->fetch();
+    
+    $primary = $p->fetch_assoc();
+    $secondary = $s->fetch_assoc();
     
     echo "<td>".$primary[F_Name]." ".$primary[L_Name]." (".$student[Primary_SupervisorPercent]."%)</td>";
     echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$secondary[Secondary_SupervisorPercent]."%)</td>";
@@ -43,7 +45,7 @@ while($row = $query->fetch()){
     $suspensions = $db->query("SELECT * FROM Suspension s WHERE s.StudentID = ".$student[StudentID]);
     $ss = "";
     
-    while ($tmp = $suspensions->fetch()) {
+    while ($tmp = $suspensions->fetch_assoc()) {
 	$ss .= ($tmp[SuspensionStartDate]." - ".$tmp[SuspensionEndDate]."<br>");
     }
     echo "<td>".$ss."</td>";
@@ -56,7 +58,7 @@ while($row = $query->fetch()){
     $sixmonth = $db->query("SELECT * FROM SixMonthlyReport s WHERE s.StudentID = ".$student[StudentID]);
     $report = "";
     
-     while ($tmp = $sixmonth->fetch()) {
+     while ($tmp = $sixmonth->fetch_assoc()) {
 	$report .= ($tmp[Submission]." - ".$tmp[Confirmation]."<br>");
     }
     echo "<td>".$report."</td>";
@@ -70,7 +72,9 @@ while($row = $query->fetch()){
     echo "<td>".$student[Notes]."</td>";
     echo "<td>".$student[Origin]."</td>";
     echo "</tr>";
-    
+    $stud->close();
 }
+$query->close();
+$db->close();
 
 ?>
