@@ -13,11 +13,11 @@ if($db->connect_errno > 0){
 //Get all rows from master's table (TO DO: Check for filters and do right thing)
 $query = $db->query("select * from MasterStudent");
 
-while ($row = $query->fetch_array()) {
+while ($row = $query->fetch()) {
 
     //Get the student corresponding to the entry in the MasterStudent table
     $stud = $db->query("select * from Student s where s.StudentID = ".$row[StudentID]);
-    $student = $stud->fetch_array();
+    $student = $stud->fetch();
     
     echo "<tr>";
     echo "<td>".$student[F_Name]." ".$student[L_Name]."</td>";
@@ -32,8 +32,8 @@ while ($row = $query->fetch_array()) {
     //Query supervisors
     $p = $db->query("select * from Supervisor s where s.SupervisorID = ".$student[Primary_SupervisorID]);
     $s = $db->query("select * from Supervisor s where s.SupervisorID = ".$student[Secondary_SupervisorID]);
-    $primary = $p->fetch_array();
-    $secondary = $s->fetch_array();
+    $primary = $p->fetch();
+    $secondary = $s->fetch();
     
     echo "<td>".$primary[F_Name]." ".$primary[L_Name]." (".$student[Primary_SupervisorPercent]."%)</td>";
     echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$secondary[Secondary_SupervisorPercent]."%)</td>";
@@ -42,7 +42,7 @@ while ($row = $query->fetch_array()) {
     $suspensions = $db->query("select * from Suspension s where s.StudentID = ".$student[StudentID]);
     $ss = "";
     
-    while ($tmp = $suspensions->fetch_array()) {
+    while ($tmp = $suspensions->fetch()) {
 	$ss .= ($tmp[SuspensionStartDate]." - ".$tmp[SuspensionEndDate]."<br>");
     }
     echo "<td>".$ss."</td>";
