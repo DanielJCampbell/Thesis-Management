@@ -6,6 +6,7 @@
 	border: solid 2px;
 	border-collapse: collapse;
 	text-align: center;
+	font-size: 14px;
       }
       tr {
 	border: solid 1px;
@@ -32,23 +33,35 @@
   Filter On: <select id = "students" onchange = "changeFilter(this.value)">
     <option value = "all">All Students</option>
     <option value = "phd">PhD Students</option>
-    <option value = "masters">Masters Students</option>
+    <option value = "masters" selected = "selected">Masters Students</option>
   </select>
-  <table cellpadding = "5px" cellspacing = "10px">
+  <table><!-- cellpadding = "5px" cellspacing = "10px"-->
   <tr>
     <th>Name</th>
     <th>ID</th>
+    <th>Degree</th>
+    <th>Half-Time</th>
+    <th>Scholarship</th>
     <th>Primary Supervisor</th>
     <th>Secondary Supervisor</th>
-    <th>Start Date</th>
-    <th>3 Month Report</th>
-    <th>8 Month Report</th>
-    <th>Thesis Submission</th>
     <th>Suspension Dates</th>
+    <th>Start Date</th>
+    <th>Proposal Submission</th>
+    <th>Proposal Confirmation</th>
+    <th>3 Month Submission</th>
+    <th>3 Month Confirmation</th>
+    <th>8 Month Submission</th>
+    <th>8 Month Confirmation</th>
+    <th>Thesis Submission</th>
+    <th>Examiners Appointed</th>
+    <th>Examination Completed</th>
+    <th>Revisions Finalised</th>
+    <th>Deposited in Library</th>
     <th>Notes</th>
     <th>Origin</th>
   </tr>
-  <tr>
+  <?php require "tableDB.php"?>
+  <!--tr>
     <td>John Smith</td>
     <td>300001111</td>
     <td>Jane Doe</td>
@@ -99,9 +112,9 @@
     <td>20/7/2013 - 20/10/2013</td>
     <td>Gender Unknown</td>
     <td>I</td>
-  </tr>
+  </tr-->
   </table>
-  <input type = "button" onclick = "editTable()" id = "edit" value = "Edit" style = "position: relative; left: 75%; width: 50px;"></input>
+  <input type = "button" onclick = "editTable()" id = "edit" value = "Edit" style = "float: right"></input>
   </div>
 </body>
 </html>
