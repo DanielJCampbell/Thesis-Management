@@ -37,9 +37,9 @@
   </div>
   <div id = "body">
   Filter On: <select id = "students" onchange = "changeFilter(this.value)" selected = "masters">
-    <option value = "all">All Students</option>
-    <option value = "phd">PhD Students</option>
-    <option value = "masters" selected = "selected">Masters Students</option>
+    <!--<option value = "all">All Students</option> -->
+    <option value = "PhD">PhD Students</option>
+    <option value = "Masters" selected = "selected">Masters Students</option>
   </select>
   <div id = "Masters" class = "active">
   <table>
