@@ -1,7 +1,15 @@
 <html>
   <head>
     <title>Administrator</title>
+    <script src = "tables.js"></script>
     <style>
+    
+    .active {
+	display: block;
+      }
+      .passive {
+	display: none;
+      }
       table {
 	border: solid 2px;
 	border-collapse: collapse;
@@ -29,16 +37,18 @@
   </div>
   <div id = "body">
   Filter On: <select id = "students" onchange = "changeFilter(this.value)" selected = "masters">
-    <option value = "all">All Students</option>
-    <option value = "phd">PhD Students</option>
-    <option value = "masters" selected = "selected">Masters Students</option>
+    <!--<option value = "all">All Students</option> -->
+    <option value = "PhD">PhD Students</option>
+    <option value = "Masters" selected = "selected">Masters Students</option>
   </select>
-  <table><!-- cellpadding = "5px" cellspacing = "10px"-->
+  <div id = "Masters" class = "active">
+  <table>
   <tr>
     <th>Name</th>
     <th>ID</th>
-    <th>Degree</th>
-    <th>Half-Time</th>
+    <th>Course</th>
+    <th>Specialisation</th>
+    <th>Part-Time</th>
     <th>Scholarship</th>
     <th>Primary Supervisor</th>
     <th>Secondary Supervisor</th>
@@ -58,61 +68,42 @@
     <th>Notes</th>
     <th>Origin</th>
   </tr>
-  <?php require "MastersDB.php"?>
-  <!--tr>
-    <td>John Smith</td>
-    <td>300001111</td>
-    <td>Jane Doe</td>
-    <td>John Doe</td>
-    <td>24/4/2013</td>
-    <td>18/7/2013</td>
-    <td></td>
-    <td></td>
-    <td>20/7/2013 - 20/10/2013</td>
-    <td>He doesn't even go here!</td>
-    <td>I</td>
-  </tr>
-  <tr>
-    <td>Jane Smith</td>
-    <td>300001112</td>
-    <td>Jane Doe</td>
-    <td>John Doe</td>
-    <td>28/4/2013</td>
-    <td>16/7/2013</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>D</td>
-  </tr>
-  <tr>
-    <td>Bob Smith</td>
-    <td>300001113</td>
-    <td>Jane Doe</td>
-    <td>John Doe</td>
-    <td>24/2/2014</td>
-    <td>18/4/2014</td>
-    <td>12/9/2014</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>D</td>
-  </tr>
-  <tr>
-    <td>Bobella Smith</td>
-    <td>300001114</td>
-    <td>Jane Doe</td>
-    <td>John Doe</td>
-    <td>21/2/2015</td>
-    <td>12/5/2015</td>
-    <td></td>
-    <td></td>
-    <td>20/7/2013 - 20/10/2013</td>
-    <td>Gender Unknown</td>
-    <td>I</td>
-  </tr-->
+  <?php require "MastersDB.php"; ?>
   </table>
-  <input type = "button" onclick = "editTable()" id = "edit" value = "Edit" style = "float: right"></input>
+  <input type = "button" onclick = "editTable('Masters')" value = "Edit" style = "float: right"></input>
+  </div>
+  
+  <div id = "PhD" class = "passive">
+  <table>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Degree</th>
+    <th>Part-Time</th>
+    <th>Scholarship</th>
+    <th>Work Hours</th>
+    <th>Primary Supervisor</th>
+    <th>Secondary Supervisor</th>
+    <th>Suspension Dates</th>
+    <th>Start Date</th>
+    <th>Proposal Submission</th>
+    <th>Proposal Seminar</th>
+    <th>Proposal Confirmation</th>
+    <th>FGR Completes Examination</th>
+    <th>6 Monthly Report Submissions</th>
+    <th>6 Monthly Report Confirmations</th>
+    <th>Thesis Submission</th>
+    <th>Examiners Appointed</th>
+    <th>Examination Completed</th>
+    <th>Revisions Finalised</th>
+    <th>Deposited in Library</th>
+    <th>Notes</th>
+    <th>Origin</th>
+  </tr>
+  <?php require "PhDDB.php"; ?>
+  </table>
+  <input type = "button" onclick = "editTable('PhD')" value = "Edit" style = "float: right"></input>
+  </div>
   </div>
 </body>
 </html>
