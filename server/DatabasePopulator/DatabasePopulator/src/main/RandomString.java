@@ -15,6 +15,7 @@ public class RandomString {
 		      sb.append(c);
 		  }
 		  String output = sb.toString();
-		  symbols = output;
+		  symbols = "'"+output+"'";
+		  
 	  }   
 }
