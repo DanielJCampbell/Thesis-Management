@@ -30,7 +30,7 @@ while($row = $query->fetch_assoc()){
     else echo "<td>No</td>";
     
     echo "<td>".$student[Scholarship]."</td>";
-    if (is_null($row[WorkHours]) {
+    if (is_null($row[WorkHours])) {
 	echo "<td></td>";
     }
     else echo "<td>".$row[WorkHours]."</td>";
