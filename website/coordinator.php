@@ -43,8 +43,8 @@
     <option value = "PhD">PhD Students</option>
     <option value = "Masters" selected = "selected">Masters Students</option>
   </select>
- 
-  <table id = "Masters" class = "active">
+  <div id = "Masters" class = "active">
+  <table>
   <tr>
     <th>Name</th>
     <th>ID</th>
@@ -72,9 +72,11 @@
   </tr>
   <?php require "MastersDB.php"; ?>
   </table>
-  <input type = "button" onclick = "editTable('Masters')" id = "editMasters" class = "active" value = "Edit" style = "float: right"></input>
+  <input type = "button" onclick = "editTable('Masters')" value = "Edit" style = "float: right"></input>
+  </div>
   
-  <table id = "PhD" class = "passive">
+  <div id = "PhD" class = "passive">
+  <table>
   <tr>
     <th>Name</th>
     <th>ID</th>
@@ -102,7 +104,8 @@
   </tr>
   <?php require "PhDDB.php"; ?>
   </table>
-  <input type = "button" onclick = "editTable('PhD')" id = "editPhD" class = "passive" value = "Edit" style = "float: right"></input>
+  <input type = "button" onclick = "editTable('PhD')" value = "Edit" style = "float: right"></input>
+  </div>
   </div>
 </body>
 </html>
