@@ -21,7 +21,7 @@ $query = $db->query("SELECT * FROM MastersStudents");
 while ($row = $query->fetch_assoc()) {
 
     //Get the student corresponding to the entry in the MasterStudent table
-    $stud = $db->query("SELECT * FROM Student s WHERE s.StudentID = ".$row[StudentID]);  
+    $stud = $db->query("SELECT * FROM Students s WHERE s.StudentID = ".$row[StudentID]);  
     $student = $stud->fetch_assoc();
     
     echo "<tr>";
@@ -36,8 +36,8 @@ while ($row = $query->fetch_assoc()) {
     echo "<td>".$student[Scholarship]."</td>";
     
     //Query supervisors
-    $p = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$student[Primary_SupervisorID]);
-    $s = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$student[Secondary_SupervisorID]);
+    $p = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$student[Primary_SupervisorID]);
+    $s = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$student[Secondary_SupervisorID]);
     $primary = $p->fetch_assoc();
     $secondary = $s->fetch_assoc();
     
@@ -48,7 +48,7 @@ while ($row = $query->fetch_assoc()) {
     $s->close();
     
     //Create a string of all the suspension dates
-    $suspensions = $db->query("SELECT * FROM Suspension s WHERE s.StudentID = ".$student[StudentID]);
+    $suspensions = $db->query("SELECT * FROM Suspensions s WHERE s.StudentID = ".$student[StudentID]);
     $ss = "";
     
     while ($tmp = $suspensions->fetch_assoc()) {

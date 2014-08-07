@@ -55,15 +55,15 @@ while ($row = $query->fetch_assoc()) {
       echo "<td>".$student[WorkHours]."</td>";
     }
       
-    $p = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$row[Primary_SupervisorID]);
-    $s = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$row[Secondary_SupervisorID]);
+    $p = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$row[Primary_SupervisorID]);
+    $s = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$row[Secondary_SupervisorID]);
     $primary = $p->fetch_assoc();
     $secondary = $s->fetch_assoc();
     
     echo "<td>".$primary[F_Name]." ".$primary[L_Name]." (".$row[Primary_SupervisorPercent]."%)</td>";
     echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$row[Secondary_SupervisorPercent]."%)</td>";
     
-    $suspensions = $db->query("SELECT * FROM Suspension s WHERE s.StudentID = ".$row[StudentID]);
+    $suspensions = $db->query("SELECT * FROM Suspensions s WHERE s.StudentID = ".$row[StudentID]);
     $ss = "";
     
     while ($tmp = $suspensions->fetch_assoc()) {
@@ -84,7 +84,7 @@ while ($row = $query->fetch_assoc()) {
     }
     else{
       echo "<td>".$student[ProposalConfirmation]."</td>";
-      $sixmonth = $db->query("SELECT * FROM SixMonthlyReport s WHERE s.StudentID = ".$student[StudentID]);
+      $sixmonth = $db->query("SELECT * FROM SixMonthlyReports s WHERE s.StudentID = ".$student[StudentID]);
       $repSubs = "";
       $repConfs = "";
     

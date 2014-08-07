@@ -14,10 +14,10 @@ if(!$db->SELECT_db($database)){
     die('Unable to select database '.$db);
 }
 
-$query = $db->query("SELECT * FROM PhDStudent");
+$query = $db->query("SELECT * FROM PhDStudents");
 
 while($row = $query->fetch_assoc()){
-    $stud = $db->query("SELECT * FROM Student s WHERE s.StudentID = ".$row[StudentID]);
+    $stud = $db->query("SELECT * FROM Students s WHERE s.StudentID = ".$row[StudentID]);
     
     $student = $stud->fetch_assoc();
   
@@ -36,8 +36,8 @@ while($row = $query->fetch_assoc()){
     else echo "<td>".$row[WorkHours]."</td>";
     
     //Query supervisors
-    $p = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$student[Primary_SupervisorID]);
-    $s = $db->query("SELECT * FROM Supervisor s WHERE s.SupervisorID = ".$student[Secondary_SupervisorID]);
+    $p = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$student[Primary_SupervisorID]);
+    $s = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$student[Secondary_SupervisorID]);
     
     $primary = $p->fetch_assoc();
     $secondary = $s->fetch_assoc();
@@ -46,7 +46,7 @@ while($row = $query->fetch_assoc()){
     echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$student[Secondary_SupervisorPercent]."%)</td>";
     
     //Create a string of all the suspension dates
-    $suspensions = $db->query("SELECT * FROM Suspension s WHERE s.StudentID = ".$student[StudentID]);
+    $suspensions = $db->query("SELECT * FROM Suspensions s WHERE s.StudentID = ".$student[StudentID]);
     $ss = "";
     
     while ($tmp = $suspensions->fetch_assoc()) {
@@ -60,7 +60,7 @@ while($row = $query->fetch_assoc()){
     echo "<td>".$row[ProposalConfirmation]."</td>";
     echo "<td>".$row[FGRCompletesExamination]."</td>";
     
-    $sixmonth = $db->query("SELECT * FROM SixMonthlyReport s WHERE s.StudentID = ".$student[StudentID]);
+    $sixmonth = $db->query("SELECT * FROM SixMonthlyReports s WHERE s.StudentID = ".$student[StudentID]);
     $repSubs = "";
     $repConfs = "";
     
