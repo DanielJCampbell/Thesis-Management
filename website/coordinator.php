@@ -106,6 +106,38 @@
   </table>
   <input type = "button" onclick = "editTable('PhD')" value = "Edit" style = "float: right"></input>
   </div>
+  
+  <div id = "All" class = "passive">
+  <table>
+  <tr>
+    <th>Name</th>
+    <th>Student ID</th>
+    <th>Type</th>
+    <th>Degree/Course</th>
+    <th>Part-Time</th>
+    <th>Scholarship</th>
+    <th>Work Hours</th>
+    <th>Primary Supervisor</th>
+    <th>Secondary Supervisor</th>
+    <th>Suspension Dates</th>
+    <th>Start Date</th>
+    <th>Proposal Submission</th>
+    <th>Proposal Confirmation</th>
+    <th>Report Submissions</th>
+    <th>Report Confirmations</th>
+    <th>Thesis Submission</th>
+    <th>Examiners Appointed</th>
+    <th>Examination Completed</th>
+    <th>Revisions Finalised</th>
+    <th>Deposited in Library</th>
+    <th>Notes</th>
+    <th>Origin</th>
+  </tr>
+  <?php require "AllDB.php"; ?>
+  </table>
+  <input type = "button" onclick = "editTable('All')" value = "Edit" style = "float: right"></input>
+  </div>
+  
   </div>
 </body>
 </html>

@@ -2,7 +2,7 @@
 $location = "khmer.ecs.vuw.ac.nz";
 $username = "ThesisTeam";
 $password = "SWEN302";
-$database = "ThesisTest";
+$database = "ThesisManagement";
 
 //Connect to database
 $db = new mysqli($location, $username, $password, $database);
@@ -42,7 +42,7 @@ while ($row = $query->fetch_assoc()) {
     $secondary = $s->fetch_assoc();
     
     echo "<td>".$primary[F_Name]." ".$primary[L_Name]." (".$student[Primary_SupervisorPercent]."%)</td>";
-    echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$secondary[Secondary_SupervisorPercent]."%)</td>";
+    echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$student[Secondary_SupervisorPercent]."%)</td>";
     
     $p->close();
     $s->close();
