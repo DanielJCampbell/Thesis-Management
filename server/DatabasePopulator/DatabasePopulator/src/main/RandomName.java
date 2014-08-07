@@ -15,6 +15,9 @@ public class RandomName {
 	public RandomName() {
 		first = fnames[randBetween(0,fnames.length-1)];
 		last = lnames[randBetween(0,fnames.length-1)];
+
+		first = "'"+first+"'";
+		last = "'"+last+"'";
 	}
 
 	public static int randBetween(int start, int end) {
