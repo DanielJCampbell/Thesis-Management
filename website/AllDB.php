@@ -44,7 +44,7 @@ while ($row = $query->fetch_assoc()) {
       echo "<td>Yes</td>";
     }
     else
-      echo "<td>No</td">;
+      echo "<td>No</td>";
       
     echo "<td>".$row[Scholarship]."</td>";
     
