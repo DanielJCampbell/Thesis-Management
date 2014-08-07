@@ -35,7 +35,7 @@ if(!$db->select_db($database)){
     $p->close();
     $s->close();
     printf("<h3> Timeline of progress:</h3>");
-    printf("<table");
+    printf("<table>");
     //<tr> row
     //<th> header
     //<td> data
