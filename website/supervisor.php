@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Supervisor</title>
+    <script src = "tables.js"></script>
     <style>
     
        .active {
