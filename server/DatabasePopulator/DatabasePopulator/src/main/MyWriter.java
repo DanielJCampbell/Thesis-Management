@@ -123,7 +123,7 @@ public class MyWriter {
 			}
 		}
 		// Suspensions
-			if(i< 2){
+			if(i < 2){
 					String susID = new RandomString().symbols;
 					String susStart = new RandomDate(2014,2014).symbols;
 					String susEnd = new RandomDate(2014,2014).symbols;
@@ -131,4 +131,4 @@ public class MyWriter {
 			}
 		}
 	}
-	}
+}
