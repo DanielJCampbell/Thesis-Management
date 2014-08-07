@@ -37,15 +37,15 @@ while($row = $query->fetch_assoc()){
 	echo "<td></td>";
     }
     else {
-	echo "<td>".$student[WorkHours1]."</td>";
-	if (is_null($student[WorkHours2]))
+	echo "<td>".$row[WorkHours1]."</td>";
+	if (is_null($row[WorkHours2]))
 	    echo "<td></td>";
 	else
-	    echo "<td>".$student[WorkHours2]."</td>";
-	if (is_null($student[WorkHours3]))
+	    echo "<td>".$row[WorkHours2]."</td>";
+	if (is_null($row[WorkHours3]))
 	    echo "<td></td>";
 	else
-	    echo "<td>".$student[WorkHours3]."</td>";
+	    echo "<td>".$row[WorkHours3]."</td>";
     }
     
     //Query supervisors
