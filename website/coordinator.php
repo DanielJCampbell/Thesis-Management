@@ -39,7 +39,7 @@
   </div>
   <div id = "body">
   Filter On: <select id = "students" onchange = "changeFilter(this.value)">
-   <!-- <option value = "all">All Students</option> -->
+   <option value = "All">All Students</option>
     <option value = "PhD">PhD Students</option>
     <option value = "Masters" selected = "selected">Masters Students</option>
   </select>
