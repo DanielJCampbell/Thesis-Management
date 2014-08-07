@@ -24,16 +24,29 @@ while($row = $query->fetch_assoc()){
     echo "<tr>";
     echo "<td>".$student[F_Name]." ".$student[L_Name]."</td>";
     echo "<td>".$row[StudentID]."</td>";
-    echo "<td>".$row[Degree]."</td>";
+    echo "<td>".$student[Course]."</td>";
+    echo "<td>".$student[Specialisation]."</td>";
     
     if ($student[Halftime]) echo "<td>Yes</td>";
     else echo "<td>No</td>";
     
     echo "<td>".$student[Scholarship]."</td>";
-    if (is_null($row[WorkHours])) {
+    if (is_null($row[WorkHours1])) {
+	echo "<td></td>";
+	echo "<td></td>";
 	echo "<td></td>";
     }
-    else echo "<td>".$row[WorkHours]."</td>";
+    else {
+	echo "<td>".$student[WorkHours1]."</td>";
+	if (is_null($student[WorkHours2]))
+	    echo "<td></td>";
+	else
+	    echo "<td>".$student[WorkHours2]."</td>";
+	if (is_null($student[WorkHours3]))
+	    echo "<td></td>";
+	else
+	    echo "<td>".$student[WorkHours3]."</td>";
+    }
     
     //Query supervisors
     $p = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$student[Primary_SupervisorID]);
@@ -58,19 +71,6 @@ while($row = $query->fetch_assoc()){
     echo "<td>".$row[ProposalSubmission]."</td>";
     echo "<td>".$row[ProposalSeminar]."</td>";
     echo "<td>".$row[ProposalConfirmation]."</td>";
-    echo "<td>".$row[FGRCompletesExamination]."</td>";
-    
-    $sixmonth = $db->query("SELECT * FROM SixMonthlyReports s WHERE s.StudentID = ".$student[StudentID]);
-    $repSubs = "";
-    $repConfs = "";
-    
-     while ($tmp = $sixmonth->fetch_assoc()) {
-	$repSubs .= ($tmp[Submission]."<br>");
-	$repConfs .= ($tmp[Confirmation]."<br>");
-    }
-    echo "<td>".$repSubs."</td>";
-    echo "<td>".$repConfs."</td>";
-    
     echo "<td>".$row[ThesisSubmission]."</td>";
     echo "<td>".$row[ExaminersAppointedDate]."</td>";
     echo "<td>".$row[ExaminationCompleted]."</td>";

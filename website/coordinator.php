@@ -80,10 +80,13 @@
   <tr>
     <th>Name</th>
     <th>ID</th>
-    <th>Degree</th>
+    <th>Course</th>
+    <th>Specialisation</th>
     <th>Part-Time</th>
     <th>Scholarship</th>
-    <th>Work Hours</th>
+    <th>Work Hours Year 1</th>
+    <th>Work Hours Year 2</th>
+    <th>Work Hours Year 3</th>
     <th>Primary Supervisor</th>
     <th>Secondary Supervisor</th>
     <th>Suspension Dates</th>
@@ -91,9 +94,6 @@
     <th>Proposal Submission</th>
     <th>Proposal Seminar</th>
     <th>Proposal Confirmation</th>
-    <th>FGR Completes Examination</th>
-    <th>6 Monthly Report Submissions</th>
-    <th>6 Monthly Report Confirmations</th>
     <th>Thesis Submission</th>
     <th>Examiners Appointed</th>
     <th>Examination Completed</th>
@@ -111,12 +111,15 @@
   <table>
   <tr>
     <th>Name</th>
-    <th>Student ID</th>
+    <th>ID</th>
     <th>Type</th>
-    <th>Degree/Course</th>
+    <th>Course</th>
+    <th>Specialisation</th>
     <th>Part-Time</th>
     <th>Scholarship</th>
-    <th>Work Hours</th>
+    <th>Work Hours Year 1</th>
+    <th>Work Hours Year 2</th>
+    <th>Work Hours Year 3</th>
     <th>Primary Supervisor</th>
     <th>Secondary Supervisor</th>
     <th>Suspension Dates</th>

@@ -70,10 +70,13 @@
   <tr>
     <th>Name</th>
     <th>ID</th>
-    <th>Degree</th>
+    <th>Course</th>
+    <th>Specialisation</th>
     <th>Part-Time</th>
     <th>Scholarship</th>
-    <th>Work Hours</th>
+    <th>Work Hours Year 1</th>
+    <th>Work Hours Year 2</th>
+    <th>Work Hours Year 3</th>
     <th>Primary Supervisor</th>
     <th>Secondary Supervisor</th>
     <th>Suspension Dates</th>
@@ -81,9 +84,6 @@
     <th>Proposal Submission</th>
     <th>Proposal Seminar</th>
     <th>Proposal Confirmation</th>
-    <th>FGR Completes Examination</th>
-    <th>6 Monthly Report Submissions</th>
-    <th>6 Monthly Report Confirmations</th>
     <th>Thesis Submission</th>
     <th>Examiners Appointed</th>
     <th>Examination Completed</th>
@@ -95,6 +95,40 @@
   <?php require "PhDDB.php"; ?>
   </table>
   <input type = "button" onclick = "editTable('PhD')" value = "Edit" style = "float: right"></input>
+  </div>
+  
+  <div id = "All" class = "passive">
+  <table>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Type</th>
+    <th>Course</th>
+    <th>Specialisation</th>
+    <th>Part-Time</th>
+    <th>Scholarship</th>
+    <th>Work Hours Year 1</th>
+    <th>Work Hours Year 2</th>
+    <th>Work Hours Year 3</th>
+    <th>Primary Supervisor</th>
+    <th>Secondary Supervisor</th>
+    <th>Suspension Dates</th>
+    <th>Start Date</th>
+    <th>Proposal Submission</th>
+    <th>Proposal Confirmation</th>
+    <th>Report Submissions</th>
+    <th>Report Confirmations</th>
+    <th>Thesis Submission</th>
+    <th>Examiners Appointed</th>
+    <th>Examination Completed</th>
+    <th>Revisions Finalised</th>
+    <th>Deposited in Library</th>
+    <th>Notes</th>
+    <th>Origin</th>
+  </tr>
+  <?php require "AllDB.php"; ?>
+  </table>
+  <input type = "button" onclick = "editTable('All')" value = "Edit" style = "float: right"></input>
   </div>
   </div>
   </body>

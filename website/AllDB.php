@@ -23,7 +23,7 @@ while ($row = $query->fetch_assoc()) {
     
     $isMasters = true;
     $stud = $db->query("SELECT * FROM MastersStudents s WHERE s.StudentID = ".$row[StudentID]);
-    if (mysql_num_rows($stud) == 0){
+    if ($stud->num_rows === 0){
       $isMasters = false;
       $stud = $db->query("SELECT * FROM PhDStudents s WHERE s.StudentID = ".$row[StudentID]);
     }
@@ -32,13 +32,13 @@ while ($row = $query->fetch_assoc()) {
     
     if($isMasters){
       echo "<td>Masters</td>";
-      echo "<td>".$student[Course]."</td>";
     }
     else{
       echo "<td>PhD</td>";
-      echo "<td>".$student[Degree]."</td>";
     }
     
+    echo "<td>".$student[Course]."</td>";
+    echo "<td>".$student[Specialisation]."</td>";
     
     if($row[Halftime]){
       echo "<td>Yes</td>";
@@ -48,11 +48,21 @@ while ($row = $query->fetch_assoc()) {
       
     echo "<td>".$row[Scholarship]."</td>";
     
-    if($isMasters || is_null($student[WorkHours])){
+    if($isMasters || is_null($student[WorkHours1])){
+      echo "<td></td>";
+      echo "<td></td>";
       echo "<td></td>";
     }
     else{
-      echo "<td>".$student[WorkHours]."</td>";
+      echo "<td>".$student[WorkHours1]."</td>";
+      if (is_null($student[WorkHours2]))
+	  echo "<td></td>";
+      else
+	  echo "<td>".$student[WorkHours2]."</td>";
+      if (is_null($student[WorkHours3]))
+	  echo "<td></td>";
+      else
+	  echo "<td>".$student[WorkHours3]."</td>";
     }
       
     $p = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$row[Primary_SupervisorID]);
@@ -84,18 +94,9 @@ while ($row = $query->fetch_assoc()) {
     }
     else{
       echo "<td>".$student[ProposalConfirmation]."</td>";
-      $sixmonth = $db->query("SELECT * FROM SixMonthlyReports s WHERE s.StudentID = ".$student[StudentID]);
-      $repSubs = "";
-      $repConfs = "";
-    
-      while ($tmp = $sixmonth->fetch_assoc()) {
-	$repSubs .= ($tmp[Submission]."<br>");
-	$repConfs .= ($tmp[Confirmation]."<br>");
-      }
-      echo "<td>".$rebSubs."</td>";
-      echo "<td>".$repConfs."</td>";
+      echo "<td></td>";
+      echo "<td></td>";
     }
-    
     
     echo "<td>".$student[ThesisSubmission]."</td>"; 
     echo "<td>".$student[ExaminersAppointedDate]."</td>";
