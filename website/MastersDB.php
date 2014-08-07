@@ -15,7 +15,7 @@ if(!$db->select_db($database)){
 }
 
 //Get all rows from master's table (TO DO: Check for filters and do right thing)
-$query = $db->query("SELECT * FROM MasterStudent");
+$query = $db->query("SELECT * FROM MastersStudent");
 
 
 while ($row = $query->fetch_assoc()) {
