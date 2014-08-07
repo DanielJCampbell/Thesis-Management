@@ -100,7 +100,7 @@ while ($row = $query->fetch_assoc()) {
     
     echo "<td>".$student[ThesisSubmission]."</td>"; 
     echo "<td>".$student[ExaminersAppointedDate]."</td>";
-    echo "<td>".$student[ExaminersCompleted]."</td>";
+    echo "<td>".$student[ExaminationCompleted]."</td>";
     echo "<td>".$student[RevisionsFinalised]."</td>";
     echo "<td>".$student[DepositedInLibrary]."</td>";
     echo "<td>".$row[Notes]."</td>";
