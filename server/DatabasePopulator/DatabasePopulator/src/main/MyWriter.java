@@ -89,8 +89,8 @@ public class MyWriter {
 		RandomName supervisor1 = new RandomName();
 		RandomName supervisor2 = new RandomName();
 		String supfname = supervisor1.first;
-		String suplname = supervisor1.first;
-		String supfname2 = supervisor2.last;
+		String suplname = supervisor1.last;
+		String supfname2 = supervisor2.first;
 		String suplname2 = supervisor2.last;
 		System.out.println(fgr);
 
