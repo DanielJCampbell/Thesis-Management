@@ -97,17 +97,11 @@ public class MyWriter {
 		String suplname2 = supervisor2.last;
 		System.out.println(fgr);
 
-		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+halftime+ ","+ studentid +","+supid1+","+supPercent1 + ","+supid2+","+supPercent2+","+scholar+","+notes+","+ origin+ ");");
+
 		writer.println("INSERT INTO Supervisors Values ("+ supfname+","+suplname+","+ supid1+");");
 		writer.println("INSERT INTO Supervisors Values ("+ supfname2+","+suplname2+","+ supid2+");");
 
-		// Suspensions
-		if(i < 2){
-			String susID = new RandomString().symbols;
-			String susStart = new RandomDate(2014,2014).symbols;
-			String susEnd = new RandomDate(2014,2014).symbols;
-			writer.println("INSERT INTO Suspensions Values ("+ susID +"," + studentid + ","+ susStart + "," + susEnd+");");
-		}
+		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+halftime+ ","+ studentid +","+supid1+","+supPercent1 + ","+supid2+","+supPercent2+","+scholar+","+notes+","+ origin+ ");");
 
 		if(i<25){
 			writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +deposited+");");
@@ -128,8 +122,13 @@ public class MyWriter {
 				}
 			}
 		}
+		// Suspensions
+			if(i< 2){
+					String susID = new RandomString().symbols;
+					String susStart = new RandomDate(2014,2014).symbols;
+					String susEnd = new RandomDate(2014,2014).symbols;
+					writer.println("INSERT INTO Suspensions Values ("+ susID +"," + studentid + ","+ susStart + "," + susEnd+");");
+			}
 		}
-
-
 	}
-}
+	}
