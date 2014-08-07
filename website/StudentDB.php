@@ -54,8 +54,8 @@ if(!$db->select_db($database)){
               echo "</td>";                                                                                                                                         
               echo "</tr>";                                                                                                                                          
     }
-    echo"</table>
-    <br><br>
+    echo"</table>";
+    echo"<br><br>
     <h3> Upcoming Deadlines:</h3>
     <table>
     <tr>
