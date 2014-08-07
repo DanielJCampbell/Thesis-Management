@@ -2,6 +2,13 @@
   <head>
     <title>Supervisor</title>
     <style>
+    
+       .active {
+	display: block;
+      }
+      .passive {
+	display: none;
+      }
       table {
 	border: solid 2px;
 	border-collapse: collapse;

@@ -4,7 +4,7 @@
     <script src = "tables.js"></script>
     <style>
     
-    .active {
+      .active {
 	display: block;
       }
       .passive {

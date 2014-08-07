@@ -37,8 +37,8 @@ while ($row = $query->fetch_assoc()) {
       echo "<td>PhD</td>";
     }
     
-    echo "<td>".$student[Course]."</td>";
-    echo "<td>".$student[Specialisation]."</td>";
+    echo "<td>".$row[Course]."</td>";
+    echo "<td>".$row[Specialisation]."</td>";
     
     if($row[Halftime]){
       echo "<td>Yes</td>";
