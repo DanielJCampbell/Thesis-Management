@@ -35,7 +35,7 @@ if(!$db->select_db($database)){
     $p->close();
     $s->close();
     printf("<h3> Timeline of progress:</h3>");
-    printf("<table>");
+    echo "<table>";
     //<tr> row
     //<th> header
     //<td> data
@@ -55,8 +55,8 @@ if(!$db->select_db($database)){
               echo "</tr>";                                                                                                                                          
     }
     echo"</table>";
-    echo"<br><br>
-    <h3> Upcoming Deadlines:</h3>
+    echo"<br>
+	<h3> Upcoming Deadlines:</h3>
     <table>
     <tr>
       <th> 8 Month Report </th>
