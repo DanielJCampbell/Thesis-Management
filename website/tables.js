@@ -26,6 +26,7 @@ function showStudents(id){
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
+  }
 
   req.open('POST', 'filters.php?type=' + type + '&method=students' + '$id=' + id, true);
   req.send(token);
@@ -39,6 +40,7 @@ function showAll() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
+  }
 
   req.open('POST', 'filters.php?type=' + type + '&method=all', true);
   req.send(token);
@@ -52,6 +54,7 @@ function deadlines() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
+  }
 
   req.open('POST', 'filters.php?type=' + type + '&method=deadlines', true);
   req.send(token);
@@ -65,6 +68,7 @@ function showUnassessed() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
+  }
 
   req.open('POST', 'filters.php?type=' + type + '&method=unassessed', true);
   req.send(token);
@@ -78,6 +82,7 @@ function showProvisional() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
+  }
 
   req.open('POST', 'filters.php?type=' + type + '&method=provisional', true);
   req.send(token);
@@ -91,6 +96,7 @@ function showSupervisor() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
+  }
 
   req.open('POST', 'filters.php?type=' + type + '&method=supervisors', true);
   req.send(token);
