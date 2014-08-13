@@ -40,17 +40,19 @@ if(!$db->select_db($database)){
     //<th> header
     //<td> data
     //</tr>
-    for($i =0;$i<$schema.length;$i++){
-    	      echo "<tr>"; 
+    for($i =0;$i<count($schema);$i++){
+    	  echo "<tr>"; 
 	      echo "<th>";
 	      echo $schema[$i];
+		  printf("header %d",$i);
 	      echo "</th>";
 	      echo "</tr>";
     }
-    for($i =0;$i<$schema.length;$i++){                                                                                                                               
+    for($i =0;$i<count($schema);$i++){                                                                                                                               
               echo "<tr>";                                                                                                                                           
               echo "<td>";                                                                                                                                           
-              echo $row[$schema[$i]];                                                                                                                                  
+              echo $row[$schema[$i]];
+			  printf("row %d",$i);
               echo "</td>";                                                                                                                                         
               echo "</tr>";                                                                                                                                          
     }
