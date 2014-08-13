@@ -19,7 +19,90 @@ function changeFilter(value) {
 }
 
 function showStudents(id){
-    
+    var type = findType();
+  var req = new XMLHttpRequest();
+  
+  req.onreadystatechange=function() {
+    if (req.readyState==4 && req.status==200) {
+      document.getElementById("Tables").innerHTML=req.responseText;
+    }
+  
+  req.open('POST', 'filters.php?type=' + type + '&method=students' + '$id=' + id, true);
+  req.send(token);
+}
+
+function showAll() {
+  type = "Masters"
+  var req = new XMLHttpRequest();
+  
+  req.onreadystatechange=function() {
+    if (req.readyState==4 && req.status==200) {
+      document.getElementById("Tables").innerHTML=req.responseText;
+    }
+  
+  req.open('POST', 'filters.php?type=' + type + '&method=all', true);
+  req.send(token);
+}
+
+function deadlines() {
+  var type = findType();
+  var req = new XMLHttpRequest();
+  
+  req.onreadystatechange=function() {
+    if (req.readyState==4 && req.status==200) {
+      document.getElementById("Tables").innerHTML=req.responseText;
+    }
+  
+  req.open('POST', 'filters.php?type=' + type + '&method=deadlines', true);
+  req.send(token);
+}
+
+function showUnassessed() {
+  var type = findType();
+  var req = new XMLHttpRequest();
+  
+  req.onreadystatechange=function() {
+    if (req.readyState==4 && req.status==200) {
+      document.getElementById("Tables").innerHTML=req.responseText;
+    }
+  
+  req.open('POST', 'filters.php?type=' + type + '&method=unassessed', true);
+  req.send(token);
+}
+
+function showProvisional() {
+  var type = findType();
+  var req = new XMLHttpRequest();
+  
+  req.onreadystatechange=function() {
+    if (req.readyState==4 && req.status==200) {
+      document.getElementById("Tables").innerHTML=req.responseText;
+    }
+  
+  req.open('POST', 'filters.php?type=' + type + '&method=provisional', true);
+  req.send(token);
+}
+
+function showSupervisor() {
+  var type = findType();
+  var req = new XMLHttpRequest();
+  
+  req.onreadystatechange=function() {
+    if (req.readyState==4 && req.status==200) {
+      document.getElementById("Tables").innerHTML=req.responseText;
+    }
+  
+  req.open('POST', 'filters.php?type=' + type + '&method=supervisors', true);
+  req.send(token);
+}
+
+function findType() {
+  if (document.getElementById("Masters").className === "active")
+      return "Masters";
+  else if (document.getElementById("PhD").className === "active")
+      return "PhD";
+  else if (document.getElementById("All").className === "active")
+      return "All";
 }
 
 
