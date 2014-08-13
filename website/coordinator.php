@@ -43,6 +43,7 @@
     <option value = "PhD">PhD Students</option>
     <option value = "Masters" selected = "selected">Masters Students</option>
   </select>
+  <div id = "Tables">
   <div id = "Masters" class = "active">
   <table>
   <tr>
@@ -140,7 +141,7 @@
   </table>
   <input type = "button" onclick = "editTable('All')" value = "Edit" style = "float: right"></input>
   </div>
-  
+  </div>
   </div>
 </body>
 </html>
