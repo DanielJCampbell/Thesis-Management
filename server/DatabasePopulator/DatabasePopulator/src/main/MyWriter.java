@@ -105,6 +105,7 @@ public class MyWriter {
 
 		if(i<25){
 			writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +deposited+");");
+			suspend(writer,studentid);
 		}
 		else{
 			if(i<40){
@@ -116,16 +117,18 @@ public class MyWriter {
 				}
 				else{
 				writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub +","+ examinersPAppointed+ "," +examinationPComplete+"," + revisionsP+"," +depositedP+","+"NULL,NULL,NULL"+");");
+				suspend(writer,studentid);
 				}
 			}
 		}
-		// Suspensions
-			if(i < 2 && i > 45){
-					String susID = new RandomString().symbols;
-					String susStart = new RandomDate(2014,2014).symbols;
-					String susEnd = new RandomDate(2014,2014).symbols;
-					writer.println("INSERT INTO Suspensions Values ("+ susID +"," + studentid + ","+ susStart + "," + susEnd+");");
-			}
 		}
+	}
+	public void suspend(PrintWriter writer, int studentid){
+		String susID = new RandomString().symbols;
+		RandomDate rd = new RandomDate(2014,2014);
+		String susStart = rd.symbols;
+		rd.moveMonths(RandomDate.randBetween(1, 3));
+		String susEnd = rd.symbols;
+		writer.println("INSERT INTO Suspensions Values ("+ susID +"," + studentid + ","+ susStart + "," + susEnd+");");
 	}
 }

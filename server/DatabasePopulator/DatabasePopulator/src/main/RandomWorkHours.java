@@ -13,6 +13,7 @@ public class RandomWorkHours {
 		  int value3 = 450 - (value+value2);
 		  first = Integer.toString(value);
 		  second = Integer.toString(value2);
+		  third = Integer.toString(value3);
 	  }
 
 	  public static int randBetween(int start, int end) {
