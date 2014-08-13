@@ -1,8 +1,7 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title> Timeline</title>
-    <h1> MASTER'S STUDENT TIMELINE</h1>
-    
     <style>
     table {
 	border: solid 2px;
@@ -21,6 +20,7 @@
     </style>
   </head>
   <body>
+    <h1> MASTER'S STUDENT TIMELINE</h1>
     <?php require "StudentDB.php";?>
   </body>
 </html>

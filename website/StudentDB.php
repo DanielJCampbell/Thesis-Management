@@ -35,28 +35,30 @@ if(!$db->select_db($database)){
     $p->close();
     $s->close();
     printf("<h3> Timeline of progress:</h3>");
-    printf("<table>");
+    echo "<table>";
     //<tr> row
     //<th> header
     //<td> data
     //</tr>
-    for($i =0;$i<$schema.length;$i++){
-    	      echo "<tr>"; 
+    for($i =0;$i<count($schema);$i++){
+    	  echo "<tr>"; 
 	      echo "<th>";
 	      echo $schema[$i];
+		  printf("header %d",$i);
 	      echo "</th>";
 	      echo "</tr>";
     }
-    for($i =0;$i<$schema.length;$i++){                                                                                                                               
+    for($i =0;$i<count($schema);$i++){                                                                                                                               
               echo "<tr>";                                                                                                                                           
               echo "<td>";                                                                                                                                           
-              echo $row[$schema[$i]];                                                                                                                                  
+              echo $row[$schema[$i]];
+			  printf("row %d",$i);
               echo "</td>";                                                                                                                                         
               echo "</tr>";                                                                                                                                          
     }
     echo"</table>";
-    echo"<br><br>
-    <h3> Upcoming Deadlines:</h3>
+    echo"<br>
+	<h3> Upcoming Deadlines:</h3>
     <table>
     <tr>
       <th> 8 Month Report </th>
