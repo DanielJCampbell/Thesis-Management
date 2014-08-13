@@ -20,26 +20,26 @@ function changeFilter(value) {
 
 function showStudents(id){
     var type = findType();
-  var req = new XMLHttpRequest();
-  
+    var req = new XMLHttpRequest();
+
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
-  
+
   req.open('POST', 'filters.php?type=' + type + '&method=students' + '$id=' + id, true);
   req.send(token);
 }
 
 function showAll() {
-  type = "Masters"
+  type = "All"
   var req = new XMLHttpRequest();
-  
+
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
-  
+
   req.open('POST', 'filters.php?type=' + type + '&method=all', true);
   req.send(token);
 }
@@ -47,12 +47,12 @@ function showAll() {
 function deadlines() {
   var type = findType();
   var req = new XMLHttpRequest();
-  
+
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
-  
+
   req.open('POST', 'filters.php?type=' + type + '&method=deadlines', true);
   req.send(token);
 }
@@ -60,12 +60,12 @@ function deadlines() {
 function showUnassessed() {
   var type = findType();
   var req = new XMLHttpRequest();
-  
+
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
-  
+
   req.open('POST', 'filters.php?type=' + type + '&method=unassessed', true);
   req.send(token);
 }
@@ -73,12 +73,12 @@ function showUnassessed() {
 function showProvisional() {
   var type = findType();
   var req = new XMLHttpRequest();
-  
+
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
-  
+
   req.open('POST', 'filters.php?type=' + type + '&method=provisional', true);
   req.send(token);
 }
@@ -86,12 +86,12 @@ function showProvisional() {
 function showSupervisor() {
   var type = findType();
   var req = new XMLHttpRequest();
-  
+
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
-  
+
   req.open('POST', 'filters.php?type=' + type + '&method=supervisors', true);
   req.send(token);
 }

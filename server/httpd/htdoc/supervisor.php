@@ -36,11 +36,12 @@
   <input type = "button" onclick = "showStudents(80000004);" value = "Show My Students"/><br /> 
   </div>
   <div id = "body">
-  Filter On: <select id = "students" onchange = "changeFilter(this.value)">
+    Filter On: <select id = "students" onchange = "changeFilter(this.value)">
     <option value = "All">All Students</option>
     <option value = "PhD">PhD Students</option>
     <option value = "Masters" selected = "selected">Masters Students</option>
   </select>
+  <div id = "Tables">
   <div id = "Masters" class = "active">
   <table>
   <tr>
@@ -137,6 +138,7 @@
   <?php require "AllDB.php"; ?>
   </table>
   <input type = "button" onclick = "editTable('All')" value = "Edit" style = "float: right"></input>
+  </div>
   </div>
   </div>
   </body>

@@ -14,7 +14,7 @@ if(!$db->select_db($database)){
     die('Unable to select database '.$db);
 }
 
-//Get all rows from master's table (TO DO: Check for filters and do right thing)
+//Get all rows from master's table
 $query = $db->query("SELECT * FROM MastersStudents");
 
 
