@@ -17,6 +17,7 @@
     th {
     border: solid 1px;
     }
+    
     </style>
   </head>
   <body>
