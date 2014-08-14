@@ -1,117 +1,57 @@
 ;
+var type = "All";
+var method = "all";
 
 function changeFilter(value) {
-    if (value === "PhD") {
-      document.getElementById(value).setAttribute("class", "active");
-      document.getElementById("Masters").setAttribute("class", "passive");
-      document.getElementById("All").setAttribute("class", "passive");
+    type = value;
+    doMethod();
+}
+
+function doMethod(id) {
+  var req = new XMLHttpRequest();
+
+  req.onreadystatechange=function() {
+    if (req.readyState==4 && req.status==200) {
+      document.getElementById("Tables").innerHTML=req.responseText;
     }
-    else if (value === "Masters") {
-      document.getElementById(value).setAttribute("class", "active");
-      document.getElementById("PhD").setAttribute("class", "passive");
-      document.getElementById("All").setAttribute("class", "passive");
-    }
-    else if(value === "All"){
-      document.getElementById(value).setAttribute("class", "active");
-      document.getElementById("PhD").setAttribute("class", "passive");
-      document.getElementById("Masters").setAttribute("class", "passive");
-    }
+  }
+
+  req.open('POST', 'filters.php', true);
+  req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  if (method === "students")
+    req.send("method=students&type="+type+"&id="+id);
+  else
+    req.send("method="+method+"&type="+type);
 }
 
 function showStudents(id){
-    var type = findType();
-    var req = new XMLHttpRequest();
-
-  req.onreadystatechange=function() {
-    if (req.readyState==4 && req.status==200) {
-      document.getElementById("Tables").innerHTML=req.responseText;
-    }
-  }
-
-  req.open('POST', 'filters.php?type=' + type + '&method=students' + '&id=' + id, true);
-  req.send();
+    method = "students";
+    doMethod(id);
 }
 
 function showAll() {
-  type = "All"
-  var req = new XMLHttpRequest();
-
-  req.onreadystatechange=function() {
-    if (req.readyState==4 && req.status==200) {
-      document.getElementById("Tables").innerHTML=req.responseText;
-    }
-  }
-
-  req.open('POST', 'filters.php?type=' + type + '&method=all', true);
-  req.send();
+  method = "all";
+  doMethod();
 }
 
 function deadlines() {
-  var type = findType();
-  var req = new XMLHttpRequest();
-
-  req.onreadystatechange=function() {
-    if (req.readyState==4 && req.status==200) {
-      document.getElementById("Tables").innerHTML=req.responseText;
-    }
-  }
-
-  req.open('POST', 'filters.php?type=' + type + '&method=deadlines', true);
-  req.send();
+  method = "deadlines";
+  doMethod();
 }
 
 function showUnassessed() {
-  var type = findType();
-  var req = new XMLHttpRequest();
-
-  req.onreadystatechange=function() {
-    if (req.readyState==4 && req.status==200) {
-      document.getElementById("Tables").innerHTML=req.responseText;
-    }
-  }
-
-  req.open('POST', 'filters.php?type=' + type + '&method=unassessed', true);
-  req.send();
+  method = "unassessed";
+  doMethod();
 }
 
 function showProvisional() {
-  var type = findType();
-  var req = new XMLHttpRequest();
-
-  req.onreadystatechange=function() {
-    if (req.readyState==4 && req.status==200) {
-      document.getElementById("Tables").innerHTML=req.responseText;
-    }
-  }
-
-  req.open('POST', 'filters.php?type=' + type + '&method=provisional', true);
-  req.send();
+  method = "provisional";
+  doMethod();
 }
 
 function showSupervisor() {
-  var type = findType();
-  var req = new XMLHttpRequest();
-
-  req.onreadystatechange=function() {
-    if (req.readyState==4 && req.status==200) {
-      document.getElementById("Tables").innerHTML=req.responseText;
-    }
-  }
-
-  req.open('POST', 'filters.php?type=' + type + '&method=supervisors', true);
-  req.send();
-}
-
-function findType() {
-  if (document.getElementById("Masters").className === "active"){
-      return "Masters";
-  }
-  else if (document.getElementById("PhD").className === "active"){
-      return "PhD";
-  }
-  else if (document.getElementById("All").className === "active"){
-      return "All";
-  }
+  method = "supervisors";
+  doMethod();
 }
 
 

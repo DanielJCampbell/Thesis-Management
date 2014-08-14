@@ -17,7 +17,7 @@ if(!$db->select_db($database)){
 $query = $db->query("SELECT * FROM Students");
 
 while ($row = $query->fetch_assoc()) {
-  echo "<tr>";
+    echo "<tr>";
     echo "<td>".$row[F_Name]." ".$row[L_Name]."</td>";
     echo "<td>".$row[StudentID]."</td>";
     
