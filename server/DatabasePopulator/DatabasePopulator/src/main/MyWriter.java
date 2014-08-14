@@ -48,7 +48,7 @@ public class MyWriter {
 		thesisP.moveMonths(RandomDate.randBetween(36,48));
 		
 		// Suspend Location 1 - Before Proposition Masters
-		if(suspendLocation == 1 && i < 45){
+		if(suspendLocation == 1 ){
 		susStart = prop.symbols;
 		prop.moveMonths(RandomDate.randBetween(1, 3));
 		susEnd = prop.symbols;
@@ -61,7 +61,7 @@ public class MyWriter {
 		String propConfDate = prop.symbols;
 		
 		// Suspend Location 2 - Before 3mth report Masters
-		if(suspendLocation == 2 && i < 45){
+		if(suspendLocation == 2){
 		susStart = prop.symbols;
 		prop.moveMonths(RandomDate.randBetween(1, 3));
 		susEnd = prop.symbols;
@@ -75,7 +75,7 @@ public class MyWriter {
 		String prop3mthApprDate = prop.symbols;
 
 		// Suspend Location 3 - Before 8mth report Masters
-		if(suspendLocation == 3 && i < 45){
+		if(suspendLocation == 3){
 		susStart = prop.symbols;
 		prop.moveMonths(RandomDate.randBetween(1, 3));
 		susEnd = prop.symbols;
@@ -89,7 +89,7 @@ public class MyWriter {
 		String prop8mthApprDate = prop.symbols;
 		
 		// Suspend Location 4 - Before thesis Masters
-				if(suspendLocation == 4 && i < 45){
+				if(suspendLocation == 4 && i<25){
 				susStart = thesisM.symbols;
 				prop.moveMonths(RandomDate.randBetween(1, 3));
 				susEnd = thesisM.symbols;
@@ -109,7 +109,7 @@ public class MyWriter {
 				String deposited = thesisM.symbols;
 				
 				// Suspend Location 0 - Before thesis PhD
-				if(suspendLocation == 0 && i < 45){
+				if(suspendLocation == 0){
 				susStart = thesisP.symbols;
 				prop.moveMonths(RandomDate.randBetween(1, 3));
 				susEnd = thesisP.symbols;
