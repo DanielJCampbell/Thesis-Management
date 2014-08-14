@@ -5,7 +5,21 @@ import java.io.PrintWriter;
 public class MyWriter {
 
 	public MyWriter(PrintWriter writer) {
-		for(int i = 0 ; i <= 50; i++){
+		for(int i = 0 ; i <= 70; i++){
+			int suspendLocation = 0;
+			
+			//Masters
+		if(i<25){
+		suspendLocation = RandomDate.randBetween(1, 4);
+		}
+			//PhD
+		else{
+		suspendLocation = RandomDate.randBetween(0, 3);	
+		}
+				
+		String susStart="";
+		String susEnd ="";
+			
 		RandomName name = new RandomName();
 		String fname = name.first;
 		String lname = name.last;
@@ -32,14 +46,27 @@ public class MyWriter {
 		RandomDate thesisP = prop;
 		thesisM.moveMonths(12);
 		thesisP.moveMonths(RandomDate.randBetween(36,48));
-
+		
+		// Suspend Location 1 - Before Proposition Masters
+		if(suspendLocation == 1 ){
+		susStart = prop.symbols;
+		prop.moveMonths(RandomDate.randBetween(1, 3));
+		susEnd = prop.symbols;
+		}
 
 		String propSubDate = prop.symbols;
 		prop.moveMonths(RandomDate.randBetween(1,3));
 		String propDeadDate = prop.symbols;
 		prop.moveMonths(RandomDate.randBetween(1,3));
 		String propConfDate = prop.symbols;
-
+		
+		// Suspend Location 2 - Before 3mth report Masters
+		if(suspendLocation == 2){
+		susStart = prop.symbols;
+		prop.moveMonths(RandomDate.randBetween(1, 3));
+		susEnd = prop.symbols;
+		}
+		
 		prop.moveMonths(3);
 		String prop3mthSubDate = prop.symbols;
 		prop.moveMonths(RandomDate.randBetween(1,3));
@@ -47,12 +74,26 @@ public class MyWriter {
 		prop.moveMonths(RandomDate.randBetween(1,3));
 		String prop3mthApprDate = prop.symbols;
 
+		// Suspend Location 3 - Before 8mth report Masters
+		if(suspendLocation == 3){
+		susStart = prop.symbols;
+		prop.moveMonths(RandomDate.randBetween(1, 3));
+		susEnd = prop.symbols;
+		}
+		
 		prop.moveMonths(5);
 		String prop8mthDeadDate = prop.symbols;
 		prop.moveMonths(RandomDate.randBetween(1,3));
 		String prop8mthSubDate = prop.symbols;
 		prop.moveMonths(RandomDate.randBetween(1,3));
 		String prop8mthApprDate = prop.symbols;
+		
+		// Suspend Location 4 - Before thesis Masters
+				if(suspendLocation == 4 && i<25){
+				susStart = thesisM.symbols;
+				prop.moveMonths(RandomDate.randBetween(1, 3));
+				susEnd = thesisM.symbols;
+				}
 
 				// thesisM due 1 year from start (masters)
 				String thesisSub = thesisM.symbols;
@@ -66,6 +107,13 @@ public class MyWriter {
 				String revisions = thesisM.symbols;
 				thesisM.moveMonths(RandomDate.randBetween(1,3));
 				String deposited = thesisM.symbols;
+				
+				// Suspend Location 0 - Before thesis PhD
+				if(suspendLocation == 0){
+				susStart = thesisP.symbols;
+				prop.moveMonths(RandomDate.randBetween(1, 3));
+				susEnd = thesisP.symbols;
+				}
 
 				// thesisP due 3 years from start (PhD)
 				String thesisPSub = thesisP.symbols;
@@ -81,8 +129,8 @@ public class MyWriter {
 				String depositedP = thesisP.symbols;
 
 		//PhD
-		String propSeminar = new RandomDate(2014,2014).symbols;
-		String fgr = new RandomDate(2014,2014).symbols;
+		prop.moveMonths(RandomDate.randBetween(1,3));
+		String propSeminar = prop.symbols;
 		RandomWorkHours rwh = new RandomWorkHours();
 		String workHours1 = rwh.first;
 		String workHours2 = rwh.second;
@@ -95,7 +143,6 @@ public class MyWriter {
 		String suplname = supervisor1.last;
 		String supfname2 = supervisor2.first;
 		String suplname2 = supervisor2.last;
-		System.out.println(fgr);
 
 
 		writer.println("INSERT INTO Supervisors Values ("+ supfname+","+suplname+","+ supid1+");");
@@ -105,7 +152,7 @@ public class MyWriter {
 
 		if(i<25){
 			writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +deposited+");");
-			suspend(writer,studentid);
+			suspend(writer,studentid,susStart,susEnd);
 		}
 		else{
 			if(i<40){
@@ -115,20 +162,40 @@ public class MyWriter {
 				if(i<45){
 				writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub +","+ examinersPAppointed+ "," +examinationPComplete+"," + revisionsP+"," +depositedP+","+workHours1+","+workHours2+","+"NULL"+");");
 				}
-				else{
-				writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub +","+ examinersPAppointed+ "," +examinationPComplete+"," + revisionsP+"," +depositedP+","+"NULL,NULL,NULL"+");");
-				suspend(writer,studentid);
+				else if(i<50){
+				writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+startDate+","+propDeadDate+");");
+				suspend(writer,studentid,susStart,susEnd);
 				}
+				else if(i<60){
+					writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+");");
+					suspend(writer,studentid,susStart,susEnd);
+					}
+				else if(i<62){
+					writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+");");
+					suspend(writer,studentid,susStart,susEnd);
+					}
+				else if(i<64){
+					writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub +");");
+					suspend(writer,studentid,susStart,susEnd);
+					}
+				else if(i<66){
+					writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub + ","+ examinersPAppointed+");");
+					suspend(writer,studentid,susStart,susEnd);
+					}
+				else if(i<68){
+					writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub + ","+ examinersPAppointed+ "," +examinationPComplete+");");
+					suspend(writer,studentid,susStart,susEnd);
+					}
+				else if(i<=70){
+					writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub + ","+ examinersPAppointed+ "," +examinationPComplete+"," + revisionsP+");");
+					suspend(writer,studentid,susStart,susEnd);
+					}
 			}
 		}
 		}
 	}
-	public void suspend(PrintWriter writer, int studentid){
+	public void suspend(PrintWriter writer, int studentid, String susStart, String susEnd){
 		String susID = new RandomString().symbols;
-		RandomDate rd = new RandomDate(2014,2014);
-		String susStart = rd.symbols;
-		rd.moveMonths(RandomDate.randBetween(1, 3));
-		String susEnd = rd.symbols;
 		writer.println("INSERT INTO Suspensions Values ("+ susID +"," + studentid + ","+ susStart + "," + susEnd+");");
 	}
 }

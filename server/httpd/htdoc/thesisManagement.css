@@ -1,0 +1,24 @@
+.studentsummary
+{
+ border:none;
+ outline:none;
+ text-align:left;
+}
+
+
+ .timeline {
+border: solid 2px;
+border-collapse: collapse;
+text-align: center;
+}
+
+
+ tr {
+    border: solid 1px;
+    }
+ td {
+    border: solid 1px;
+    }
+ th {
+    border: solid 1px;
+    }
