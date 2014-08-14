@@ -4,12 +4,15 @@
  outline:none;
  text-align:left;
 }
-
+td.studentsummary
+{
+  border: none;
+}
 
  .timeline {
 border: solid 2px;
 border-collapse: collapse;
-text-align: center;
+text-align:left;
 }
 
 
