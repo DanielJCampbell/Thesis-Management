@@ -17,36 +17,43 @@ if(!$db->select_db($database)){
     //Get the student corresponding to the entry in the MasterStudent table
     $stud = $db->query("select * FROM Students s NATURAL JOIN MastersStudents ms WHERE s.StudentID=ms.StudentID AND s.StudentID=300000006");  
     $student = $stud->fetch_assoc();
-	echo "<table style='border:none;text-align:left;' >";
+	echo "<table class='studentsummary' >";
 	echo "<tr style='border:none;'>";
-	echo "<td style='border:none;'>Name:</td>";
+	echo "<td style='border:none;'><strong>Name:</strong></td>";
 	echo "<td style='border:none;'>" . $student[F_Name] . " " . $student[L_Name] . "</td>";
 	echo "</tr><tr style='border:none;'>";
-	echo "<td style='border:none;'>ID:</td>";
+	echo "<td style='border:none;'><strong>ID:</strong></td>";
 	echo "<td style='border:none;'>" . $student[StudentID] . "</td>";
 	echo "</tr><tr style='border:none;'>";
-	echo "<td style='border:none;'>Specialisation:</td>";
+	echo "<td style='border:none;'><strong>Specialisation:</strong></td>";
 	echo "<td style='border:none;'>" . $student[Specialisation] . "</td>";
 	echo "</tr><tr style='border:none;'>";
-	echo "<td style='border:none;'>Part Time:</td>";
+	echo "<td style='border:none;'><strong>Part Time:</strong></td>";
 	echo "<td style='border:none;'>";
     if ($student[Halftime]) echo "Yes";
     else echo "No";
-	echo "</td></tr></table>";
+	echo "</td></tr>";
+	
+    
     
     //Query supervisors
     $ps = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$student[Primary_SupervisorID]);
     $ss = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$student[Secondary_SupervisorID]);
     $primary = $ps->fetch_assoc();
     $secondary = $ss->fetch_assoc();
-    echo "Your supervisors:<br>";
-    echo $primary[F_Name]." ".$primary[L_Name]." (".$student[Primary_SupervisorPercent]."%)<br>";
-    echo $secondary[F_Name]." ".$secondary[L_Name]." (".$student[Secondary_SupervisorPercent]."%)";
     
+    // Query supervisors
+	echo "<td style='border:none;'><strong>Your Supervisors:</strong></td>";
+	echo "<td style='border:none;'>" . $primary[F_Name]." ".$primary[L_Name]." (".$student[Primary_SupervisorPercent]. "%)</td>";
+	echo "</tr><tr style='border:none;'>";	
+	echo "<td style='border:none;'></td>";
+	echo "<td style='border:none;'>" . $secondary[F_Name]." \n ".$secondary[L_Name]." (".$student[Secondary_SupervisorPercent]. "%)</td>";
+	echo "</tr><tr style='border:none;'></table>";
+	    
     $ps->close();
     $ss->close();
     printf("<h3> Timeline of progress:</h3>");
-    echo "<table>";
+    echo "<table class='timeline'>";
 	echo "<tr>"; 
     for($i =0;$i<count($schema);$i++){ 	  
 	      echo "<th>";
@@ -65,7 +72,7 @@ if(!$db->select_db($database)){
     echo"</table>";
     echo"<br>
 	<h3> Upcoming Deadlines:</h3>
-    <table>
+    <table class='timeline'>
     <tr>
       <th> 8 Month Report </th>
       <th> Thesis Submission</th>
