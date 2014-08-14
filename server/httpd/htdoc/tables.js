@@ -26,9 +26,10 @@ function showStudents(id){
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
+  }
 
-  req.open('POST', 'filters.php?type=' + type + '&method=students' + '$id=' + id, true);
-  req.send(token);
+  req.open('POST', 'filters.php?type=' + type + '&method=students' + '&id=' + id, true);
+  req.send();
 }
 
 function showAll() {
@@ -39,9 +40,10 @@ function showAll() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
+  }
 
   req.open('POST', 'filters.php?type=' + type + '&method=all', true);
-  req.send(token);
+  req.send();
 }
 
 function deadlines() {
@@ -52,9 +54,10 @@ function deadlines() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
+  }
 
   req.open('POST', 'filters.php?type=' + type + '&method=deadlines', true);
-  req.send(token);
+  req.send();
 }
 
 function showUnassessed() {
@@ -65,9 +68,10 @@ function showUnassessed() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
+  }
 
   req.open('POST', 'filters.php?type=' + type + '&method=unassessed', true);
-  req.send(token);
+  req.send();
 }
 
 function showProvisional() {
@@ -78,9 +82,10 @@ function showProvisional() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
+  }
 
   req.open('POST', 'filters.php?type=' + type + '&method=provisional', true);
-  req.send(token);
+  req.send();
 }
 
 function showSupervisor() {
@@ -91,18 +96,22 @@ function showSupervisor() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
     }
+  }
 
   req.open('POST', 'filters.php?type=' + type + '&method=supervisors', true);
-  req.send(token);
+  req.send();
 }
 
 function findType() {
-  if (document.getElementById("Masters").className === "active")
+  if (document.getElementById("Masters").className === "active"){
       return "Masters";
-  else if (document.getElementById("PhD").className === "active")
+  }
+  else if (document.getElementById("PhD").className === "active"){
       return "PhD";
-  else if (document.getElementById("All").className === "active")
+  }
+  else if (document.getElementById("All").className === "active"){
       return "All";
+  }
 }
 
 
