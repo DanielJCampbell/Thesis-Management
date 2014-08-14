@@ -15,10 +15,10 @@ if(!$db->select_db($database)){
     die('Unable to select database '.$db);
 }
     //Get the student corresponding to the entry in the MasterStudent table
-    $stud = $db->query("SELECT * FROM Students s WHERE s.StudentID = 300000050");  
+    $stud = $db->query("select * FROM Students s NATURAL JOIN MastersStudents ms WHERE s.StudentID=ms.StudentID AND s.StudentID=300000001");  
     $student = $stud->fetch_assoc();
     printf($student[F_Name] . " " . $student[L_Name] . " ");
-    printf($row[StudentID] . " ");
+    printf($student[StudentID] . " ");
     echo "<br>";
     if ($student[Halftime]) echo "Part Time: Yes <br>";
     else echo "Part Time: No <br>";
@@ -40,22 +40,21 @@ if(!$db->select_db($database)){
     //<th> header
     //<td> data
     //</tr>
-    for($i =0;$i<count($schema);$i++){
-    	  echo "<tr>"; 
+	echo "<tr>"; 
+    for($i =0;$i<count($schema);$i++){ 	  
 	      echo "<th>";
 	      echo $schema[$i];
-		  printf("header %d",$i);
 	      echo "</th>";
+    }
 	      echo "</tr>";
-    }
+	echo "<tr>";
     for($i =0;$i<count($schema);$i++){                                                                                                                               
-              echo "<tr>";                                                                                                                                           
+                                                                                                                                                         
               echo "<td>";                                                                                                                                           
-              echo $row[$schema[$i]];
-			  printf("row %d",$i);
+              echo $student[$schema[$i]];
               echo "</td>";                                                                                                                                         
-              echo "</tr>";                                                                                                                                          
     }
+	echo "<tr>";
     echo"</table>";
     echo"<br>
 	<h3> Upcoming Deadlines:</h3>
