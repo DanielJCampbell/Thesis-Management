@@ -195,7 +195,6 @@ public class MyWriter {
 		}
 	}
 	public void suspend(PrintWriter writer, int studentid, String susStart, String susEnd){
-		String susID = new RandomString().symbols;
-		writer.println("INSERT INTO Suspensions Values ("+ susID +"," + studentid + ","+ susStart + "," + susEnd+");");
+		writer.println("INSERT INTO Suspensions Values ("+ "NULL" +"," + studentid + ","+ susStart + "," + susEnd+");");
 	}
 }
