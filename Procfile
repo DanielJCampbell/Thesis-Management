@@ -1,1 +1,1 @@
-web: bin/heroku-php-apache2 server/httpd/htdoc
+web: vendor/bin/heroku-php-apache2 server/httpd/htdoc
