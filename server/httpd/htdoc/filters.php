@@ -185,6 +185,20 @@ while ($row = $query->fetch_assoc()) {
       }
     }
 
+    if ($method === "suspensions") {
+    	$isSuspended = false;
+    	$suspensions = $db->query("SELECT * FROM Suspensions s WHERE s.StudentID = ".$row[StudentID]);
+
+    	while ($tmp = $suspensions->fetch_assoc()) {
+    		if (!checkDeadline($tmp[SuspensionStartDate]) && checkDeadline($tmp[SuspensionEndDate]))
+    			$isSuspended = true;
+    	}
+    	$suspensions->close();
+
+    	if (!$isSuspended)
+    		continue;
+    }
+
     if ($method === "unassessed") {
     	$unassessed = 'false';
 
@@ -336,10 +350,10 @@ while ($row = $query->fetch_assoc()) {
 else if ($method === "supervisors") {
 	$supervisors = []; //array of arrays(attributes) for each supervisor
 
-	$p = $db->query("SELECT Su.L_Name AS Student_L_Name, Su.F_Name AS Student_F_Name, S.L_Name as L_Name, S.F_Name as F_Name,
+	$p = $db->query("SELECT S.L_Name AS Student_L_Name, S.F_Name AS Student_F_Name, Su.L_Name as L_Name, Su.F_Name as F_Name,
 					 SupervisorId, Primary_SupervisorPercent AS Percent FROM Supervisors Su INNER JOIN Students S ON
 					 (Su.SupervisorID = S.Primary_SupervisorID);");
-    $s = $db->query("SELECT Su.L_Name AS Student_L_Name, Su.F_Name AS Student_F_Name, S.L_Name as L_Name, S.F_Name as F_Name,
+    $s = $db->query("SELECT S.L_Name AS Student_L_Name, S.F_Name AS Student_F_Name, Su.L_Name as L_Name, Su.F_Name as F_Name,
 					 SupervisorId, Secondary_SupervisorPercent AS Percent FROM Supervisors Su INNER JOIN Students S ON
 					 (Su.SupervisorID = S.Secondary_SupervisorID);");
 
@@ -376,6 +390,9 @@ else if ($method === "supervisors") {
     	echo "<td>".$value[Students]."</td>";
     	echo "</tr>";
     }
+
+    $p->close();
+    $s->close();
 }
 echo "</table>";
 echo "</div>";
