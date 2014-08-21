@@ -27,7 +27,7 @@
       border: solid 1px;
       }
     </style>
-    <h1> COORDINATOR PAGE MOCKUP </h1> 
+    <h1> COORDINATOR PAGE </h1> 
   </head>
   
   <body>
