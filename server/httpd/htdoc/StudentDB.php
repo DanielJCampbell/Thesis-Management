@@ -6,8 +6,14 @@ $username = "ThesisTeam";
 $password = "SWEN302";
 $database = "ThesisManagement";
 
+$schema_PhD = array("StudentID", "Specialisation", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalSeminar", "ProposalConfirmation", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointed", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary", "WorkHours1", "WorkHours2", "WorkHours3");
+$schema_PhD_human_readable = array("Student ID", "Specialisation", "Start Date", "Proposal Deadline", "Proposal Submission", "Proposal Seminar", "Proposal Confirmation", "Thesis Deadline", "Thesis Submission", "Examiners Appointed", "Examination Completed", "Revisions Finalised", "Deposited In Library", "Work Hours 1st year", "Work Hours 2nd year", "Work Hours 3rd year");
 $schema_masters = array("StudentID", "Specialisation", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalConfirmation", "Report3MonthDeadline", "Report3MonthSubmission", "Report3MonthApproval", "Report8MonthDeadline", "Report8MonthSubmission", "Report8MonthApproval", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointed", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary");
 $schema_masters_human_readable = array("Student ID", "Course Specialisation", "Start Date", "Proposal Deadline", "Proposal Submission", "Proposal Confirmation", "3 Month Report Deadline", "3 Month Report Submission", "3 Month report Approval", "8 Month Report Deadline", "8 Month report Submission", "8 Month report Approval", "Thesis Deadline", "Thesis Submission", "Examiners Appointed", "Examination Completed", "Revisions Finalised", "Deposited In Library");
+$schema_PhD_deadlines = array("ProposalDeadline", "ThesisDeadline");
+$schema_masters_deadlines = array("ProposalDeadline", "Report3MonthDeadline", "Report8MonthDeadline", "ThesisDeadline");
+$schema_PhD_deadlines_hr = array("Proposal Deadline", "Thesis Deadline");
+$schema_masters_deadlines_hr = array("Proposal Deadline", "3 Month Report Deadline", "8 Month Report Deadline", "Thesis Deadline");
 
 //Connect to database
 $db = new mysqli($location, $username, $password, $database);
@@ -76,19 +82,38 @@ $checkMast->close();
     echo "<th> Date </th>\n";
     echo "</tr>";
     $deadLineDate = array();
-    for($i =2;$i<count($schema_masters);$i++){ 	  
-      	$tmp=$db->query("SELECT " . $schema_masters[$i] . " FROM MastersStudents ms WHERE ms.StudentID=" . $studentID . " AND " . $schema_masters[$i] . " >NOW()");
-      	$deadLineDate[$schema_masters[$i]]= $tmp->fetch_assoc()[$schema_masters[$i]];
-    }
-    for($i =2;$i<count($schema_masters);$i++){ 	  
-	$current_deadline = $deadLineDate[$schema_masters[$i]];
-	if (!is_null($current_deadline)){
-	echo "<tr>";	
-	echo "<td>\n<strong>" . $schema_masters_human_readable[$i] . "</strong>\n</td>";
-	echo "<td>\n" . $current_deadline . "\n</td>";
-	echo "</tr>";	  
+	//list upcoming deadlines
+	if ($isMasters == 1){
+	for($i =0;$i<count($schema_masters_deadlines);$i++){ 	  
+		$tmp=$db->query("SELECT " . $schema_masters_deadlines[$i] . " FROM MastersStudents ms WHERE ms.StudentID=" . $studentID . " AND " . $schema_masters_deadlines[$i] . " >NOW()");
+		$deadLineDate[$schema_masters_deadlines[$i]]= $tmp->fetch_assoc()[$schema_masters_deadlines[$i]];
 	}
-    }
+	for($i =0;$i<count($schema_masters_deadlines);$i++){ 	  
+			$current_deadline = $deadLineDate[$schema_masters_deadlines[$i]];
+
+			if (!is_null($current_deadline)){
+				echo "<tr>";	
+				echo "<td>\n<strong>" . $schema_masters_deadlines_hr[$i] . "</strong>\n</td>";
+				echo "<td>\n" . $current_deadline . "\n</td>";
+				echo "</tr>";	  
+			}
+	}
+	}else{
+	for($i =0;$i<count($schema_PhD_deadlines);$i++){ 	  
+		$tmp=$db->query("SELECT " . $schema_PhD_deadlines[$i] . " FROM PhDStudents ps WHERE ps.StudentID=" . $studentID . " AND " . $schema_PhD_deadlines[$i] . " >NOW()");
+		$deadLineDate[$schema_PhD_deadlines[$i]]= $tmp->fetch_assoc()[$schema_PhD_deadlines[$i]];
+	}
+	for($i =0;$i<count($schema_PhD_deadlines);$i++){ 	  
+			$current_deadline = $deadLineDate[$schema_PhD_deadlines[$i]];
+
+			if (!is_null($current_deadline)){
+				echo "<tr>";	
+				echo "<td>\n<strong>" . $schema_PhD_deadlines_hr[$i] . "</strong>\n</td>";
+				echo "<td>\n" . $current_deadline . "\n</td>";
+				echo "</tr>";	  
+			}
+	}
+	}
     echo"</table>";
     
     printf("<h3> Timeline of progress:</h3>\n");
@@ -97,15 +122,23 @@ $checkMast->close();
     echo "\n<th><strong>Event</strong></th>";
 	echo "\n<th>Date</th>\n";
 	echo "</tr>";
-    
-    for($i =2;$i<count($schema_masters);$i++){ 	  
-	echo "<tr>";	
-	echo "<td>\n<strong>" . $schema_masters_human_readable[$i] . "</strong>\n</td>";
-	echo "<td>\n" . $student[$schema_masters[$i]]. "\n</td>";
-	echo "</tr>";	  
-    }
-    echo "</table>\n";
-    
+    //list all information
+	if ($isMasters == 1){
+	for($i =2;$i<count($schema_masters);$i++){ 	  
+			echo "<tr>";	
+			echo "<td>\n<strong>" . $schema_masters_human_readable[$i] . "</strong>\n</td>";
+			echo "<td>\n" . $student[$schema_masters[$i]]. "\n</td>";
+			echo "</tr>";	  
+	}
+    }else{
+	for($i =2;$i<count($schema_PhD);$i++){ 	  
+			echo "<tr>";	
+			echo "<td>\n<strong>" . $schema_PhD_human_readable[$i] . "</strong>\n</td>";
+			echo "<td>\n" . $student[$schema_PhD[$i]]. "\n</td>";
+			echo "</tr>";	  
+	}
+	}
+	echo "</table>\n";
     $stud->close();
 
 $db->close();
