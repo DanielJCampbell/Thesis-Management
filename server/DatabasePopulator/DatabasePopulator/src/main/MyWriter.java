@@ -3,6 +3,9 @@ package main;
 import java.io.PrintWriter;
 
 public class MyWriter {
+	
+	RandomSupervisor rs = new RandomSupervisor(0);
+	RandomSupervisor rs2 = new RandomSupervisor(300);
 
 	public MyWriter(PrintWriter writer) {
 		for(int i = 0 ; i <= 70; i++){
@@ -28,18 +31,12 @@ public class MyWriter {
 		boolean halftime = new RandomBoolean().symbols;
 		int studentid = 300000000 + i;
 
-		RandomPercent rp = new RandomPercent();
-
-		int supid1 = 80000000 + i;
-		String supPercent1 = rp.max;
-		int supid2 = 80000000 + i+ 300;
-		String supPercent2 = rp.min;
 		String scholar = new RandomString().symbols;
 		String notes = new RandomString().symbols;
 		String origin = new RandomLetter().symbols;
 
 		//Masters
-		RandomDate prop = new RandomDate(2014,2014);
+		RandomDate prop = new RandomDate(1990,2014);
 
 		String startDate = prop.symbols;
 		RandomDate thesisM = prop;
@@ -136,23 +133,53 @@ public class MyWriter {
 		String workHours2 = rwh.second;
 		String workHours3 = rwh.third;
 
-		//Supervisor
-		RandomName supervisor1 = new RandomName();
-		RandomName supervisor2 = new RandomName();
-		String supfname = supervisor1.first;
-		String suplname = supervisor1.last;
-		String supfname2 = supervisor2.first;
-		String suplname2 = supervisor2.last;
+		if(i % 4 == 1){
+			rs = new RandomSupervisor(i);
+			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname+","+rs.suplname+","+ rs.supid+");");
+			rs2 = new RandomSupervisor(i+300);
+			writer.println("INSERT INTO Supervisors Values ("+ rs2.supfname+","+rs2.suplname+","+ rs2.supid+");");
 
-
-		writer.println("INSERT INTO Supervisors Values ("+ supfname+","+suplname+","+ supid1+");");
-		writer.println("INSERT INTO Supervisors Values ("+ supfname2+","+suplname2+","+ supid2+");");
-
-		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+halftime+ ","+ studentid +","+supid1+","+supPercent1 + ","+supid2+","+supPercent2+","+scholar+","+notes+","+ origin+ ");");
+		}
+		else if (i == 0){
+			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname+","+rs.suplname+","+ rs.supid+");");
+			writer.println("INSERT INTO Supervisors Values ("+ rs2.supfname+","+rs2.suplname+","+ rs2.supid+");");
+		}
+				
+		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+halftime+ ","+ studentid +","+rs.supid+","+rs.supPercent + ","+rs2.supid+","+rs2.supPercent+","+scholar+","+notes+","+ origin+ ");");
 
 		if(i<25){
-			writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +deposited+");");
-			suspend(writer,studentid,susStart,susEnd);
+			if(i<3){
+				// Suspension that start before current date, End after current date - Masters
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +"NULL"+");");
+				suspend(writer,studentid,susStart,susEnd);
+				}
+			else if(i<6){
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +"NULL,NULL,NULL"+");");
+				suspend(writer,studentid,susStart,susEnd);
+				}
+			else if(i<9){
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+"NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				suspend(writer,studentid,susStart,susEnd);
+				}
+			else if(i<12){
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+"NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				suspend(writer,studentid,susStart,susEnd);
+				}
+			else if(i<15){
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+"NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				suspend(writer,studentid,susStart,susEnd);
+				}
+			else if(i<18){
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+"NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				suspend(writer,studentid,susStart,susEnd);
+				}
+			else if(i<21){
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+"NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				suspend(writer,studentid,susStart,susEnd);
+				}
+			else{
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +deposited+");");
+			}
 		}
 		else{
 			if(i<40){
