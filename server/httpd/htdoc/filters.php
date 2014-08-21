@@ -4,9 +4,8 @@ date_default_timezone_set("Pacific/Auckland");
 function checkDeadline($date) {
   $cur = date_create();
   $deadline = date_create($date);
-  
-  return (date_diff($cur, $deadline)->invert === 1);
-  
+  return (date_diff($cur, $deadline)->invert !== 1);
+
 }
 
 $location = "khmer.ecs.vuw.ac.nz";
@@ -139,30 +138,40 @@ if ($method !== "supervisors" && $type === "PhD") {
   echo "</tr>";
 }
 
-
+if ($method === "supervisors") {
+	echo "<tr>";
+	echo "<th> ID </th>";
+	echo "<th> Name </th>";
+	echo "<th> Workload </th>";
+	echo "<th> Supervised Students </th>";
+	echo "</tr>";
+}
+if ($method !== "supervisors") {
 while ($row = $query->fetch_assoc()) {
-    
-    $stud = $db->query("SELECT * FROM MastersStudents s WHERE s.StudentID = ".$row[StudentID]);
+
+    $stud = null;
     $student = null;
-    
+
     if ($type === "Masters" || $type === "All") {
 	$stud = $db->query("SELECT * FROM MastersStudents s WHERE s.StudentID = ".$row[StudentID]);
+
+	if ($type === "Masters" && $stud->num_rows === 0 )
+		continue;
     }
-    if ($type === "Masters" && $stud->num_rows === 0) {
-	continue;
-    }
-    if ($type === "PhD" || ($type === "All" && $stud->num_rows === 0)) { 
+    if ($type === "PhD" || ($type === "All" && $stud->num_rows === 0)) {
 	$isMasters = false;
 	$stud = $db->query("SELECT * FROM PhDStudents s WHERE s.StudentID = ".$row[StudentID]);
     }
-    if ($type === "PhD" && $stud->num_rows === 0) {
-	continue;
+    if ($stud->num_rows === 0) {
+		if ($type !== 'PhD')
+			echo "Error, student wasn't Masters or PhD";
+		continue;
     }
-    
+
     $student = $stud->fetch_assoc();
-    
+
     if ($method === "deadlines") {
-    
+
       if ($student[ThesisSubmission] !== null || checkDeadline($student[ThesisDeadline]))
 	  continue;
       if ($student[ProposalSubmission] !== null || checkDeadline($student[ProposalDeadline]))
@@ -177,19 +186,26 @@ while ($row = $query->fetch_assoc()) {
     }
 
     if ($method === "unassessed") {
-      if ($student[ThesisConfirmation] !== null)
-	  continue;
-      if ($student[ProposalConfirmation] !== null)
-	  continue;
+    	$unassessed = 'false';
+
+    	if ($student[ProposalSubmission] === null)
+    		continue;
+      if ($student[ThesisSubmission] !== null && $student[ExaminationCompleted] === null)
+      	$unassessed = 'true';
+	  if ($student[ProposalSubmission] !== null && $student[ProposalConfirmation] === null) {
+	  	$unassessed = 'true';
+	  }
+
       //Check Masters Deadlines
       if ($isMasters) {
-	if ($student[Report3MonthConfirmation] !== null)
-	  continue;
-	if ($student[Report8MonthConfirmation] !== null)
-	  continue;
+	if ($student[Report3MonthSubmission] !== null && $student[Report3MonthApproval] === null)
+	  $unassessed = 'true';
+	if ($student[Report8MonthSubmission] !== null && $student[Report8MonthApproval] === null)
+		$unassessed = 'true';
       }
+      if ($unassessed !== 'true') continue;
     }
-    
+
     if ($method === "provisional") {
       if ($student[ProposalConfirmation] !== null)
 	  continue;
@@ -201,11 +217,11 @@ while ($row = $query->fetch_assoc()) {
 //}
 
 
-if ($method !== "supervisors") {
+
     echo "<tr>";
     echo "<td>".$row[F_Name]." ".$row[L_Name]."</td>";
     echo "<td>".$row[StudentID]."</td>";
-    
+
     if ($type === "All") {
       if($isMasters){
 	echo "<td>Masters</td>";
@@ -214,7 +230,7 @@ if ($method !== "supervisors") {
 	echo "<td>PhD</td>";
       }
     }
-    
+
     echo "<td>".$row[Course]."</td>";
     echo "<td>".$row[Specialisation]."</td>";
     if($row[Halftime]){
@@ -222,9 +238,9 @@ if ($method !== "supervisors") {
     }
     else
       echo "<td>No</td>";
-      
+
     echo "<td>".$row[Scholarship]."</td>";
-    
+
     if ($type === "All" || $type === "PhD") {
     if($isMasters || is_null($student[WorkHours1])){
       echo "<td></td>";
@@ -243,36 +259,37 @@ if ($method !== "supervisors") {
 	  echo "<td>".$student[WorkHours3]."</td>";
     }
     }
-      
+
     $p = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$row[Primary_SupervisorID]);
     $s = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$row[Secondary_SupervisorID]);
     $primary = $p->fetch_assoc();
     $secondary = $s->fetch_assoc();
-    
+
     echo "<td>".$primary[F_Name]." ".$primary[L_Name]." (".$row[Primary_SupervisorPercent]."%)</td>";
     echo "<td>".$secondary[F_Name]." ".$secondary[L_Name]." (".$row[Secondary_SupervisorPercent]."%)</td>";
-    
+
     $suspensions = $db->query("SELECT * FROM Suspensions s WHERE s.StudentID = ".$row[StudentID]);
     $ss = "";
-    
+
     while ($tmp = $suspensions->fetch_assoc()) {
 	$ss .= ($tmp[SuspensionStartDate]." - ".$tmp[SuspensionEndDate]."<br>");
     }
     echo "<td>".$ss."</td>";
     $suspensions->close();
-    
-    
-    
+
+
+
     echo "<td>".$student[StartDate]."</td>";
     if ($method === "deadlines") {
-	echo "<td>".$student[ProposalDeadline]."</td>"; 
+	echo "<td>".$student[ProposalDeadline]."</td>";
     }
     echo "<td>".$student[ProposalSubmission]."</td>";
-    
-    if($isMasters){
-      echo "<td>".$student[ProposalConfirmationDate]."</td>";
+
+    if($type !== "PhD"){
+      echo "<td>".$student[ProposalConfirmation]."</td>";
       if($type === "All") {
 	if ($method === "deadlines") {
+
 	    echo "<td>".$student[Report3MonthDeadline]."<br>".$student[Report8MonthDeadline]."</td>";
 	}
 	echo "<td>".$student[Report3MonthSubmission]."<br>".$student[Report8MonthSubmission]."</td>";
@@ -296,26 +313,69 @@ if ($method !== "supervisors") {
       if ($type === "All") {
 	echo "<td></td>";
 	echo "<td></td>";
+	if ($method === "deadlines")
+		echo "<td></td>";
       }
     }
-    
+
     if ($method === "deadlines") {
-	echo "<td>".$student[ThesisDeadline]."</td>"; 
+	echo "<td>".$student[ThesisDeadline]."</td>";
     }
-    echo "<td>".$student[ThesisSubmission]."</td>"; 
-    echo "<td>".$student[ExaminersAppointedDate]."</td>";
+    echo "<td>".$student[ThesisSubmission]."</td>";
+    echo "<td>".$student[ExaminersAppointed]."</td>";
     echo "<td>".$student[ExaminationCompleted]."</td>";
     echo "<td>".$student[RevisionsFinalised]."</td>";
     echo "<td>".$student[DepositedInLibrary]."</td>";
     echo "<td>".$row[Notes]."</td>";
     echo "<td>".$row[Origin]."</td>";
-  
+
   echo "</tr>";
+}
 }
 
 else if ($method === "supervisors") {
+	$supervisors = []; //array of arrays(attributes) for each supervisor
 
-}
+	$p = $db->query("SELECT Su.L_Name AS Student_L_Name, Su.F_Name AS Student_F_Name, S.L_Name as L_Name, S.F_Name as F_Name,
+					 SupervisorId, Primary_SupervisorPercent AS Percent FROM Supervisors Su INNER JOIN Students S ON
+					 (Su.SupervisorID = S.Primary_SupervisorID);");
+    $s = $db->query("SELECT Su.L_Name AS Student_L_Name, Su.F_Name AS Student_F_Name, S.L_Name as L_Name, S.F_Name as F_Name,
+					 SupervisorId, Secondary_SupervisorPercent AS Percent FROM Supervisors Su INNER JOIN Students S ON
+					 (Su.SupervisorID = S.Secondary_SupervisorID);");
+
+    while ($primary = $p->fetch_assoc()) {
+    	if ($supervisors[$primary[SupervisorId]] === null) {
+    		$supervisors[$primary[SupervisorId]] = [];
+    		$supervisors[$primary[SupervisorId]][Name] = $primary[F_Name]." ".$primary[L_Name];
+    		$supervisors[$primary[SupervisorId]][Workload] = $primary[Percent]/100;
+    		$supervisors[$primary[SupervisorId]][Students] = $primary[Student_F_Name]." ".$primary[Student_L_Name];
+    	}
+    	else {
+    		$supervisors[$primary[SupervisorId]][Workload] += $primary[Percent]/100;
+    		$supervisors[$primary[SupervisorId]][Students] .= ", ".$primary[Student_F_Name]." ".$primary[Student_L_Name];
+    	}
+    }
+    while ($secondary = $s->fetch_assoc()) {
+    	if ($supervisors[$secondary[SupervisorId]] === null) {
+    		$supervisors[$secondary[SupervisorId]] = [];
+    		$supervisors[$secondary[SupervisorId]][Name] = $secondary[F_Name]." ".$secondary[L_Name];
+    		$supervisors[$secondary[SupervisorId]][Workload] = $secondary[Percent]/100;
+    		$supervisors[$secondary[SupervisorId]][Students] = $secondary[Student_F_Name]." ".$secondary[Student_L_Name];
+    	}
+    	else {
+    		$supervisors[$secondary[SupervisorId]][Workload] += $secondary[Percent]/100;
+    		$supervisors[$secondary[SupervisorId]][Students] .= ", ".$secondary[Student_F_Name]." ".$secondary[Student_L_Name];
+    	}
+    }
+
+    foreach ($supervisors as $key => $value) {
+    	echo "<tr>";
+    	echo "<td>".$key."</td>";
+    	echo "<td>".$value[Name]."</td>";
+    	echo "<td>".$value[Workload]."</td>";
+    	echo "<td>".$value[Students]."</td>";
+    	echo "</tr>";
+    }
 }
 echo "</table>";
 echo "</div>";
