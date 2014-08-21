@@ -6,8 +6,8 @@ $username = "ThesisTeam";
 $password = "SWEN302";
 $database = "ThesisManagement";
 
-$schema = array("StudentID", "Specialisation", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalConfirmationDate", "Report3MonthDeadline", "Report3MonthSubmission", "Report3MonthApproval", "Report8MonthDeadline", "Report8MonthSubmission", "Report8MonthApproval", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointedDate", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary");
-$schema_human_readable = array("Student ID", "Course Specialisation", "Start Date", "Proposal Deadline", "Proposal Submission", "Proposal Confirmation", "3 Month Report Deadline", "3 Month Report Submission", "3 Month report Approval", "8 Month Report Deadline", "8 Month report Submission", "8 Month report Approval", "Thesis Deadline", "Thesis Submission", "Examiners Appointed", "Examination Completed", "Revisions Finalised", "Deposited In Library");
+$schema_masters = array("StudentID", "Specialisation", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalConfirmation", "Report3MonthDeadline", "Report3MonthSubmission", "Report3MonthApproval", "Report8MonthDeadline", "Report8MonthSubmission", "Report8MonthApproval", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointed", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary");
+$schema_masters_human_readable = array("Student ID", "Course Specialisation", "Start Date", "Proposal Deadline", "Proposal Submission", "Proposal Confirmation", "3 Month Report Deadline", "3 Month Report Submission", "3 Month report Approval", "8 Month Report Deadline", "8 Month report Submission", "8 Month report Approval", "Thesis Deadline", "Thesis Submission", "Examiners Appointed", "Examination Completed", "Revisions Finalised", "Deposited In Library");
 
 //Connect to database
 $db = new mysqli($location, $username, $password, $database);
@@ -23,12 +23,17 @@ if (empty($_POST))
 $type = $_POST['type'];
 $method = $_POST['method'];
 $studentID = $_POST['id'];
-$checkMast = $db->query("SELECT EXISTS(SELECT * FROM MastersStudents ms WHERE ms.StudentID=" . $studentID . ")");
-$isMasters = $checkMast->fetch_assoc();
-
+$query = "EXISTS(SELECT 1 FROM MastersStudents ms WHERE ms.StudentID=" . $studentID . ")";
+$checkMast = $db->query("SELECT " . $query);
+$isMasters = (int) $checkMast->fetch_assoc()[$query]; //query returns column name of query
+$checkMast->close();
 
     //Get the student corresponding to the entry in the MasterStudent table
-    $stud = $db->query("select * FROM Students s NATURAL JOIN MastersStudents ms WHERE s.StudentID=ms.StudentID AND s.StudentID=" . $studentID);  
+	$stud;    
+	if ($isMasters === 1)
+		$stud = $db->query("SELECT * FROM Students s NATURAL JOIN MastersStudents ms WHERE s.StudentID=" . $studentID);  
+	else
+		$stud = $db->query("SELECT * FROM Students s NATURAL JOIN PhDStudents ps WHERE s.StudentID=" . $studentID);  
     $student = $stud->fetch_assoc();
 	echo "<table class='studentsummary' >";
 	echo "<tr>";
@@ -46,8 +51,6 @@ $isMasters = $checkMast->fetch_assoc();
     if ($student[Halftime]) echo "Yes";
     else echo "No";
 	echo "</td></tr>";
-	
-    
     
     //Query supervisors
     $ps = $db->query("SELECT * FROM Supervisors s WHERE s.SupervisorID = ".$student[Primary_SupervisorID]);
@@ -55,7 +58,6 @@ $isMasters = $checkMast->fetch_assoc();
     $primary = $ps->fetch_assoc();
     $secondary = $ss->fetch_assoc();
     
-    // Query supervisors
 	echo "<tr>";
 	echo "<td style='border:none;'><strong>Your Supervisors:</strong></td>";
 	echo "<td style='border:none;'>" . $primary[F_Name]." ".$primary[L_Name]." (".$student[Primary_SupervisorPercent]. "%)</td>";
@@ -66,7 +68,6 @@ $isMasters = $checkMast->fetch_assoc();
 	    
     $ps->close();
     $ss->close();
-    
 
     echo "<br>\n<h3> Upcoming Deadlines:</h3>\n";
     echo "<table class='timeline'>\n";
@@ -75,15 +76,15 @@ $isMasters = $checkMast->fetch_assoc();
     echo "<th> Date </th>\n";
     echo "</tr>";
     $deadLineDate = array();
-    for($i =2;$i<count($schema);$i++){ 	  
-      $tmp=$db->query("SELECT " . $schema[$i] . " FROM MastersStudents ms WHERE ms.StudentID=" . $studentID . " AND " . $schema[$i] . " >NOW()");
-      $deadLineDate[$schema[$i]]= $tmp->fetch_assoc()[$schema[$i]];
+    for($i =2;$i<count($schema_masters);$i++){ 	  
+      	$tmp=$db->query("SELECT " . $schema_masters[$i] . " FROM MastersStudents ms WHERE ms.StudentID=" . $studentID . " AND " . $schema_masters[$i] . " >NOW()");
+      	$deadLineDate[$schema_masters[$i]]= $tmp->fetch_assoc()[$schema_masters[$i]];
     }
-    for($i =2;$i<count($schema);$i++){ 	  
-	$current_deadline = $deadLineDate[$schema[$i]];
+    for($i =2;$i<count($schema_masters);$i++){ 	  
+	$current_deadline = $deadLineDate[$schema_masters[$i]];
 	if (!is_null($current_deadline)){
 	echo "<tr>";	
-	echo "<td>\n<strong>" . $schema_human_readable[$i] . "</strong>\n</td>";
+	echo "<td>\n<strong>" . $schema_masters_human_readable[$i] . "</strong>\n</td>";
 	echo "<td>\n" . $current_deadline . "\n</td>";
 	echo "</tr>";	  
 	}
@@ -97,10 +98,10 @@ $isMasters = $checkMast->fetch_assoc();
 	echo "\n<th>Date</th>\n";
 	echo "</tr>";
     
-    for($i =2;$i<count($schema);$i++){ 	  
+    for($i =2;$i<count($schema_masters);$i++){ 	  
 	echo "<tr>";	
-	echo "<td>\n<strong>" . $schema_human_readable[$i] . "</strong>\n</td>";
-	echo "<td>\n" . $student[$schema[$i]]. "\n</td>";
+	echo "<td>\n<strong>" . $schema_masters_human_readable[$i] . "</strong>\n</td>";
+	echo "<td>\n" . $student[$schema_masters[$i]]. "\n</td>";
 	echo "</tr>";	  
     }
     echo "</table>\n";

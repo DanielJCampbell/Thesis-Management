@@ -29,7 +29,7 @@ function doMethod(id) {
 }
 window.onload = function(){
   method = "student";
-  doMethod(300000001);
+  doMethod(300000002);
 }
 
 </script>
