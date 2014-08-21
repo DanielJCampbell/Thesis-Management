@@ -135,17 +135,16 @@ public class MyWriter {
 
 		if(i % 4 == 1){
 			rs = new RandomSupervisor(i);
-			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname+","+rs.suplname+","+ rs.supid+");");
-			rs2 = new RandomSupervisor(i+300);
-			writer.println("INSERT INTO Supervisors Values ("+ rs2.supfname+","+rs2.suplname+","+ rs2.supid+");");
+			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname+","+rs.suplname+","+ rs.supid1+");");
+			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname2+","+rs.suplname2+","+ rs.supid2+");");
 
 		}
 		else if (i == 0){
-			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname+","+rs.suplname+","+ rs.supid+");");
-			writer.println("INSERT INTO Supervisors Values ("+ rs2.supfname+","+rs2.suplname+","+ rs2.supid+");");
+			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname+","+rs.suplname+","+ rs.supid1+");");
+			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname2+","+rs.suplname2+","+ rs.supid2+");");
 		}
 				
-		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+halftime+ ","+ studentid +","+rs.supid+","+rs.supPercent + ","+rs2.supid+","+rs2.supPercent+","+scholar+","+notes+","+ origin+ ");");
+		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+halftime+ ","+ studentid +","+rs.supid2+","+rs.supPercent2 + ","+rs.supid2+","+rs.supPercent2+","+scholar+","+notes+","+ origin+ ");");
 
 		if(i<25){
 			if(i<3){
