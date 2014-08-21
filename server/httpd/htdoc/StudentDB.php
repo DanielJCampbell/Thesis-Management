@@ -1,14 +1,13 @@
 <?php
+date_default_timezone_set("Pacific/Auckland");
+
 $location = "khmer.ecs.vuw.ac.nz";
 $username = "ThesisTeam";
 $password = "SWEN302";
 $database = "ThesisManagement";
+
 $schema = array("StudentID", "Specialisation", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalConfirmationDate", "Report3MonthDeadline", "Report3MonthSubmission", "Report3MonthApproval", "Report8MonthDeadline", "Report8MonthSubmission", "Report8MonthApproval", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointedDate", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary");
 $schema_human_readable = array("Student ID", "Course Specialisation", "Start Date", "Proposal Deadline", "Proposal Submission", "Proposal Confirmation", "3 Month Report Deadline", "3 Month Report Submission", "3 Month report Approval", "8 Month Report Deadline", "8 Month report Submission", "8 Month report Approval", "Thesis Deadline", "Thesis Submission", "Examiners Appointed", "Examination Completed", "Revisions Finalised", "Deposited In Library");
-
-$current_student = 300000001;
-
-print_r($_POST);
 
 //Connect to database
 $db = new mysqli($location, $username, $password, $database);
@@ -19,8 +18,17 @@ if($db->connect_errno > 0){
 if(!$db->select_db($database)){
     die('Unable to select database '.$db);
 }
+if (empty($_POST))
+	echo "<p> It's all gone wrong.</p>";
+$type = $_POST['type'];
+$method = $_POST['method'];
+$studentID = $_POST['id'];
+$checkMast = $db->query("SELECT EXISTS(SELECT * FROM MastersStudents ms WHERE ms.StudentID=" . $studentID . ")");
+$isMasters = $checkMast->fetch_assoc();
+
+
     //Get the student corresponding to the entry in the MasterStudent table
-    $stud = $db->query("select * FROM Students s NATURAL JOIN MastersStudents ms WHERE s.StudentID=ms.StudentID AND s.StudentID=" . $current_student);  
+    $stud = $db->query("select * FROM Students s NATURAL JOIN MastersStudents ms WHERE s.StudentID=ms.StudentID AND s.StudentID=" . $studentID);  
     $student = $stud->fetch_assoc();
 	echo "<table class='studentsummary' >";
 	echo "<tr>";
@@ -68,7 +76,7 @@ if(!$db->select_db($database)){
     echo "</tr>";
     $deadLineDate = array();
     for($i =2;$i<count($schema);$i++){ 	  
-      $tmp=$db->query("SELECT " . $schema[$i] . " FROM MastersStudents ms WHERE ms.StudentID=" . $current_student . " AND " . $schema[$i] . " >NOW()");
+      $tmp=$db->query("SELECT " . $schema[$i] . " FROM MastersStudents ms WHERE ms.StudentID=" . $studentID . " AND " . $schema[$i] . " >NOW()");
       $deadLineDate[$schema[$i]]= $tmp->fetch_assoc()[$schema[$i]];
     }
     for($i =2;$i<count($schema);$i++){ 	  
