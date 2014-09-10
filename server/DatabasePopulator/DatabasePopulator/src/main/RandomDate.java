@@ -55,6 +55,10 @@ public class RandomDate{
     		gc.set(gc.YEAR,gc.get(gc.YEAR)+1);
     	}
 */
+    	if(gc.get(gc.MONTH) < 1){
+    		gc.set(gc.MONTH, 1);
+    	}
+    	
     	symbols = (gc.get(gc.YEAR) + "-" + gc.get(gc.MONTH) + "-" + gc.get(gc.DAY_OF_MONTH));
         symbols = "'"+symbols+"'";
     }
