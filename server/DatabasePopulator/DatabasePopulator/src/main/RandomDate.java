@@ -14,9 +14,9 @@ public class RandomDate{
 
         gc.set(gc.YEAR, year);
 
-        int dayOfYear = randBetween(1, gc.getActualMaximum(gc.DAY_OF_YEAR));
+        int dayOfMonth = randBetween(1, gc.getActualMaximum(gc.DAY_OF_MONTH));
 
-        gc.set(gc.DAY_OF_YEAR, dayOfYear);
+        gc.set(gc.DAY_OF_MONTH, dayOfMonth);
 
         int monthOfYear = randBetween(1, gc.getActualMaximum(gc.MONTH));
 
