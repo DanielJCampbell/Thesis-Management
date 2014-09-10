@@ -35,8 +35,8 @@ public class RandomDate{
     public void moveMonths(int months){
 
     	int newMonth =  gc.get(gc.MONTH)+months;
-    	gc.set(gc.YEAR, gc.get(gc.YEAR)+((newMonth-1)/12));
-    	gc.set(gc.MONTH, ((newMonth-1)%12)+1);
+    	gc.set(gc.YEAR, gc.get(gc.YEAR)+((newMonth)/12));
+    	gc.set(gc.MONTH, ((newMonth)%12)+1);
 /*
     	if(newMonth>48){
     		newMonth = newMonth - 48;
@@ -55,7 +55,7 @@ public class RandomDate{
     		gc.set(gc.YEAR,gc.get(gc.YEAR)+1);
     	}
 */
-    	symbols = (gc.get(gc.YEAR) + "-" + newMonth + "-" + gc.get(gc.DAY_OF_MONTH));
+    	symbols = (gc.get(gc.YEAR) + "-" + gc.get(gc.MONTH) + "-" + gc.get(gc.DAY_OF_MONTH));
         symbols = "'"+symbols+"'";
     }
 }
