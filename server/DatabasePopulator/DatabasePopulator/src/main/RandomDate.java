@@ -31,11 +31,13 @@ public class RandomDate{
         return start + (int)Math.round(Math.random() * (end - start));
     }
 
-    // Move the date by arg-number of months. DO NOT put in more than 11!!!!!!!!
+    // Move the date by arg-number of months. 
     public void moveMonths(int months){
 
     	int newMonth =  gc.get(gc.MONTH)+months;
-
+    	gc.set(gc.YEAR, gc.get(gc.YEAR)+((newMonth-1)/12));
+    	gc.set(gc.MONTH, ((newMonth-1)%12)+1);
+/*
     	if(newMonth>48){
     		newMonth = newMonth - 48;
     		gc.set(gc.YEAR,gc.get(gc.YEAR)+4);
@@ -52,21 +54,8 @@ public class RandomDate{
     		newMonth = newMonth - 12;
     		gc.set(gc.YEAR,gc.get(gc.YEAR)+1);
     	}
-
+*/
     	symbols = (gc.get(gc.YEAR) + "-" + newMonth + "-" + gc.get(gc.DAY_OF_MONTH));
-        symbols = "'"+symbols+"'";
-    }
- // Move the date by arg-number of months. DO NOT put in more than 11!!!!!!!!
-    public void moveYear(int years){
-
-    	int newYear =  gc.get(gc.YEAR)+years;
-
-    	if(newYear>12){
-    		newYear = newYear - 12;
-    		gc.set(gc.YEAR,gc.get(gc.YEAR)+1);
-    	}
-
-    	symbols = newYear + "-" + (gc.get(gc.YEAR) + "-" + gc.get(gc.DAY_OF_MONTH));
         symbols = "'"+symbols+"'";
     }
 }
