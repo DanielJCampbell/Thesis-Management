@@ -221,6 +221,6 @@ public class MyWriter {
 		}
 	}
 	public void suspend(PrintWriter writer, int studentid, String susStart, String susEnd){
-		writer.println("INSERT INTO Suspensions Values ("+ studentid + ","+ susStart + "," + susEnd+");");
+		writer.println("INSERT INTO Suspensions (StudentID,SuspensionStartDate,SuspensionEndDate) Values ("+ studentid + ","+ susStart + "," + susEnd+");");
 	}
 }
