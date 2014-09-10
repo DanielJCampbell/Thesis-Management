@@ -54,4 +54,9 @@ function showSupervisor() {
   doMethod();
 }
 
+function showSuspensions() {
+	method = "suspensions";
+	doMethod();
+}
+
 
