@@ -144,7 +144,7 @@ public class MyWriter {
 			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname2+","+rs.suplname2+","+ rs.supid2+");");
 		}
 				
-		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+halftime+ ","+ studentid +","+rs.supid2+","+rs.supPercent2 + ","+rs.supid2+","+rs.supPercent2+","+scholar+","+notes+","+ origin+ ");");
+		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+halftime+ ","+ studentid +","+rs.supid1+","+rs.supPercent + ","+rs.supid2+","+rs.supPercent2+","+scholar+","+notes+","+ origin+ ");");
 
 		if(i<25){
 			if(i<3){
