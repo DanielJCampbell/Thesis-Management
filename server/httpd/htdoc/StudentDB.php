@@ -1,10 +1,10 @@
 <?php
 date_default_timezone_set("Pacific/Auckland");
 
-$location = "khmer.ecs.vuw.ac.nz";
-$username = "ThesisTeam";
-$password = "SWEN302";
-$database = "ThesisManagement";
+$location = "ec2-54-83-204-104.compute-1.amazonaws.com";
+$username = "poacfvyhdhwtsx";
+$password = "nVJ0Via96oYvrOfrSs3ECsVR1W";
+$database = "ddf40gpbvva8uo";
 
 $schema_PhD = array("StudentID", "Specialisation", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalSeminar", "ProposalConfirmation", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointed", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary", "WorkHours1", "WorkHours2", "WorkHours3");
 $schema_PhD_human_readable = array("Student ID", "Specialisation", "Start Date", "Proposal Deadline", "Proposal Submission", "Proposal Seminar", "Proposal Confirmation", "Thesis Deadline", "Thesis Submission", "Examiners Appointed", "Examination Completed", "Revisions Finalised", "Deposited In Library", "Work Hours 1st year", "Work Hours 2nd year", "Work Hours 3rd year");
@@ -17,7 +17,7 @@ $schema_PhD_deadlines_hr = array("Proposal Deadline", "Thesis Deadline");
 $schema_masters_deadlines_hr = array("Proposal Deadline", "3 Month Report Deadline", "8 Month Report Deadline", "Thesis Deadline");
 
 //Connect to database
-$db = pg_connect("host = '".$location."' dbname = '".$database."'");
+$db = pg_connect("host = '".$location."'user = '".$username."' password = '".$password."' dbname = '".$database."'");
 if($db->connect_errno > 0){
     die('Unable to connect to database [' . $db->connect_error . ']');
 }

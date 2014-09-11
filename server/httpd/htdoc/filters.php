@@ -6,16 +6,16 @@ function checkDeadline($date) {
 	return (date_diff ( $cur, $deadline )->invert !== 1);
 }
 
-$location = "khmer.ecs.vuw.ac.nz";
-$username = "ThesisTeam";
-$password = "SWEN302";
-$database = "ThesisManagement";
+$location = "ec2-54-83-204-104.compute-1.amazonaws.com";
+$username = "poacfvyhdhwtsx";
+$password = "nVJ0Via96oYvrOfrSs3ECsVR1W";
+$database = "ddf40gpbvva8uo";
 
 // Connect to database
 
 //This one no longer relevant now we don't GAF about security
 //$db = pg_connect ("host = '" + $location + "' user = '"+ $username + "' password = '" + $password + "' dbname = '" + $database +"'");
-$db = pg_connect("host = '".$location."' dbname = '".$database."'");
+$db = pg_connect("host = '".$location."'user = '".$username."' password = '".$password."' dbname = '".$database."'");
 if ($db->connect_errno > 0) {
 	die ( 'Unable to connect to database [' . $db->connect_error . ']' );
 }
