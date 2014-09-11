@@ -1,13 +1,14 @@
 ;
 var type = "All";
-var method = "all";
+var filter = "all";
+var supervisorID = "null";
 
 function changeFilter(value) {
     type = value;
-    doMethod();
+    sendPHPRequest();
 }
 
-function doMethod(id) {
+function sendPHPRequest() {
   var req = new XMLHttpRequest();
 
   req.onreadystatechange=function() {
@@ -18,45 +19,46 @@ function doMethod(id) {
 
   req.open('POST', 'filters.php', true);
   req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-  if (method === "students")
-    req.send("method=students&type="+type+"&id="+id);
+  if (filter === "students")
+    req.send("filter=students&type="+type+"&supervisorID="+supervisorID);
   else
-    req.send("method="+method+"&type="+type);
+    req.send("filter="+filter+"&type="+type);
 }
 
-function showStudents(id){
-    method = "students";
-    doMethod(id);
+function showStudents(superID){
+    filter = "students";
+    supervisorID = superID
+    sendPHPRequest();
 }
 
 function showAll() {
-  method = "all";
-  doMethod();
+  filter = "all";
+  sendPHPRequest();
 }
 
 function deadlines() {
-  method = "deadlines";
-  doMethod();
+  filter = "deadlines";
+  sendPHPRequest();
 }
 
 function showUnassessed() {
-  method = "unassessed";
-  doMethod();
+  filter = "unassessed";
+  sendPHPRequest();
 }
 
 function showProvisional() {
-  method = "provisional";
-  doMethod();
+  filter = "provisional";
+  sendPHPRequest();
 }
 
 function showSupervisor() {
-  method = "supervisors";
-  doMethod();
+  filter = "supervisors";
+  sendPHPRequest();
 }
 
 function showSuspensions() {
-	method = "suspensions";
-	doMethod();
+	filter = "suspensions";
+	sendPHPRequest();
 }
 
 
