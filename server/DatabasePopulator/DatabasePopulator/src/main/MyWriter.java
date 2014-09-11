@@ -9,15 +9,20 @@ public class MyWriter {
 
 	public MyWriter(PrintWriter writer) {
 		for(int i = 0 ; i <= 70; i++){
+			// Randomized location for Suspension
 			int suspendLocation = 0;
+			// Randomized location for enrolment Type Change
+			int etcLocation = 0;
 			
 			//Masters
 		if(i<25){
-		suspendLocation = RandomDate.randBetween(1, 4);
+		suspendLocation = randBetween(1, 4);
+		etcLocation =  randBetween(1, 4);
 		}
 			//PhD
 		else{
-		suspendLocation = RandomDate.randBetween(0, 3);	
+		suspendLocation = randBetween(0, 3);
+		etcLocation =  randBetween(0, 3);		
 		}
 				
 		String susStart="";
@@ -34,98 +39,168 @@ public class MyWriter {
 		String notes = new RandomString().symbols;
 		String origin = new RandomLetter().symbols;
 
-		//Masters
 		RandomDate prop = new RandomDate(1990,2014);
-
 		String startDate = prop.symbols;
+		
 		RandomDate thesisM = prop;
 		RandomDate thesisP = prop;
 		thesisM.moveMonths(12);
-		thesisP.moveMonths(RandomDate.randBetween(36,48));
+		thesisP.moveMonths(randBetween(36,48));
+				
+		
+		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+ studentid +","+rs.supid1+","+rs.supPercent + ","+rs.supid2+","+rs.supPercent2+","+scholar+","+notes+","+ origin+ ");");
+		
+		// Start of enrolment - Initial enrolment Type
+		String enrolmentType = "";
+		if(i < 15 || i > 50){
+			enrolmentType = "'H'";
+		}
+		else{
+			enrolmentType = "'F'";
+		}
+		
+		// Initial Change - So they they HAVE an enrolment type.
+		writer.println("INSERT INTO EnrolmentTypeChanges VALUES (" + studentid + "," + enrolmentType + "," + startDate + ");");
 		
 		// Suspend Location 1 - Before Proposition Masters
 		if(suspendLocation == 1 ){
 		susStart = prop.symbols;
-		prop.moveMonths(RandomDate.randBetween(1, 3));
+		prop.moveMonths(randBetween(1, 3));
 		susEnd = prop.symbols;
 		}
+		
+		// ETC Location 1 - Before Proposition Masters
+		if(etcLocation == 1 ){
+			if(enrolmentType == "'H'"){
+				enrolmentType = "'F'";
+			}
+			else if(enrolmentType == "'F'"){
+				enrolmentType = "'H'";
+			}
+			writer.println("INSERT INTO EnrolmentTypeChanges VALUES (" + studentid + "," + enrolmentType + "," + prop.symbols + ");");
+		}
 
+		//Masters
 		String propSubDate = prop.symbols;
-		prop.moveMonths(RandomDate.randBetween(1,3));
+		prop.moveMonths(randBetween(1,3));
 		String propDeadDate = prop.symbols;
-		prop.moveMonths(RandomDate.randBetween(1,3));
+		prop.moveMonths(randBetween(1,3));
 		String propConfDate = prop.symbols;
 		
 		// Suspend Location 2 - Before 3mth report Masters
 		if(suspendLocation == 2){
 		susStart = prop.symbols;
-		prop.moveMonths(RandomDate.randBetween(1, 3));
+		prop.moveMonths(randBetween(1, 3));
 		susEnd = prop.symbols;
+		}
+		
+		// ETC Location 2 - Before 3mth report Masters
+		if(etcLocation == 2 ){
+			if(enrolmentType == "'H'"){
+				enrolmentType = "'F'";
+			}
+			else if(enrolmentType == "'F'"){
+				enrolmentType = "'H'";
+			}
+			writer.println("INSERT INTO EnrolmentTypeChanges VALUES (" + studentid + "," + enrolmentType + "," + prop.symbols + ");");
 		}
 		
 		prop.moveMonths(3);
 		String prop3mthSubDate = prop.symbols;
-		prop.moveMonths(RandomDate.randBetween(1,3));
+		prop.moveMonths(randBetween(1,3));
 		String prop3mthDeadDate = prop.symbols;
-		prop.moveMonths(RandomDate.randBetween(1,3));
+		prop.moveMonths(randBetween(1,3));
 		String prop3mthApprDate = prop.symbols;
 
 		// Suspend Location 3 - Before 8mth report Masters
 		if(suspendLocation == 3){
 		susStart = prop.symbols;
-		prop.moveMonths(RandomDate.randBetween(1, 3));
+		prop.moveMonths(randBetween(1, 3));
 		susEnd = prop.symbols;
+		}
+		
+		// ETC Location 3 - Before 8mth report Masters
+		if(etcLocation == 3 ){
+			if(enrolmentType == "'H'"){
+				enrolmentType = "'F'";
+			}
+			else if(enrolmentType == "'F'"){
+				enrolmentType = "'H'";
+			}
+			writer.println("INSERT INTO EnrolmentTypeChanges VALUES (" + studentid + "," + enrolmentType + "," + prop.symbols + ");");
 		}
 		
 		prop.moveMonths(5);
 		String prop8mthDeadDate = prop.symbols;
-		prop.moveMonths(RandomDate.randBetween(1,3));
+		prop.moveMonths(randBetween(1,3));
 		String prop8mthSubDate = prop.symbols;
-		prop.moveMonths(RandomDate.randBetween(1,3));
+		prop.moveMonths(randBetween(1,3));
 		String prop8mthApprDate = prop.symbols;
 		
 		// Suspend Location 4 - Before thesis Masters
-				if(suspendLocation == 4 && i<25){
-				susStart = thesisM.symbols;
-				prop.moveMonths(RandomDate.randBetween(1, 3));
-				susEnd = thesisM.symbols;
-				}
+		if(suspendLocation == 4 && i<25){
+		susStart = thesisM.symbols;
+		prop.moveMonths(randBetween(1, 3));
+		susEnd = thesisM.symbols;
+		}
+		
+		// ETC Location 4 - Before thesis Masters
+		if(etcLocation == 4 ){
+			if(enrolmentType == "'H'"){
+				enrolmentType = "'F'";
+			}
+			else if(enrolmentType == "'F'"){
+				enrolmentType = "'H'";
+			}
+			writer.println("INSERT INTO EnrolmentTypeChanges VALUES (" + studentid + "," + enrolmentType + "," + prop.symbols + ");");
+		}
 
-				// thesisM due 1 year from start (masters)
-				String thesisSub = thesisM.symbols;
-				thesisM.moveMonths(RandomDate.randBetween(1,3));
-				String thesisDead = thesisM.symbols;
-				thesisM.moveMonths(RandomDate.randBetween(1,3));
-				String examinersAppointed = thesisM.symbols;
-				thesisM.moveMonths(RandomDate.randBetween(1,3));
-				String examinationComplete = thesisM.symbols;
-				thesisM.moveMonths(RandomDate.randBetween(1,3));
-				String revisions = thesisM.symbols;
-				thesisM.moveMonths(RandomDate.randBetween(1,3));
-				String deposited = thesisM.symbols;
-				
-				// Suspend Location 0 - Before thesis PhD
-				if(suspendLocation == 0){
-				susStart = thesisP.symbols;
-				prop.moveMonths(RandomDate.randBetween(1, 3));
-				susEnd = thesisP.symbols;
-				}
+		// thesisM due 1 year from start (masters)
+		String thesisSub = thesisM.symbols;
+		thesisM.moveMonths(randBetween(1,3));
+		String thesisDead = thesisM.symbols;
+		thesisM.moveMonths(randBetween(1,3));
+		String examinersAppointed = thesisM.symbols;
+		thesisM.moveMonths(randBetween(1,3));
+		String examinationComplete = thesisM.symbols;
+		thesisM.moveMonths(randBetween(1,3));
+		String revisions = thesisM.symbols;
+		thesisM.moveMonths(randBetween(1,3));
+		String deposited = thesisM.symbols;
+		
+		// Suspend Location 0 - Before thesis PhD
+		if(suspendLocation == 0){
+		susStart = thesisP.symbols;
+		prop.moveMonths(randBetween(1, 3));
+		susEnd = thesisP.symbols;
+		}
+		
+		// ETC Location 0 - Before thesis PhD 
+		if(etcLocation == 0 ){
+			if(enrolmentType == "'H'"){
+				enrolmentType = "'F'";
+			}
+			else if(enrolmentType == "'F'"){
+				enrolmentType = "'H'";
+			}
+			writer.println("INSERT INTO EnrolmentTypeChanges VALUES (" + studentid + "," + enrolmentType + "," + prop.symbols + ");");
+		}
 
-				// thesisP due 3 years from start (PhD)
-				String thesisPSub = thesisP.symbols;
-				thesisP.moveMonths(RandomDate.randBetween(1,3));
-				String thesisPDead = thesisP.symbols;
-				thesisP.moveMonths(RandomDate.randBetween(1,3));
-				String examinersPAppointed = thesisP.symbols;
-				thesisP.moveMonths(RandomDate.randBetween(1,3));
-				String examinationPComplete = thesisP.symbols;
-				thesisP.moveMonths(RandomDate.randBetween(1,3));
-				String revisionsP = thesisP.symbols;
-				thesisP.moveMonths(RandomDate.randBetween(1,3));
-				String depositedP = thesisP.symbols;
+		// thesisP due 3 years from start (PhD)
+		String thesisPSub = thesisP.symbols;
+		thesisP.moveMonths(randBetween(1,3));
+		String thesisPDead = thesisP.symbols;
+		thesisP.moveMonths(randBetween(1,3));
+		String examinersPAppointed = thesisP.symbols;
+		thesisP.moveMonths(randBetween(1,3));
+		String examinationPComplete = thesisP.symbols;
+		thesisP.moveMonths(randBetween(1,3));
+		String revisionsP = thesisP.symbols;
+		thesisP.moveMonths(randBetween(1,3));
+		String depositedP = thesisP.symbols;
 
 		//PhD
-		prop.moveMonths(RandomDate.randBetween(1,3));
+		prop.moveMonths(randBetween(1,3));
 		String propSeminar = prop.symbols;
 		RandomWorkHours rwh = new RandomWorkHours();
 		String workHours1 = rwh.first;
@@ -142,19 +217,6 @@ public class MyWriter {
 			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname+","+rs.suplname+","+ rs.supid1+");");
 			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname2+","+rs.suplname2+","+ rs.supid2+");");
 		}
-				
-		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+ studentid +","+rs.supid1+","+rs.supPercent + ","+rs.supid2+","+rs.supPercent2+","+scholar+","+notes+","+ origin+ ");");
-		
-		// Start of enrolment - Initial Enrolment Type
-		String enrolmentType = "";
-		if(i < 15 || i > 50){
-			enrolmentType = "'H'";
-		}
-		else{
-			enrolmentType = "'F'";
-		}
-		
-		writer.println("INSERT INTO EnrolmentTypeChanges VALUES (" + studentid + "," + enrolmentType + "," + startDate + ");");
 		
 		if(i<25){
 			if(i<3){			
@@ -239,4 +301,8 @@ public class MyWriter {
 	public void suspend(PrintWriter writer, int studentid, String susStart, String susEnd){
 		writer.println("INSERT INTO Suspensions (StudentID,SuspensionStartDate,SuspensionEndDate) Values ("+ studentid + ","+ susStart + "," + susEnd+");");
 	}
+	
+	public static int randBetween(int start, int end) {
+        return start + (int)Math.round(Math.random() * (end - start));
+    }
 }
