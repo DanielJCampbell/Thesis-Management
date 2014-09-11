@@ -14,6 +14,7 @@ function sendPHPRequest() {
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
+	  $("#mainTable").dataTable();
     }
   }
 
@@ -60,5 +61,3 @@ function showSuspensions() {
 	filter = "suspensions";
 	sendPHPRequest();
 }
-
-

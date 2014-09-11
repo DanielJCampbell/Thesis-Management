@@ -28,8 +28,8 @@ if(!$db->select_db($database)){
 if (empty($_POST))
 	echo "<p> It's all gone wrong.</p>";
 $type = $_POST['type'];
-$method = $_POST['method'];
-$studentID = $_POST['id'];
+$filter = $_POST['filter'];
+$studentID = $_POST['studentID'];
 $query = "EXISTS(SELECT 1 FROM MastersStudents ms WHERE ms.StudentID=" . $studentID . ")";
 $checkMast = $db->query("SELECT " . $query);
 $isMasters = (int) $checkMast->fetch_assoc()[$query]; //query returns column name of query
@@ -77,7 +77,7 @@ $checkMast->close();
     $ss->close();
 
     echo "<br>\n<h3> Upcoming Deadlines:</h3>\n";
-    echo "<table class='timeline'>\n";
+    echo "<table id='deadlines' class='timeline'>\n";
     echo "<tr>";
     echo "\n<th> Event </th>\n";
     echo "<th> Date </th>\n";
@@ -118,7 +118,7 @@ $checkMast->close();
     echo"</table>";
     
     printf("<h3> Timeline of progress:</h3>\n");
-    echo "<table class='timeline'>";
+    echo "<table id='timeline' class='timeline'>";
     echo "<tr>";
     echo "\n<th><strong>Event</strong></th>";
 	echo "\n<th>Date</th>\n";
