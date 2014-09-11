@@ -15,14 +15,9 @@ $database = "ddf40gpbvva8uo";
 
 //This one no longer relevant now we don't GAF about security
 //$db = pg_connect ("host = '" + $location + "' user = '"+ $username + "' password = '" + $password + "' dbname = '" + $database +"'");
-$db = pg_connect("host = '".$location."'user = '".$username."' password = '".$password."' dbname = '".$database."'");
-if ($db->connect_errno > 0) {
-	die ( 'Unable to connect to database [' . $db->connect_error . ']' );
-}
+$db = pg_connect("host = '".$location."'user = '".$username."' password = '".$password."' dbname = '".$database."'")
+		or die('Unable to connect to database: ' . pg_last_error());
 
-if (! $db->select_db ( $database )) {
-	die ( 'Unable to select database ' . $db );
-}
 
 if (empty ( $_POST ))
 	echo "<p> It's all gone wrong.</p>";
@@ -30,8 +25,7 @@ if (empty ( $_POST ))
 $type = $_POST ['type'];
 $filter = $_POST ['filter'];
 
-$studentsQuery = pg_query ( "SELECT * FROM Students" );
-$isMasters = true;
+
 
 echo "<div id = 'PHPTable' class = 'active'>";
 echo "<table id='mainTable'>";
@@ -144,33 +138,38 @@ if ($filter === "supervisors") {
 }
 echo "</thead>";
 echo "<tbody>";
+
+$studentsQuery = pg_query ( "SELECT * FROM Students" ) or die('Query failed: ' . pg_last_error());
+$isMasters = true;
 if ($filter !== "supervisors") {
-	while ( $row = $studentsQuery->fetch_assoc () ) {
+	while ( $row = pg_fetch_array($studentsQuery, null, PQSQL_ASSOC)) {
 
 		//If student has withdrawn don't show them
-		$withdrawn = $db->query("SELECT * FROM Withdrawals WHERE StudentID = ".$row[StudentID]);
+		$withdrawn = pg_query("SELECT * FROM Withdrawals WHERE StudentID = ".$row[StudentID])
+			or die('Query failed: ' . pg_last_error());
 		if ($withdrawn->num_rows !== 0) continue;
 
 		$stud = null;
 		$student = null;
-
+		pg_free_result($withdrawn);
 		if ($type === "Masters" || $type === "All") {
-			$stud = $db->query ( "SELECT * FROM MastersStudents s WHERE s.StudentID = " . $row [StudentID] );
-
-			if ($type === "Masters" && $stud->num_rows === 0)
+			$stud = pg_query ( "SELECT * FROM MastersStudents s WHERE s.StudentID = " . $row [StudentID] )
+				or die('Query failed: ' . pg_last_error());
+			if ($type === "Masters" && $stud->num_rows === 0) //////////////////TODO Need to make this postgress
 				continue;
 		}
-		if ($type === "PhD" || ($type === "All" && $stud->num_rows === 0)) {
+		if ($type === "PhD" || ($type === "All" && $stud->num_rows === 0)) {///////////////TODO Need to make this postgress
 			$isMasters = false;
-			$stud = $db->query ( "SELECT * FROM PhDStudents s WHERE s.StudentID = " . $row [StudentID] );
+			$stud = pg_query ( "SELECT * FROM PhDStudents s WHERE s.StudentID = " . $row [StudentID] )
+				or die('Query failed: ' . pg_last_error());
 		}
-		if ($stud->num_rows === 0) {
+		if ($stud->num_rows === 0) {////////////TODO Need to make this postgress
 			if ($type !== 'PhD')
 				echo "Error, student wasn't Masters or PhD";
 			continue;
 		}
 
-		$student = $stud->fetch_assoc ();
+		$student = pg_fetch_array($stud, null, PQSQL_ASSOC);
 
 		//Skip student if they've finished
 		if ($student[DepositedInLibrary] !== null)
@@ -193,8 +192,8 @@ if ($filter !== "supervisors") {
 
 		if ($filter === "suspensions") {
 			$isSuspended = false;
-			$suspensions = $db->query ( "SELECT * FROM Suspensions s WHERE s.StudentID = " . $row [StudentID] );
-
+			$suspensions = pg_query ( "SELECT * FROM Suspensions s WHERE s.StudentID = " . $row [StudentID] )
+				or die('Query failed: ' . pg_last_error());
 			while ( $tmp = $suspensions->fetch_assoc () ) {
 				if (! checkDeadline ( $tmp [SuspensionStartDate] ) && checkDeadline ( $tmp [SuspensionEndDate] ))
 					$isSuspended = true;
