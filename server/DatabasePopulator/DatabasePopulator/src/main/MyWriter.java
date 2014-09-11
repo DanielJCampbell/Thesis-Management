@@ -28,7 +28,6 @@ public class MyWriter {
 		String lname = name.last;
 		String course = new RandomString().symbols;
 		String spec = new RandomString().symbols;
-		boolean halftime = new RandomBoolean().symbols;
 		int studentid = 300000000 + i;
 
 		String scholar = new RandomString().symbols;
@@ -144,10 +143,21 @@ public class MyWriter {
 			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname2+","+rs.suplname2+","+ rs.supid2+");");
 		}
 				
-		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+halftime+ ","+ studentid +","+rs.supid1+","+rs.supPercent + ","+rs.supid2+","+rs.supPercent2+","+scholar+","+notes+","+ origin+ ");");
-
+		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+ studentid +","+rs.supid1+","+rs.supPercent + ","+rs.supid2+","+rs.supPercent2+","+scholar+","+notes+","+ origin+ ");");
+		
+		// Start of enrolment - Initial Enrolment Type
+		String enrolmentType = "";
+		if(i < 15 || i > 50){
+			enrolmentType = "'H'";
+		}
+		else{
+			enrolmentType = "'F'";
+		}
+		
+		writer.println("INSERT INTO EnrolmentTypeChanges VALUES (" + studentid + "," + enrolmentType + "," + startDate + ");");
+		
 		if(i<25){
-			if(i<3){
+			if(i<3){			
 				// Suspension that start before current date, End after current date - Masters
 				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +"NULL"+");");
 				suspend(writer,studentid,"'2014-08-10'","'2014-09-10'");
@@ -218,6 +228,12 @@ public class MyWriter {
 					}
 			}
 		}
+		
+		// Withdrawals at indices: 15 (Masters) and 45 (PhD)
+		if(i == 15 || i == 45){
+			writer.println("INSERT INTO Withdrawals VALUES ("+ studentid +");");
+		}
+		
 		}
 	}
 	public void suspend(PrintWriter writer, int studentid, String susStart, String susEnd){
