@@ -46,6 +46,17 @@ public class MyWriter {
 		RandomDate thesisP = prop;
 		thesisM.moveMonths(12);
 		thesisP.moveMonths(randBetween(36,48));
+		
+		if(i % 4 == 1){
+			rs = new RandomSupervisor(i);
+			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname+","+rs.suplname+","+ rs.supid1+");");
+			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname2+","+rs.suplname2+","+ rs.supid2+");");
+
+		}
+		else if (i == 0){
+			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname+","+rs.suplname+","+ rs.supid1+");");
+			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname2+","+rs.suplname2+","+ rs.supid2+");");
+		}
 				
 		
 		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+ studentid +","+rs.supid1+","+rs.supPercent + ","+rs.supid2+","+rs.supPercent2+","+scholar+","+notes+","+ origin+ ");");
@@ -206,17 +217,6 @@ public class MyWriter {
 		String workHours1 = rwh.first;
 		String workHours2 = rwh.second;
 		String workHours3 = rwh.third;
-
-		if(i % 4 == 1){
-			rs = new RandomSupervisor(i);
-			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname+","+rs.suplname+","+ rs.supid1+");");
-			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname2+","+rs.suplname2+","+ rs.supid2+");");
-
-		}
-		else if (i == 0){
-			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname+","+rs.suplname+","+ rs.supid1+");");
-			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname2+","+rs.suplname2+","+ rs.supid2+");");
-		}
 		
 		if(i<25){
 			if(i<3){			
