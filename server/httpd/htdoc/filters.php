@@ -31,8 +31,8 @@ $studentsQuery = $db->query ( "SELECT * FROM Students" );
 $isMasters = true;
 
 echo "<div id = 'PHPTable' class = 'active'>";
-echo "<table>";
-
+echo "<table id='mainTable'>";
+echo "<thead>";
 if ($filter === "supervisors") {
 	echo "<tr>";
 	echo "<th> ID </th>";
@@ -139,7 +139,8 @@ if ($filter === "supervisors") {
 	echo "<th> Origin </th>";
 	echo "</tr>";
 }
-
+echo "</thead>";
+echo "<tbody>";
 if ($filter !== "supervisors") {
 	while ( $row = $studentsQuery->fetch_assoc () ) {
 
@@ -377,6 +378,7 @@ else if ($filter === "supervisors") {
 	$p->close ();
 	$s->close ();
 }
+echo "</tbody>";
 echo "</table>";
 echo "</div>";
 
