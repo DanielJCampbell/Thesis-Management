@@ -12,7 +12,10 @@ $password = "SWEN302";
 $database = "ThesisManagement";
 
 // Connect to database
-$db = new mysqli ( $location, $username, $password, $database );
+
+//This one no longer relevant now we don't GAF about security
+//$db = pg_connect ("host = '" + $location + "' user = '"+ $username + "' password = '" + $password + "' dbname = '" + $database +"'");
+$db = pg_connect("host = '".$location."' dbname = '".$database."'");
 if ($db->connect_errno > 0) {
 	die ( 'Unable to connect to database [' . $db->connect_error . ']' );
 }
@@ -144,6 +147,10 @@ echo "<tbody>";
 if ($filter !== "supervisors") {
 	while ( $row = $studentsQuery->fetch_assoc () ) {
 
+		//If student has withdrawn don't show them
+		$withdrawn = $db->query("SELECT * FROM Withdrawals WHERE StudentID = ".$row[StudentID]);
+		if ($withdrawn->num_rows !== 0) continue;
+
 		$stud = null;
 		$student = null;
 
@@ -164,6 +171,10 @@ if ($filter !== "supervisors") {
 		}
 
 		$student = $stud->fetch_assoc ();
+
+		//Skip student if they've finished
+		if ($student[DepositedInLibrary] !== null)
+			continue;
 
 		if ($filter === "deadlines") {
 
@@ -239,7 +250,12 @@ if ($filter !== "supervisors") {
 
 		echo "<td>" . $row [Course] . "</td>";
 		echo "<td>" . $row [Specialisation] . "</td>";
-		if ($row [Halftime]) {
+
+		$isHalftime = $db->query("SELECT * FROM EnrolmentTypeChanges WHERE StudentID = ".$row[StudentID]." ORDER BY ChangeDate DESC LIMIT 1");
+		$halftime = $isHalftime->fetch_assoc();
+		$isHalftime->close();
+
+		if ($halftime [EnrolmentType] == 'H') {
 			echo "<td>Yes</td>";
 		} else
 			echo "<td>No</td>";
