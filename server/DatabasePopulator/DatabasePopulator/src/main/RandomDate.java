@@ -21,6 +21,10 @@ public class RandomDate{
         int monthOfYear = randBetween(1, gc.getActualMaximum(gc.MONTH));
 
         gc.set(gc.MONTH, monthOfYear);
+        if (monthOfYear == 2 && dayOfMonth > 28) {
+        	dayOfMonth = 28;
+        	gc.set(gc.DAY_OF_MONTH, 28);
+        }
 
         symbols = (gc.get(gc.YEAR) + "-" + gc.get(gc.MONTH) + "-" + gc.get(gc.DAY_OF_MONTH));
         symbols = "'"+symbols+"'";
