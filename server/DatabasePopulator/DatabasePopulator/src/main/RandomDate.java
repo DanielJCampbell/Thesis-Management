@@ -63,6 +63,9 @@ public class RandomDate{
     		gc.set(gc.MONTH, 1);
     	}
     	
+    	if (gc.get(gc.MONTH) == 2 && gc.get(gc.DAY_OF_MONTH) > 28) {
+         	gc.set(gc.DAY_OF_MONTH, 28);
+        }
     	symbols = (gc.get(gc.YEAR) + "-" + gc.get(gc.MONTH) + "-" + gc.get(gc.DAY_OF_MONTH));
         symbols = "'"+symbols+"'";
     }
