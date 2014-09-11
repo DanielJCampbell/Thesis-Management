@@ -30,7 +30,7 @@ if (empty ( $_POST ))
 $type = $_POST ['type'];
 $filter = $_POST ['filter'];
 
-$studentsQuery = $db->query ( "SELECT * FROM Students" );
+$studentsQuery = pg_query ( "SELECT * FROM Students" );
 $isMasters = true;
 
 echo "<div id = 'PHPTable' class = 'active'>";
