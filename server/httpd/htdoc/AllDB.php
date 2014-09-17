@@ -180,7 +180,9 @@ while ($row = pg_fetch_array($phdQuery, null, PQSQL_ASSOC)){
 	echo "<td>" . $row [Origin] . "</td>";
 	echo "</tr>";
 }
-
+echo "</tbody>";
+echo "</table>";
+echo "</div>";
 
 
 ?>
