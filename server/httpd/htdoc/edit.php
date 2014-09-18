@@ -5,7 +5,7 @@
   </head>
   
   <body>
-    <h3>Add Student</h3>
+    <h3>Add/Edit Student</h3>
     <form method="post">
       <div>
 	<label for="f_name">First Name:</label>
@@ -58,8 +58,14 @@
 	<option value="D">Domestic</option>
 	</select>
       </div>
+      <div>
+	<select name ="optype">
+	<option value="Add">Add Student</option>
+	<option value="Edit">Edit Student</option>
+	</select>
+      </div>
       <div class="button">
-	<button type="submit" value="Submit" name="Submit">Add Student</button>
+	<button type="submit" value="Submit" name="Submit">Update Database</button>
       </div>
       
     </form>
@@ -75,10 +81,6 @@
 	  <button type="submit" value="Delete" name="Delete">Delete Student</button> 
 	</div>
       </form>
-    </div>
-    
-    <div>
-      <h3>Modify Student</h3>
     </div>
     
     <?php
@@ -108,19 +110,40 @@
 	$secsupID = htmlspecialchars($_POST['secsupID']);
 	$secPercent = htmlspecialchars($_POST['secPercent']);
 	$origin = htmlspecialchars($_POST['origin']);
+	$opType = htmlspecialchars($_POST['optype']);
 	
-	$query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin) 
-		  VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.
-		  ",".$secPercent.",'".$origin."')";
+	$query;
+	
+	if ($opType === "Add") {
+	
+	    $query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin) 
+		      VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.
+		      ",".$secPercent.",'".$origin."')";
+	}
+	else {
+	    $query = "UPDATE students SET (F_Name,L_Name, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin) 
+		      = ('".$f_name."','".$l_name."','".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.
+		      ",".$secPercent.",'".$origin."') WHERE StudentID = ".$SID;
+	}
 	$result = pg_query($query) or die('Query failed: ' . pg_last_error());
 	
-	if($type == "masters"){
+	if($type === "masters" && $opType === "Add"){
 	  $mastersQuery = "INSERT INTO MastersStudents(StudentID, StartDate) VALUES (".$SID.",'".$startDate."')";
 	  $mastersResult = pg_query($mastersQuery) or die('Query failed: ' . pg_last_error());
 	  pg_free_result($mastersResult);
 	}
-	else if($type == "PhD"){
+	else if($type === "PhD" && $opType === "Add"){
 	  $phdQuery = "INSERT INTO PhDStudents(StudentID, StartDate) VALUES (".$SID.",'".$startDate."')";
+	  $phdResult = pg_query($phdQuery) or die('Query failed: ' . pg_last_error());
+	  pg_free_result($phdResult);
+	}
+	else if($type === "masters") {
+	  $mastersQuery = "UPDATE MastersStudents SET StartDate = '".$startDate."' WHERE StudentID = ".$SID;
+	  $mastersResult = pg_query($mastersQuery) or die('Query failed: ' . pg_last_error());
+	  pg_free_result($mastersResult);
+	}
+	else if($type === "PhD") {
+	  $phdQuery = "UPDATE PhDStudents SET StartDate = '".$startDate."' WHERE StudentID = ".$SID;
 	  $phdResult = pg_query($phdQuery) or die('Query failed: ' . pg_last_error());
 	  pg_free_result($phdResult);
 	}
