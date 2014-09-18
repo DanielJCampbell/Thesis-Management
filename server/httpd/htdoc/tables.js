@@ -8,8 +8,8 @@ function sendPHPRequest() {
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
-	  $("#mainTable").dataTable();
-	  $("#supTable").dataTable();
+	  $("#mainTable").DataTable();
+	  $("#supTable").DataTable();
     }
   }
 
@@ -29,19 +29,19 @@ function deadlines() {
 
 function showUnassessed() {
 }
-
+/** DO NOT COMMIT, OR DEATH!
 function showProvisional() {
 }
 
 function showSupervisor() {
 }
-
+*/
 function showSuspensions() {
 }
 
 function changeFilter(value) {
   if (value === "All") {
-     $("#mainTable").columns().visible(true);
+     $("#mainTable").DataTable().columns().visible(true);
   }
   else if (value === "Masters") {
     //$("#mainTable").columns(
@@ -49,9 +49,9 @@ function changeFilter(value) {
   else if (value === "PhD") {
      //$("#mainTable").columns().visible(true);
   }
-  
+
 //Kill type for both
-  
+
 //To kill for masters
 //echo "<th> 3 Month Report Deadline </th>";
 //echo "<th> 3 Month Report Submission </th>";
