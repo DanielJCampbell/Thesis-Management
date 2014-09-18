@@ -18,12 +18,13 @@ function sendPHPRequest() {
     }
   }
 
-  req.open('POST', 'filters.php', true);
+  req.open('POST', 'AllDB.php', true);
   req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-  if (filter === "students")
-    req.send("filter=students&type="+type+"&supervisorID="+supervisorID);
-  else
-    req.send("filter="+filter+"&type="+type);
+  req.send();
+  //if (filter === "students")
+  //  req.send("filter=students&type="+type+"&supervisorID="+supervisorID);
+  //else
+  //  req.send("filter="+filter+"&type="+type);
 }
 
 function showStudents(superID){
