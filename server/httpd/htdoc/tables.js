@@ -15,6 +15,7 @@ function sendPHPRequest() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
 	  $("#mainTable").dataTable();
+	  $("#supTable").dataTable()
     }
   }
 
