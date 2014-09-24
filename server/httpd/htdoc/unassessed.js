@@ -1,8 +1,4 @@
 function showUnassessed() {
-//proposal confirmation
-//report 
-//examination 
-//submitted to library
 	$.fn.dataTable.ext.search.push(function ( oSettings, aData, iDataIndex ) {
 	
 		if (aData[15] != "" && aData[17] == "") {
@@ -18,6 +14,5 @@ function showUnassessed() {
 			return true;
 		}
 		return false;
-		);
-	}
+	});
 } 
