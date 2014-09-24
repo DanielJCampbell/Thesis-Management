@@ -5,11 +5,9 @@
 	<script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
     <script src = "tables.js"></script>
-<<<<<<< HEAD
-=======
+
     <script src = "supervisorTables.js"></script>
     <script>showAll();</script>
->>>>>>> 91a8d08e27527371ff63b1dd4892f14e40e08906
 <!--
     <style>
 
