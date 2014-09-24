@@ -6,6 +6,7 @@
 	<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
     <script src = "tables.js"></script>
 	<script src = "unassessed.js"></script>
+	<script src = "deadlines.js"></script>
     <script src = "supervisorTables.js"></script>
     <script>showAll();</script>
 <!--
