@@ -1,4 +1,6 @@
 ;
+var mainTable;
+var supTable;
 
 function studentTypeFilter( oSettings, aData, iDataIndex ) {
   if (aData[2] === type || isSupervisor) {
@@ -18,11 +20,10 @@ function sendPHPRequest() {
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
-	  mainTable = $("#mainTable").DataTable();
-	  supervisorTable = $("#supTable").DataTable();
 	  $('#supTable').parents('div.dataTables_wrapper').first().hide();
-	  $("#mainTable").DataTable();
-	  $("#supTable").DataTable();
+	  mainTable = $("#mainTable").dataTable();
+	  supTable =  $("#supTable").dataTable();
+	  showAll();
     }
   }
 
@@ -38,6 +39,7 @@ function showAll() {
   isSupervisor = false;
   type = "All";
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
+  $('#mainTable').parents('div.dataTables_wrapper').first().show();
   changeFilter(type);
 }
 /**
@@ -59,21 +61,19 @@ function showSuspensions() {
 function changeFilter(value) {
   
   type = value;
-  $("#mainTable").DataTable().columns().visible(true);
+  mainTable.api().columns().visible(true);
   
   if (value === "Masters") {
     $.fn.dataTable.ext.search.push(studentTypeFilter);
-     $("#mainTable").DataTable().columns(":contains('Type'), :contains('Proposal Seminar'), :contains('Work Hours')").visible(false);
+     mainTable.api().columns(":contains('Type'), :contains('Proposal Seminar'), :contains('Work Hours')").visible(false);
   }
-  if (value === "All") {
-     $("#mainTable").DataTable().columns().visible(true);
-  }
-  else if (value === "Masters") {
-    //$("#mainTable").columns(
+  else if (value === "All") {
+     mainTable.api().columns().visible(true);
+     console.log($.fn.dataTable.ext.search.length);
   }
   else if (value === "PhD") {
     $.fn.dataTable.ext.search.push(studentTypeFilter);
-    $("#mainTable").DataTable().columns(":contains('Type'), :contains('3 Month'), :contains('8 Month')").visible(false);
+   mainTable.api().columns(":contains('Type'), :contains('3 Month'), :contains('8 Month')").visible(false);
   }
   
 }
@@ -92,6 +92,6 @@ function popFilter() {
   $.fn.dataTable.ext.search.pop(); 
 }
 function redraw() {
-  $("#mainTable").DataTable().fnDraw();
-   $("#supTable").DataTable().fnDraw();
+  mainTable.fnDraw();
+  supTable.fnDraw();
 }

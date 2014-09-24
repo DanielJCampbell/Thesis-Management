@@ -8,7 +8,6 @@
 	<script src = "unassessed.js"></script>
 	<script src = "deadlines.js"></script>
     <script src = "supervisorTables.js"></script>
-    <script>showAll();</script>
 <!--
     <style>
 
