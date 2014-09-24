@@ -39,6 +39,7 @@ function showAll() {
   isSupervisor = false;
   type = "All";
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
+  $('#mainTable').parents('div.dataTables_wrapper').first().show();
   changeFilter(type);
 }
 /**
@@ -66,11 +67,9 @@ function changeFilter(value) {
     $.fn.dataTable.ext.search.push(studentTypeFilter);
      mainTable.api().columns(":contains('Type'), :contains('Proposal Seminar'), :contains('Work Hours')").visible(false);
   }
-  if (value === "All") {
+  else if (value === "All") {
      mainTable.api().columns().visible(true);
-  }
-  else if (value === "Masters") {
-    //$("#mainTable").columns(
+     console.log($.fn.dataTable.ext.search.length);
   }
   else if (value === "PhD") {
     $.fn.dataTable.ext.search.push(studentTypeFilter);
