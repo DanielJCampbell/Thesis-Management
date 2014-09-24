@@ -12,7 +12,7 @@ function showProvisional() {
 }
 
 function provisionalFilter( oSettings, aData, iDataIndex ) {
-  if (aData[17] === null) {
+  if (aData[17] === "") {
     return true;
   }
   return false;

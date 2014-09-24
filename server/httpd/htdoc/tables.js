@@ -38,6 +38,7 @@ function showStudents(superID){
 
 function showAll() {
   isSupervisor = false;
+  type = "All";
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
   changeFilter(type);
 }
@@ -93,6 +94,6 @@ function popFilter() {
   $.fn.dataTable.ext.search.pop(); 
 }
 function redraw() {
-  mainTable.redraw();
-  supervisorTable.redraw();
+  mainTable.fnDraw();
+  supervisorTable.fnDraw();
 }
