@@ -3,7 +3,7 @@ function showUnassessed() {
 //report 
 //examination 
 //submitted to library
-$.fn.dataTable.ext.search.push(function ( oSettings, aData, iDataIndex ) {
+	$.fn.dataTable.ext.search.push(function ( oSettings, aData, iDataIndex ) {
 	
 		if (aData[15] != "" && aData[17] == "") {
 			return true;
@@ -19,4 +19,5 @@ $.fn.dataTable.ext.search.push(function ( oSettings, aData, iDataIndex ) {
 		}
 		return false;
 		);
+	}
 } 
