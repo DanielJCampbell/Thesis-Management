@@ -7,10 +7,13 @@ function showSupervisor() {
 
 function showProvisional() {
 
-  $('#mainTable').DataTable({
-	  "iFilterCol_0": 14,
-	  "iFilterVal_0": null,
-	  "iFilterCondition": "!="
-	});
+  $.fn.dataTable.ext.search.push(provisionalFilter);
 
+}
+
+function provisionalFilter( oSettings, aData, iDataIndex ) {
+  if (aData[17] === null) {
+    return true;
+  }
+  return false;
 }
