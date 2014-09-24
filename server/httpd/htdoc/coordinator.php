@@ -7,7 +7,6 @@
     <script src = "tables.js"></script>
 
     <script src = "supervisorTables.js"></script>
-    <script>showAll();</script>
 <!--
     <style>
 
