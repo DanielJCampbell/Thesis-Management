@@ -65,6 +65,7 @@ function changeFilter(value) {
   if (value === "Masters") {
     $.fn.dataTable.ext.search.push(studentTypeFilter);
     mainTable.columns(":contains('Type'), :contains('Proposal Seminar'), :contains('Work Hours')").visible(false);
+  }
   if (value === "All") {
      $("#mainTable").DataTable().columns().visible(true);
   }
