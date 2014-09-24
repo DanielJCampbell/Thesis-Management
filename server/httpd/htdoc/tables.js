@@ -60,21 +60,21 @@ function showSuspensions() {
 function changeFilter(value) {
   
   type = value;
-  mainTable.columns().visible(true);
+  mainTable.api().columns().visible(true);
   
   if (value === "Masters") {
     $.fn.dataTable.ext.search.push(studentTypeFilter);
-     mainTable.columns(":contains('Type'), :contains('Proposal Seminar'), :contains('Work Hours')").visible(false);
+     mainTable.api().columns(":contains('Type'), :contains('Proposal Seminar'), :contains('Work Hours')").visible(false);
   }
   if (value === "All") {
-     mainTable.columns().visible(true);
+     mainTable.api().columns().visible(true);
   }
   else if (value === "Masters") {
     //$("#mainTable").columns(
   }
   else if (value === "PhD") {
     $.fn.dataTable.ext.search.push(studentTypeFilter);
-   mainTable.columns(":contains('Type'), :contains('3 Month'), :contains('8 Month')").visible(false);
+   mainTable.api().columns(":contains('Type'), :contains('3 Month'), :contains('8 Month')").visible(false);
   }
   
 }
