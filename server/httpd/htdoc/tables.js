@@ -8,8 +8,6 @@ function studentTypeFilter( oSettings, aData, iDataIndex ) {
 }
 
 var type = "All";
-var mainTable;
-var supervisorTable;
 var isSupervisor = false;
 
 window.onload = sendPHPRequest();
@@ -32,9 +30,9 @@ function sendPHPRequest() {
   req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   req.send();
 }
-
+/**
 function showStudents(superID){
-}
+}*/
 
 function showAll() {
   isSupervisor = false;
@@ -42,7 +40,7 @@ function showAll() {
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
   changeFilter(type);
 }
-
+/**
 function deadlines() {
 }
 
@@ -54,18 +52,18 @@ function showProvisional() {
 
 function showSupervisor() {
 }
-*/
+
 function showSuspensions() {
 }
-
+*/
 function changeFilter(value) {
   
   type = value;
-  mainTable.columns().visible(true);
+  $("#mainTable").DataTable().columns().visible(true);
   
   if (value === "Masters") {
     $.fn.dataTable.ext.search.push(studentTypeFilter);
-    mainTable.columns(":contains('Type'), :contains('Proposal Seminar'), :contains('Work Hours')").visible(false);
+     $("#mainTable").DataTable().columns(":contains('Type'), :contains('Proposal Seminar'), :contains('Work Hours')").visible(false);
   }
   if (value === "All") {
      $("#mainTable").DataTable().columns().visible(true);
@@ -75,7 +73,7 @@ function changeFilter(value) {
   }
   else if (value === "PhD") {
     $.fn.dataTable.ext.search.push(studentTypeFilter);
-    mainTable.columns(":contains('Type'), :contains('3 Month'), :contains('8 Month')").visible(false);
+    $("#mainTable").DataTable().columns(":contains('Type'), :contains('3 Month'), :contains('8 Month')").visible(false);
   }
   
 }
@@ -94,6 +92,6 @@ function popFilter() {
   $.fn.dataTable.ext.search.pop(); 
 }
 function redraw() {
-  mainTable.fnDraw();
-  supervisorTable.fnDraw();
+  $("#mainTable").DataTable().fnDraw();
+   $("#supTable").DataTable().fnDraw();
 }
