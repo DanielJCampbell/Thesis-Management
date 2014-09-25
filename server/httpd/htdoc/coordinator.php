@@ -45,6 +45,7 @@
   <input type = "button" onclick = "popFilter(); showProvisional(); redraw();" value = "Show Provisional Students"/><br/>
   <input type = "button" onclick = "popFilter(); showUnassessed(); redraw();" value = "Show Not Assessed"/><br/>
   <input type = "button" onclick = "popFilter(); showSuspensions(); redraw();" value = "Show Suspended Students"/><br/>
+  <input type = "button" onclick = "popFilter(); showWorkHours(); redraw();" value = "Show Work Hours"/><br/>
   <input type = "button" onclick = "popFilter(); showSupervisor(); redraw();" value = "Show Supervisor Workload"/><br/>
   </div>
   <div id = "body">

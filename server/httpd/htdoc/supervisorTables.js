@@ -45,6 +45,13 @@ function showWorkHours(){
 }
 
 function workHoursFilter( oSettings, aData, iDataIndex ) {
-  // if(aData[
-  return true;
+  var workHours1 = parseInt(aData[7]);
+  var workHours2 = parseInt(aData[8]);
+  var workHours3 = parseInt(aData[9]);
+  var totalHours = workHours1 + workHours2 + workHours3;
+  
+  if(totalHours < 450){
+     return true;
+  }
+  return false;
 }
