@@ -1,14 +1,15 @@
 ;
 
 function showSupervisor() {
-		$('#mainTable').parent('div.dataTables_wrapper').first().hide();
-		$('#supTable').parent('div.dataTables_wrapper').first().show();
+  refreshTable();
+  $('#mainTable').parent('div.dataTables_wrapper').first().hide();
+  $('#supTable').parent('div.dataTables_wrapper').first().show();
 }
 
 function showProvisional() {
-
+  showStudentTable();
   $.fn.dataTable.ext.search.push(provisionalFilter);
-
+  redraw();
 }
 
 function provisionalFilter( oSettings, aData, iDataIndex ) {
@@ -19,7 +20,9 @@ function provisionalFilter( oSettings, aData, iDataIndex ) {
 }
 
 function showSuspensions(){
+  showStudentTable();
   $.fn.dataTable.ext.search.push(suspensionsFilter);
+  redraw();
 }
 
 function suspensionsFilter(oSettings, aData, iDataIndex){
@@ -41,7 +44,9 @@ function suspensionsFilter(oSettings, aData, iDataIndex){
 }
 
 function showWorkHours(){
+  showStudentTable();
   $.fn.dataTable.ext.search.push(workHoursFilter);
+  redraw();
 }
 
 function workHoursFilter( oSettings, aData, iDataIndex ) {
