@@ -52,6 +52,7 @@ echo "<th> Revisions Finalised </th>";
 echo "<th> Deposited in Library </th>";
 echo "<th> Notes </th>";
 echo "<th> Origin </th>";
+echo "<th> Withdrawn </th>";
 echo "</tr>";
 echo "</thead>";
 echo "<tbody>";
@@ -113,6 +114,7 @@ while ($row = pg_fetch_assoc($mastersQuery)){
 	echo "<td>" . $row [depositedinlibrary] . "</td>";
 	echo "<td>" . $row [notes] . "</td>";
 	echo "<td>" . $row [origin] . "</td>";
+	echo "<td>" . $row [withdrawn] . "</td>";
 	echo "</tr>";
 }
 $phdQuery = pg_query ("SELECT * FROM Students NATURAL JOIN PhDStudents") or die('Query failed: ' . pg_last_error());
@@ -180,6 +182,7 @@ while ($row = pg_fetch_assoc($phdQuery )){
 	echo "<td>" . $row [depositedinlibrary] . "</td>";
 	echo "<td>" . $row [notes] . "</td>";
 	echo "<td>" . $row [origin] . "</td>";
+	echo "<td>" . $row [withdrawn] . "</td>";
 	echo "</tr>";
 }
 echo "</tbody>";
