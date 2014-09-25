@@ -153,7 +153,7 @@ function showUnassessed() {
 		return false;
 	});
 	mainTable.api().columns(":contains('Scholarship'), :contains('Work Hours'), :contains('Supervisor'), " +
-							":contains('Date'), :contains('Seminar'), :contains('Deadline'), :contains('Exam'), " +
+							":contains('Date'), :contains('Seminar'), :contains('Deadline'), :contains('Examiners'), " +
 							":contains('Revisions'), :contains('Deposited'), :contains('Origin')").visible(false);
 	redraw();
 } 
