@@ -11,9 +11,9 @@ public class MyWriter {
 		for(int i = 0 ; i <= 70; i++){
 			// Randomized location for Suspension
 			int suspendLocation = 0;
-			// Randomized location for enrolment Type Change
+			// Randomized location for Enrollment Type Change
 			int etcLocation = 0;
-			
+						
 			//Masters
 		if(i<25){
 		suspendLocation = randBetween(1, 4);
@@ -148,6 +148,29 @@ public class MyWriter {
 		prop.moveMonths(randBetween(1,3));
 		String prop8mthApprDate = prop.symbols;
 		
+		// Second Suspension
+				String susStart1 = "";
+				String susStart2 = "";
+				String susEnd1 = "";
+				String susEnd2 = "";
+				
+				if(i<25){
+					susStart1 = thesisM.symbols;
+					prop.moveMonths(randBetween(1, 3));
+					susEnd1 = thesisM.symbols;
+					if(i<10){
+						
+					}
+				}
+					else{
+					susStart2 = thesisP.symbols;
+					prop.moveMonths(randBetween(1, 3));
+					susEnd2 = thesisP.symbols;
+					if(i>50){
+						
+					}
+				}
+				
 		// Suspend Location 4 - Before thesis Masters
 		if(suspendLocation == 4 && i<25){
 		susStart = thesisM.symbols;
@@ -179,8 +202,9 @@ public class MyWriter {
 		thesisM.moveMonths(randBetween(1,3));
 		String deposited = thesisM.symbols;
 		
+		
 		// Suspend Location 0 - Before thesis PhD
-		if(suspendLocation == 0){
+		if(suspendLocation == 0 && i > 25){
 		susStart = thesisP.symbols;
 		prop.moveMonths(randBetween(1, 3));
 		susEnd = thesisP.symbols;
@@ -223,6 +247,7 @@ public class MyWriter {
 				// Suspension that start before current date, End after current date - Masters
 				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +"NULL"+");");
 				suspend(writer,studentid,"'2014-08-10'","'2014-09-10'");
+				suspend(writer,studentid,susStart1,susEnd1);
 				}
 			else if(i<6){
 				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +"NULL,NULL,NULL"+");");
@@ -270,23 +295,24 @@ public class MyWriter {
 					}
 				else if(i<62){
 					writer.println("INSERT INTO PhDStudents (StudentId,StartDate,ProposalDeadline,ProposalSubmission,ProposalSeminar) Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+");");
-					suspend(writer,studentid,susStart,susEnd);
+					
 					}
 				else if(i<64){
 					writer.println("INSERT INTO PhDStudents (StudentId,StartDate,ProposalDeadline,ProposalSubmission,ProposalSeminar,ProposalConfirmation,ThesisDeadline,ThesisSubmission) Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub +");");
-					suspend(writer,studentid,susStart,susEnd);
+					
 					}
 				else if(i<66){
 					writer.println("INSERT INTO PhDStudents (StudentId,StartDate,ProposalDeadline,ProposalSubmission,ProposalSeminar,ProposalConfirmation,ThesisDeadline,ThesisSubmission,ExaminersAppointed) Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub + ","+ examinersPAppointed+");");
-					suspend(writer,studentid,susStart,susEnd);
+					
 					}
 				else if(i<68){
 					writer.println("INSERT INTO PhDStudents (StudentId,StartDate,ProposalDeadline,ProposalSubmission,ProposalSeminar,ProposalConfirmation,ThesisDeadline,ThesisSubmission,ExaminersAppointed,ExaminationCompleted) Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub + ","+ examinersPAppointed+ "," +examinationPComplete+");");
-					suspend(writer,studentid,susStart,susEnd);
+					
 					}
 				else if(i<=70){
 					writer.println("INSERT INTO PhDStudents (StudentId,StartDate,ProposalDeadline,ProposalSubmission,ProposalSeminar,ProposalConfirmation,ThesisDeadline,ThesisSubmission,ExaminersAppointed,ExaminationCompleted,RevisionsFinalised) Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub + ","+ examinersPAppointed+ "," +examinationPComplete+"," + revisionsP+");");
 					suspend(writer,studentid,susStart,susEnd);
+					suspend(writer,studentid,susStart2,susEnd2);
 					}
 			}
 		}
