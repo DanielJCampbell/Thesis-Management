@@ -57,9 +57,10 @@ public class MyWriter {
 			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname+","+rs.suplname+","+ rs.supid1+");");
 			writer.println("INSERT INTO Supervisors Values ("+ rs.supfname2+","+rs.suplname2+","+ rs.supid2+");");
 		}
-				
 		
-		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+ studentid +","+rs.supid1+","+rs.supPercent + ","+rs.supid2+","+rs.supPercent2+","+scholar+","+notes+","+ origin+ ");");
+		boolean withdrawn = new RandomBoolean().symbols;
+		
+		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+ studentid +","+rs.supid1+","+rs.supPercent + ","+rs.supid2+","+rs.supPercent2+","+scholar+","+notes+","+ origin+","+ withdrawn +");");
 		
 		// Start of enrolment - Initial enrolment Type
 		String enrolmentType = "";
@@ -268,8 +269,25 @@ public class MyWriter {
 			else if(i<12){
 				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
+				}			
+			else if(i<14){
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+"NULL"+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				suspend(writer,studentid,susStart,susEnd);
 				}
-			else if(i<21){
+			else if(i<16){
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+"NULL"+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				suspend(writer,studentid,susStart,susEnd);
+				}
+			else if(i<18){
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+",NULL,"+"NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				suspend(writer,studentid,susStart,susEnd);
+				}
+
+			else if(i<20){
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+",NULL,NULL,NULL,NULL,NULL"+");");
+				suspend(writer,studentid,susStart,susEnd);
+				}
+			else if(i<23){
 				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
