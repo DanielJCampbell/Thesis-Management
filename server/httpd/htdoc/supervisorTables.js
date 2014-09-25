@@ -1,6 +1,7 @@
 ;
 
 function showSupervisor() {
+  isSupervisor = true;
   refreshTable();
   $('#mainTable').parent('div.dataTables_wrapper').first().hide();
   $('#supTable').parent('div.dataTables_wrapper').first().show();
