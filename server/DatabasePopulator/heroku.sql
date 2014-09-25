@@ -6,5 +6,5 @@ DROP TABLE SUPERVISORS;
 DROP TABLE SUSPENSIONS CASCADE;
 DROP TABLE WITHDRAWALS;
 
-\i ~/ThesisManagement/tables.sql
-\i ~/git/Thesis-Management/server/DatabasePopulator/DatabasePopulator/test-data.txt 
+\i ~/SWEN302/Thesis-Management/server/DatabasePopulator/tables.sql
+\i ~/SWEN302/Thesis-Management/server/DatabasePopulator/DatabasePopulator/test-data.txt 

@@ -69,7 +69,6 @@ function changeFilter(value) {
   }
   else if (value === "All") {
      mainTable.api().columns().visible(true);
-     console.log($.fn.dataTable.ext.search.length);
   }
   else if (value === "PhD") {
     $.fn.dataTable.ext.search.push(studentTypeFilter);
