@@ -3,8 +3,9 @@ function deadlines(){
 		var currentDate = Date.now();
 		if (aData[14] != "") {
 			var propDate = new Date(aData[14]);
-			console.log(propDate.getYear());
-			return true;
+			if(propDate < currentDate){
+				return true;
+			}
 		}
 		return false;
 	});
