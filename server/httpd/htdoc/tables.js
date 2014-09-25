@@ -45,6 +45,15 @@ function sendPHPRequest() {
 
 function showStudentTable() {
   isSupervisor = false;
+  showNonCurrentStudents = false;
+  $('#supTable').parents('div.dataTables_wrapper').first().hide();
+  $('#mainTable').parents('div.dataTables_wrapper').first().show();
+  refreshTable();
+}
+
+function showNonCurrentStudents(); {
+  isSupervisor = false;
+  showNonCurrentStudents = true;
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
   $('#mainTable').parents('div.dataTables_wrapper').first().show();
   refreshTable();
@@ -73,6 +82,7 @@ function refreshTable() {
   while ($.fn.dataTable.ext.search.length > 2){
 		$.fn.dataTable.ext.search.pop();
 	}
+
   mainTable.api().columns(":contains('Withdrawn')").visible(false);
   if (type === "Masters") {
      mainTable.api().columns(":contains('Type'), :contains('Proposal Seminar'), :contains('Work Hours')").visible(false);
