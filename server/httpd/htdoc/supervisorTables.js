@@ -32,8 +32,8 @@ function suspensionsFilter(oSettings, aData, iDataIndex){
      var startDateString = ((newLineIndex === -1) ? str.substr(0, dashIndex) : str.substr(newLineIndex+1, dashIndex)).split("-");
      var endDateString = (str.substr(dashIndex+1)).split("-");
      
-     var start = new Date(startDateString[0], startDateString[1], startDateString[2]);
-     var end = new Date(endDateString[0], endDateString[1], endDateString[2]);
+     var start = new Date(startDateString);
+     var end = new Date(endDateString);
      if (start < today && today < end)
        return true;
   }
