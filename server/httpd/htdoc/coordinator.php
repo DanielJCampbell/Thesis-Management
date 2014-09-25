@@ -5,7 +5,6 @@
 	<script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
     <script src = "tables.js"></script>
-    <script src = "supervisorTables.js"></script>
 <!--
     <style>
 
@@ -46,7 +45,7 @@
   <input type = "button" onclick = "showSuspensions();" value = "Show Suspended Students"/><br/>
   <input type = "button" onclick = "showWorkHours();" value = "Show Work Hours"/><br/>
   <input type = "button" onclick = "showSupervisor();" value = "Show Supervisor Workload"/><br/>
-  <input type = "button" onclick = "showNonCurrentStudents();" value = "Sjow Non-current Students"/><br/>
+  <input type = "button" onclick = "showNonCurrentStudents();" value = "Show Non-current Students"/><br/>
   </div>
   <div id = "body">
   Filter On: <select id = "students" onchange = "changeStudentfilter(this.value)" selected = "All">
