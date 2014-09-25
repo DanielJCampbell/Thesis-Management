@@ -28,7 +28,7 @@ function deadlines(){
 		return false;
 	});
 	
-	mainTable.api().columns(":contains('Scholarship'), :contains('Work Hours'), :contains('Supervisor'), 
-							:contains('Date'), :contains('Seminar'), :contains('Confirmation'), :contains('Approval'), 
-							:contains('Exam'), :contains('Revisions'), :contains('Deposited'), :contains('Origin')").visible(false);
+	mainTable.api().columns(":contains('Scholarship'), :contains('Work Hours'), :contains('Supervisor'), " +
+							":contains('Date'), :contains('Seminar'), :contains('Confirmation'), :contains('Approval'), " +
+							":contains('Exam'), :contains('Revisions'), :contains('Deposited'), :contains('Origin')").visible(false);
 }
