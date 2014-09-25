@@ -10,7 +10,7 @@ function studentTypeFilter( oSettings, aData, iDataIndex ) {
 }
 
 function nonCurrentStudentFilter(oSettings, aData, iDataIndex){
-	if (aData[13] == "" || aData[29] != "" aData[32] == "True"){
+	if (aData[13] == "" || aData[29] != "" || aData[32] == "True"){
 		return showNonCurrentStudents;
 	}
 	return !showNonCurrentStudents;
