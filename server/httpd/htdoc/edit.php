@@ -35,7 +35,7 @@
       <div>
 	<label for="startDate">Start Date:</label>
 	<input type="date" id="startDate" name="startDate"/>
-	<button id="calcDateStart" name="calcDateStart" onclick='calcDeadlines("startDate");'/>
+	<button id="calcDateStart" name="calcDateStart" type ="button" onclick='calcDeadlines("startDate");'/>
       </div>
       <div>
 	<label for="course">Course:</label>
