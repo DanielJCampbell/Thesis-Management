@@ -38,7 +38,7 @@ function sendPHPRequest() {
 	  $.fn.dataTable.ext.search.push(nonCurrentStudentFilter);
 	  $("#mainTable").on('click', 'td.editTD', function () {
 		  var tr = $(this).closest('tr');
-	      var row = table.row( tr );
+	      var row = mainTable.api().row( tr );
 	      if ( row.child.isShown() ) {
 			// This row is already open - close it
 			row.child.hide();
