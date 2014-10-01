@@ -251,8 +251,8 @@ function format(data) {
 	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' id = 'lname'  value = '"+data[1].split(" ")[1]+"'/></tr>"
 	+ "<tr> <td> Student ID: </td> <td> <input type = 'number' id = 'sID'  value = '"+data[2]+"'/></tr>"
 	+ "<tr> <td> Type: </td> <td> <select id = 'type'>" +
-	+ ((data[3] === "Masters") ? "<option value = 'PhD'>PhD</option> <option value = 'Masters' selected = 'true'>Masters</option></select></tr>"
-			: "<option value = 'PhD' selected = 'true'>PhD</option> <option value = 'Masters'>Masters</option></select></tr>")
+	+ ((data[3] === "Masters") ? "<option value = 'PhD'>PhD</option> <option value = 'Masters' selected = 'selected'>Masters</option></select></tr>"
+			: "<option value = 'PhD' selected = 'selected'>PhD</option> <option value = 'Masters'>Masters</option></select></tr>")
 	+ "<tr> <td> Course: </td> <td> <input type='text' id='course' name='course' value = '"+data[4]+"'/></tr>"
 	+ "</table> </form>";
 }
