@@ -3,7 +3,7 @@ var mainTable;
 var supTable;
 
 function studentTypeFilter( oSettings, aData, iDataIndex ) {
-  if (aData[2] === type || isSupervisor || type === "All") {
+  if (aData["Type"] === type || isSupervisor || type === "All") {
     return true;
   }
   return false;
@@ -11,7 +11,7 @@ function studentTypeFilter( oSettings, aData, iDataIndex ) {
 
 function nonCurrentStudentFilter(oSettings, aData, iDataIndex){
 	if (isSupervisor) {return true;}
-	if (aData[13] == "" || aData[29] != "" || aData[32] == "True"){
+	if (aData["Start Date"] == "" || aData["Deposited In Library"] != "" || aData["Withdrawn"] == "True"){
 		return showNonCurrentStudents;
 	}
 	return !showNonCurrentStudents;
@@ -116,13 +116,13 @@ function showOverdue(){
 	showStudentTable();
 	$.fn.dataTable.ext.search.push(function ( oSettings, aData, iDataIndex ) {
 		var currentDate = Date.now();
-		if (aData[14] != "" && aData[15] == "") { /*Deadline date is not empty, Deadline submission is empty (Proposal)*/
+		if (aData["Proposal Deadline"] != "" && aData["Proposal Submssion"] == "") { /*Deadline date is not empty, Deadline submission is empty (Proposal)*/
 			var propDate = new Date(aData[14]);
 			if(propDate < currentDate){
 				return true;
 			}
 		}
-		if (aData[18] != "" & aData[19] == ""){
+		if (aData["3 Month Report Deadline"] != "" & aData["3 Month Report Submission"] == ""){
 			var mon3Date = new Date(aData[18]);
 			if(mon3Date < currentDate){
 				return true;
