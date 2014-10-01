@@ -16,6 +16,7 @@ function calcDeadlines(calcFrom){
 			var month3Date = new Date(inputDateString);
 			month3Date.setMonth(month3Month);
 			console.log(month3Date);
+			console.log(month3Date.toDateString());
 			//set 3 month report value to = month3;
 		}
 	case "month3Date":
