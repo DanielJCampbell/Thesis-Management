@@ -247,7 +247,7 @@ function format(data) {
 //	+ "<th> Notes </th> <th> Origin </th> <th> Withdrawn </th> </tr> </table>";
 
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
-	+ "<tr> <td> First Name: </td> <td> <input type = 'text' id = 'fname' value = '"+data["Name"]+"'/></tr>"
+	+ "<tr> <td> First Name: </td> <td> <input type = 'text' id = 'fname' value = '"+data[0]+"'/></tr>"
 	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' id = 'lname'  value = '"+data["L_Name"]+"'/></tr>"
 	+ "<tr> <td> Student ID: </td> <td> <input type = 'number' id = 'sID'  value = '"+data["StudentID"]+"'/></tr>"
 	+ "<tr> <td> Type: </td> <td> <select id = 'type'>" +
