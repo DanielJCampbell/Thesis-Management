@@ -67,7 +67,7 @@ function showStudentTable() {
   refreshTable();
 }
 
-function showNonCurrentStudents(){
+function showNonCurrent(){
   isSupervisor = false;
   showNonCurrentStudents = true;
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
