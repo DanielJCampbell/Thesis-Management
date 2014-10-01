@@ -236,13 +236,17 @@ function workHoursFilter( oSettings, aData, iDataIndex ) {
 }
 
 function format(data) {
-	return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
-	+ "<tr> <th> First Name </th> <th> Last Name </th> <th> ID </th> <th> Type </th> <th> Course </th>"
-	+ "<th> Specialisation </th> <th> Part-Time </th> <th> Scholarship </th> <th> Work Hours Year 1 </th>"
-	+ "<th> Work Hours Year 2 </th> <th> Work Hours Year 3 </th> <th> Primary Supervisor </th> <th> Secondary Supervisor </th>"
-	+ "<th> Suspension Dates </th> <th> Start Date </th> <th> Proposal Deadline </th> <th> Proposal Submission </th> <th> Proposal Seminar </th>"
-	+ "<th> Proposal Confirmation </th> <th> 3 Month Report Deadline </th> <th> 3Month Report Submission </th> <th>3 Month Report Approval</th>"
-	+ "<th> 8 Month Deadline </th> <th> 8 Month Submission </th> <th> 8 Month Approval </th> <th> Thesis Deadline </th> <th>Thesis Submission </th>"
-	+ "<th> Examiners Appointed </th> <th> Examination Completed </th> <th> Revisions Finalised </th> <th> Deposited In Library </th>"
-	+ "<th> Notes </th> <th> Origin </th> <th> Withdrawn </th> </tr> </table>";
+//	return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
+//	+ "<tr> <th> First Name </th> <th> Last Name </th> <th> ID </th> <th> Type </th> <th> Course </th>"
+//	+ "<th> Specialisation </th> <th> Part-Time </th> <th> Scholarship </th> <th> Work Hours Year 1 </th>"
+//	+ "<th> Work Hours Year 2 </th> <th> Work Hours Year 3 </th> <th> Primary Supervisor </th> <th> Secondary Supervisor </th>"
+//	+ "<th> Suspension Dates </th> <th> Start Date </th> <th> Proposal Deadline </th> <th> Proposal Submission </th> <th> Proposal Seminar </th>"
+//	+ "<th> Proposal Confirmation </th> <th> 3 Month Report Deadline </th> <th> 3Month Report Submission </th> <th>3 Month Report Approval</th>"
+//	+ "<th> 8 Month Deadline </th> <th> 8 Month Submission </th> <th> 8 Month Approval </th> <th> Thesis Deadline </th> <th>Thesis Submission </th>"
+//	+ "<th> Examiners Appointed </th> <th> Examination Completed </th> <th> Revisions Finalised </th> <th> Deposited In Library </th>"
+//	+ "<th> Notes </th> <th> Origin </th> <th> Withdrawn </th> </tr> </table>";
+
+	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
+	+ "<tr> <td> First Name </td> <td> <input type = 'text' id = 'fname'/></tr>"
+	+ "</table> </form>";
 }
