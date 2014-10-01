@@ -36,6 +36,10 @@ function sendPHPRequest() {
 		$( colvis.button() ).insertAfter('div#body');
 	  $.fn.dataTable.ext.search.push(studentTypeFilter);
 	  $.fn.dataTable.ext.search.push(nonCurrentStudentFilter);
+	  $("#mainTable").on('click', 'td', function () {
+
+			alert("I'm working!");
+		});
 	  showStudentTable();
     }
   }
