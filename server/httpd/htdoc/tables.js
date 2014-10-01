@@ -3,7 +3,7 @@ var mainTable;
 var supTable;
 
 function studentTypeFilter( oSettings, aData, iDataIndex ) {
-  if (aData["Type"] === type || isSupervisor || type === "All") {
+  if (aData[3] === type || isSupervisor || type === "All") {
     return true;
   }
   return false;
@@ -11,7 +11,7 @@ function studentTypeFilter( oSettings, aData, iDataIndex ) {
 
 function nonCurrentStudentFilter(oSettings, aData, iDataIndex){
 	if (isSupervisor) {return true;}
-	if (aData["Start Date"] == "" || aData["Deposited In Library"] != "" || aData["Withdrawn"] == "True"){
+	if (aData[14] == "" || aData[30] != "" || aData[33] == "True"){
 		return showNonCurrentStudents;
 	}
 	return !showNonCurrentStudents;
@@ -116,26 +116,26 @@ function showOverdue(){
 	showStudentTable();
 	$.fn.dataTable.ext.search.push(function ( oSettings, aData, iDataIndex ) {
 		var currentDate = Date.now();
-		if (aData["Proposal Deadline"] != "" && aData["Proposal Submssion"] == "") { /*Deadline date is not empty, Deadline submission is empty (Proposal)*/
-			var propDate = new Date(aData[14]);
+		if (aData[15] != "" && aData[16] == "") { /*Deadline date is not empty, Deadline submission is empty (Proposal)*/
+			var propDate = new Date(aData[15]);
 			if(propDate < currentDate){
 				return true;
 			}
 		}
-		if (aData["3 Month Report Deadline"] != "" & aData["3 Month Report Submission"] == ""){
-			var mon3Date = new Date(aData[18]);
+		if (aData[19] != "" & aData[20] == ""){
+			var mon3Date = new Date(aData[19]);
 			if(mon3Date < currentDate){
 				return true;
 			}
 		}
-		if (aData[21] != "" & aData[22] == ""){
-			var mon8Date = new Date(aData[21]);
+		if (aData[22] != "" & aData[23] == ""){
+			var mon8Date = new Date(aData[22]);
 			if(mon8Date < currentDate){
 				return true;
 			}
 		}
-		if (aData[24] != "" & aData[25] == ""){
-			var subDate = new Date(aData[24]);
+		if (aData[25] != "" & aData[26] == ""){
+			var subDate = new Date(aData[25]);
 			if(subDate < currentDate){
 				return true;
 			}
@@ -153,16 +153,16 @@ function showUnassessed() {
 	showStudentTable();
 	$.fn.dataTable.ext.search.push(function ( oSettings, aData, iDataIndex ) {
 
-		if (aData[15] != "" && aData[17] == "") {
+		if (aData[16] != "" && aData[18] == "") {
 			return true;
 		}
-		if (aData[19] != "" && aData[20] == ""){
+		if (aData[20] != "" && aData[21] == ""){
 			return true;
 		}
-		if (aData[22] != "" && aData[23] == ""){
+		if (aData[23] != "" && aData[24] == ""){
 			return true;
 		}
-		if (aData[25] != "" && aData[27] == ""){
+		if (aData[26] != "" && aData[28] == ""){
 			return true;
 		}
 		return false;
@@ -187,7 +187,7 @@ function showProvisional() {
 }
 
 function provisionalFilter( oSettings, aData, iDataIndex ) {
-  if (aData[17] === "") {
+  if (aData[18] === "") {
     return true;
   }
   return false;
@@ -200,7 +200,7 @@ function showSuspensions(){
 }
 
 function suspensionsFilter(oSettings, aData, iDataIndex){
-  var str = aData[12];
+  var str = aData[13];
   if(str !== undefined && str != ""){
      var today = new Date();
      var dashIndex = str.lastIndexOf(' - ');
