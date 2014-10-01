@@ -60,26 +60,14 @@ function showNonCurrentStudents(){
   $('#mainTable').parents('div.dataTables_wrapper').first().show();
   refreshTable();
 }
-/**
 
-
-
-function showProvisional() {
-}
-
-function showSupervisor() {
-}
-
-function showSuspensions() {
-}
-*/
 function changeStudentfilter(value){
 	type = value;
 	refreshTable();
 }
 
 function refreshTable() {
-  
+
   mainTable.api().columns().visible(true);
   while ($.fn.dataTable.ext.search.length > 2){
 		$.fn.dataTable.ext.search.pop();
@@ -140,7 +128,7 @@ function showOverdue(){
 		}
 		return false;
 	});
-	
+
 	mainTable.api().columns(":contains('Scholarship'), :contains('Work Hours'), :contains('Supervisor'), " +
 							":contains('Date'), :contains('Seminar'), :contains('Confirmation'), :contains('Approval'), " +
 							":contains('Exam'), :contains('Revisions'), :contains('Deposited'), :contains('Origin')").visible(false);
@@ -150,7 +138,7 @@ function showOverdue(){
 function showUnassessed() {
 	showStudentTable();
 	$.fn.dataTable.ext.search.push(function ( oSettings, aData, iDataIndex ) {
-	
+
 		if (aData[15] != "" && aData[17] == "") {
 			return true;
 		}
@@ -203,10 +191,10 @@ function suspensionsFilter(oSettings, aData, iDataIndex){
      var today = new Date();
      var dashIndex = str.lastIndexOf(' - ');
      var newLineIndex = str.lastIndexOf('\\n');
-     
+
      var startDateString = ((newLineIndex === -1) ? str.substr(0, dashIndex) : str.substr(newLineIndex+1, dashIndex)).split("-");
      var endDateString = (str.substr(dashIndex+1)).split("-");
-     
+
      var start = new Date(startDateString);
      var end = new Date(endDateString);
      if (start < today && today < end)
@@ -226,7 +214,7 @@ function workHoursFilter( oSettings, aData, iDataIndex ) {
   var workHours2 = parseInt(aData[8]);
   var workHours3 = parseInt(aData[9]);
   var totalHours = workHours1 + workHours2 + workHours3;
-  
+
   if(totalHours < 450){
      return true;
   }
