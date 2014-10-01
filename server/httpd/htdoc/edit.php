@@ -2,8 +2,9 @@
 <html>
   <head>
     <title>Edit</title>
+    <script src = "deadlines.js"></script>
   </head>
-  
+
   <body>
     <h3>Add/Edit Student</h3>
     <form method="post">
@@ -20,15 +21,21 @@
 	<input type="number" id="studentID" name="studentID"/>
       </div>
       <div>
-	<select name="type">
+	<select name="type" id="type">
 	<option value="masters">Masters</option>
 	<option value="PhD">PhD</option>
-	<option value="provisional">Provisional</option>
+	</select>
+      </div>
+      <div>
+	<select name="partTimeStatus" id="partTimeStatus">
+	<option value="partTime">Part Time</option>
+	<option value="fullTime">Full Time</option>
 	</select>
       </div>
       <div>
 	<label for="startDate">Start Date:</label>
 	<input type="date" id="startDate" name="startDate"/>
+	<button id="calcDateStart" name="calcDateStart" onclick='calcDeadlines("startDate");'/>
       </div>
       <div>
 	<label for="course">Course:</label>
@@ -67,9 +74,8 @@
       <div class="button">
 	<button type="submit" value="Submit" name="Submit">Update Database</button>
       </div>
-      
     </form>
-    
+
     <div>
       <h3>Delete Student</h3>
       <form method="post">
@@ -78,17 +84,17 @@
 	  <input type="number" id="del_studentID" name="del_studentID"/>
 	</div>
 	<div class="button">
-	  <button type="submit" value="Delete" name="Delete">Delete Student</button> 
+	  <button type="submit" value="Delete" name="Delete">Delete Student</button>
 	</div>
       </form>
     </div>
-    
+
     <?php
       $location = "ec2-54-83-204-104.compute-1.amazonaws.com";
       $username = "poacfvyhdhwtsx";
       $password = "nVJ0Via96oYvrOfrSs3ECsVR1W";
       $database = "ddf40gpbvva8uo";
-      
+
       $db = pg_connect("host=".$location." dbname=".$database." user=".$username." password=".$password);
       if($db->connect_errno > 0){
 	die('Unable to connect to database [' . $db->connect_error . ']');
@@ -96,7 +102,7 @@
       if (empty ( $_POST )){
 	    echo "<p> Post is empty</p>";
       }
-      
+
       if(isSet($_POST['Submit'])){
 	$f_name = htmlspecialchars($_POST['f_name']);
 	$l_name = htmlspecialchars($_POST['l_name']);
@@ -111,22 +117,22 @@
 	$secPercent = htmlspecialchars($_POST['secPercent']);
 	$origin = htmlspecialchars($_POST['origin']);
 	$opType = htmlspecialchars($_POST['optype']);
-	
+
 	$query;
-	
+
 	if ($opType === "Add") {
-	
-	    $query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin) 
+
+	    $query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin)
 		      VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.
 		      ",".$secPercent.",'".$origin."')";
 	}
 	else {
-	    $query = "UPDATE students SET (F_Name,L_Name, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin) 
+	    $query = "UPDATE students SET (F_Name,L_Name, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin)
 		      = ('".$f_name."','".$l_name."','".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.
 		      ",".$secPercent.",'".$origin."') WHERE StudentID = ".$SID;
 	}
 	$result = pg_query($query) or die('Query failed: ' . pg_last_error());
-	
+
 	if($type === "masters" && $opType === "Add"){
 	  $mastersQuery = "INSERT INTO MastersStudents(StudentID, StartDate) VALUES (".$SID.",'".$startDate."')";
 	  $mastersResult = pg_query($mastersQuery) or die('Query failed: ' . pg_last_error());
@@ -147,7 +153,7 @@
 	  $phdResult = pg_query($phdQuery) or die('Query failed: ' . pg_last_error());
 	  pg_free_result($phdResult);
 	}
-	
+
 	pg_free_result($result);
       }
       else if(isSet($_POST['Delete'])){
@@ -155,7 +161,7 @@
 	$MastersQuery = "DELETE FROM MastersStudents WHERE StudentID = ".$SID;
 	$PhDQuery = "DELETE FROM PhDStudents WHERE StudentID = ".$SID;
 	$StudentsQuery = "DELETE FROM Students WHERE StudentID = ".$SID;
-	
+
 	$Mresult = pg_query($MastersQuery) or die('Query failed: ' . pg_last_error());
 	$Presult = pg_query($PhDQuery) or die('Query failed: ' . pg_last_error());
 	$Sresult = pg_query($StudentsQuery) or die('Query failed: ' . pg_last_error());
@@ -163,7 +169,7 @@
 	pg_free_result($Presult);
 	pg_free_result($Sresult);
       }
-      
+
       pg_close($db);
     ?>
 
