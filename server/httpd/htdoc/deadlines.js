@@ -15,7 +15,7 @@ function calcDeadlines(calcFrom){
 		if (studentType === "masters"){
 			var month3Date = new Date(inputDateString);
 			month3Date.setMonth(month3Month);
-			console.Log(month3Date);
+			console.log(month3Date);
 			//set 3 month report value to = month3;
 		}
 	case "month3Date":
