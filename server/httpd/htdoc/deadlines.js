@@ -2,7 +2,7 @@ function calcDeadlines(calcFrom){
 	var inputDateString = document.getElementById(calcFrom).value;
 	var inputDate = new Date(inputDateString);
 	var partTimeStatus = document.getElementById("partTimeStatus").value;
-	var studentType = document.getelementByID("type").value;
+	var studentType = document.getElementByID("type").value;
 	var inputMonth = inputDate.getMonth();
 	var partTimeModifier = 1;
 	if (partTimeStatus === "partTime"){
