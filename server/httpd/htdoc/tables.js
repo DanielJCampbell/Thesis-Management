@@ -247,6 +247,10 @@ function format(data) {
 //	+ "<th> Notes </th> <th> Origin </th> <th> Withdrawn </th> </tr> </table>";
 
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
-	+ "<tr> <td> First Name </td> <td> <input type = 'text' id = 'fname'/></tr>"
+	+ "<tr> <td> First Name: </td> <td> <input type = 'text' id = 'fname'/></tr>"
+	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' id = 'lname'/></tr>"
+	+ "<tr> <td> Student ID: </td> <td> <input type = 'number' id = 'sID'/></tr>"
+	+ "<tr> <td> Type: </td> <td> <select id = 'type'> <option value = 'PhD'>PhD</option> <option value = 'Masters'>Masters</option></select></tr>"
+	+ "<tr> <td> Start Date: </td> <td> <input type='date' id='startDate' name='startDate'/></tr>"
 	+ "</table> </form>";
 }
