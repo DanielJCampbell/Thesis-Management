@@ -21,7 +21,7 @@ function calcDeadlines(calcFrom){
 			//set 3 month report value to = month3;
 		}
 	case "month3Date":
-		var month8 = month3Month+5;
+		var month8Month = month3Month+5;
 		if (studentType === "masters"){
 			var month8Date = new Date(inputDateString);
 			month8Date.setMonth(month8Month);
