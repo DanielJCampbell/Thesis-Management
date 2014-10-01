@@ -247,11 +247,12 @@ function format(data) {
 //	+ "<th> Notes </th> <th> Origin </th> <th> Withdrawn </th> </tr> </table>";
 
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
-	+ "<tr> <td> First Name: </td> <td> <input type = 'text' id = 'fname' value = '"+data[0]+"'/></tr>"
-	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' id = 'lname'  value = '"+data["L_Name"]+"'/></tr>"
-	+ "<tr> <td> Student ID: </td> <td> <input type = 'number' id = 'sID'  value = '"+data["StudentID"]+"'/></tr>"
+	+ "<tr> <td> First Name: </td> <td> <input type = 'text' id = 'fname' value = '"+data[1].split(" ")[0]+"'/></tr>"
+	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' id = 'lname'  value = '"+data[1].split(" ")[1]+"'/></tr>"
+	+ "<tr> <td> Student ID: </td> <td> <input type = 'number' id = 'sID'  value = '"+data[2]+"'/></tr>"
 	+ "<tr> <td> Type: </td> <td> <select id = 'type'>" +
-	+ ((true) ? "<option value = 'PhD'>PhD</option> <option value = 'Masters'>Masters</option></select></tr>" : "")
-	+ "<tr> <td> Start Date: </td> <td> <input type='date' id='startDate' name='startDate'/></tr>"
+	+ ((data[3] === "Masters") ? "<option value = 'PhD'>PhD</option> <option value = 'Masters' selected = 'true'>Masters</option></select></tr>"
+			: "<option value = 'PhD' selected = 'true'>PhD</option> <option value = 'Masters'>Masters</option></select></tr>")
+	+ "<tr> <td> Course: </td> <td> <input type='text' id='course' name='course' value = '"+data[4]+"'/></tr>"
 	+ "</table> </form>";
 }
