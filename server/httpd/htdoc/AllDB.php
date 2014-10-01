@@ -20,6 +20,7 @@ $db = pg_connect("host = '".$location."'user = '".$username."' password = '".$pa
 echo "<table id='mainTable'  class='stripe'>";
 echo "<thead>";
 echo "<tr>";
+echo "<th></th>";
 echo "<th> Name </th>";
 echo "<th> ID </th>";
 echo "<th> Type </th>";
@@ -53,7 +54,6 @@ echo "<th> Deposited in Library </th>";
 echo "<th> Notes </th>";
 echo "<th> Origin </th>";
 echo "<th> Withdrawn </th>";
-echo "<th></th>";
 echo "</tr>";
 echo "</thead>";
 echo "<tbody>";
@@ -64,6 +64,7 @@ $mastersQuery = pg_query ( "SELECT * FROM Students NATURAL JOIN MastersStudents"
 while ($row = pg_fetch_assoc($mastersQuery)){
 
 	echo "<tr>";
+	echo "<td class = 'editTD'> Edit </td>";
 	echo "<td>" . $row [f_name] . " " . $row [l_name] . "</td>";
 	echo "<td>" . $row [studentid] . "</td>";
 	echo "<td>Masters</td>";
@@ -116,13 +117,13 @@ while ($row = pg_fetch_assoc($mastersQuery)){
 	echo "<td>" . $row [notes] . "</td>";
 	echo "<td>" . $row [origin] . "</td>";
 	echo "<td>" . $row [withdrawn] . "</td>";
-	echo "<td class = 'editTD'> Edit </td>";
 	echo "</tr>";
 }
 $phdQuery = pg_query ("SELECT * FROM Students NATURAL JOIN PhDStudents") or die('Query failed: ' . pg_last_error());
 
 while ($row = pg_fetch_assoc($phdQuery )){
 	echo "<tr>";
+	echo "<td class = 'editTD'> Edit </td>";
 	echo "<td>" . $row [f_name] . " " . $row [l_name] . "</td>";
 	echo "<td>" . $row [studentid] . "</td>";
 	echo "<td>PhD</td>";
@@ -185,7 +186,6 @@ while ($row = pg_fetch_assoc($phdQuery )){
 	echo "<td>" . $row [notes] . "</td>";
 	echo "<td>" . $row [origin] . "</td>";
 	echo "<td>" . $row [withdrawn] . "</td>";
-	echo "<td class = 'editTD'> Edit </td>";
 	echo "</tr>";
 }
 echo "</tbody>";
