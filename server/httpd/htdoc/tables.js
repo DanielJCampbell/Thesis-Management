@@ -97,6 +97,7 @@ function refreshTable() {
   }
   mainTable.addClass('cell-border');
   mainTable.addClass('display');
+  mainTable.columns.adjust();
   redraw();
 }
 
