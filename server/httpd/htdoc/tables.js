@@ -255,6 +255,11 @@ function format(data) {
 	var partTimeString = (data[6] === "Yes") ? "<input type='radio' name='pt' value='Yes' checked/> <input type='radio' name='pt' value='No'/>"
 			: "<input type='radio' name='pt' value='Yes'/> <input type='radio' name='pt' value='No' checked/>";
 
+	var workHourString = (data[3] === "Masters") ? ""
+			: "<tr> <td> Work Hours Year 1 </td> <td> <input type = 'number' name = 'WorkY1' id = 'WorkY1' min = '0' max = '150' value = '" + data[8]  + "'</td> </tr>"
+			+ "<tr> <td> Work Hours Year 2 </td> <td> <input type = 'number' name = 'WorkY2' id = 'WorkY2' min = '0' max = '150' value = '" + data[9]  + "'</td> </tr>"
+			+ "<tr> <td> Work Hours Year 3 </td> <td> <input type = 'number' name = 'WorkY3' id = 'WorkY3' min = '0' max = '150' value = '" + data[10] + "'</td> </tr>";
+
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
 	+ "<tr> <td> First Name: </td> <td> <input type = 'text' id = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
 	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' id = 'lname'  value = '"+data[1].split(" ")[1]+"'/></td></tr>"
@@ -265,5 +270,6 @@ function format(data) {
 	+ "<tr> <td> Specialisation: </td> <td> <input type='text' id='specialisation' name='specialisation' value = '"+data[5]+"'/></td></tr>"
 	+ "<tr> <td> Part-Time: </td> <td> " + partTimeString + "</td> </tr>"
 	+ "<tr> <td> Scholarship: </td> <td> <input type='text' id='scholarship' name='scholarship' value = '"+data[7]+"'/></tr>"
+	+ workHourString
 	+ "</table> </form>";
 }
