@@ -22,15 +22,7 @@ input[type="button"]:active{
 	top:1px;
 }
 
-#left{
-	float:left;
-}
-
-#last{
-	float:left;
-}
-
-#body{
+#Tables{
 	float:right;
 }
 
