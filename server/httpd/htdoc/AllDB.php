@@ -5,14 +5,14 @@ $password = "nVJ0Via96oYvrOfrSs3ECsVR1W";
 $database = "ddf40gpbvva8uo";
 
 function calculateDeadlines($startDate,$studentType,$partTimeStatus){
-// 	$studentTypeModifier = 1;
-// 	$partTimeModifier = 1;
-// 	if (partTimeStatus === "H"){
-// 		partTimeModifier = 2;
-// 	}
-// 	if (studentType === "PhD"){
-// 		studentTypeModifier = 3;
-// 	}
+ 	$studentTypeModifier = 1;
+ 	$partTimeModifier = 1;
+ 	if (partTimeStatus === "H"){
+ 		$partTimeModifier = 2;
+ 	}
+ 	if (studentType === "PhD"){
+ 		$studentTypeModifier = 3;
+ 	}
 // 	$proposalDeadline = date('Y-m-d', strtotime("+" + 1*partTimeModifier*studentTypeModifier + " months", strtotime($startDate)));
 // 	$month3Deadline = date('Y-m-d', strtotime("+" + 3*partTimeModifier*studentTypeModifier + " months", strtotime($startDate)));
 // 	$month8Deadline = date('Y-m-d', strtotime("+" + 3*partTimeModifier*studentTypeModifier + " months", strtotime($startDate)));
