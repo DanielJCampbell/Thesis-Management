@@ -13,13 +13,10 @@ function calculateDeadlines($startDate,$studentType,$partTimeStatus){
  	if (studentType === "PhD"){
  		$studentTypeModifier = 3;
  	}
- 	echo $startDate + "~";
- 	echo Date('Y-m-d', strtotime($startDate)) + "~";
- 	echo "+" + 1*$partTimeModifier*$studentTypeModifier + " month" + "~~";
- 	$proposalDeadline = date('Y-m-d', strtotime("+" + 1*$partTimeModifier*$studentTypeModifier + " month", strtotime($startDate)));
- 	$month3Deadline = date('Y-m-d', strtotime("+" + 3*$partTimeModifier*$studentTypeModifier + " month", strtotime($startDate)));
- 	$month8Deadline = date('Y-m-d', strtotime("+" + 3*$partTimeModifier*$studentTypeModifier + " month", strtotime($startDate)));
- 	$thesisDeadline = date('Y-m-d', strtotime("+" + 12*$partTimeModifier*$studentTypeModifier + " month", strtotime($startDate)));
+ 	$proposalDeadline = date('Y-m-d', strtotime("+" . 1*$partTimeModifier*$studentTypeModifier . " month", strtotime($startDate)));
+ 	$month3Deadline = date('Y-m-d', strtotime("+" . 3*$partTimeModifier*$studentTypeModifier . " month", strtotime($startDate)));
+ 	$month8Deadline = date('Y-m-d', strtotime("+" . 3*$partTimeModifier*$studentTypeModifier . " month", strtotime($startDate)));
+ 	$thesisDeadline = date('Y-m-d', strtotime("+" . 12*$partTimeModifier*$studentTypeModifier . " month", strtotime($startDate)));
  	return array("proposaldeadline" => $proposalDeadline, "report3monthdeadline" => $month3Deadline, "report8monthdeadline" => $month8Deadline, "thesisdeadline" => $thesisDeadline);
 }
 
