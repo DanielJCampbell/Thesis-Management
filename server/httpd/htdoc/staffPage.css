@@ -4,7 +4,6 @@ input[type="button"]{
 	-webkit-border-radius:28px;
 	border-radius:28px;
 	border:1px solid #dcdcdc;
-	display:inline-block;
 	cursor:pointer;
 	color:#777777;
 	font-family:arial;
