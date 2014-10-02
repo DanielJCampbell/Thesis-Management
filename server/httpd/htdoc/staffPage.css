@@ -13,6 +13,8 @@ input[type="button"]{
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffffff;
 	margin-bottom: 1px;
+	float: left;
+	position:absolute;
 }
 input[type="button"]:hover{
 	background-color:#dfdfdf;
@@ -20,5 +22,10 @@ input[type="button"]:hover{
 input[type="button"]:active{
 	position:relative;
 	top:1px;
+}
+
+.body{
+	float:left;
+	position:absolute;
 }
 
