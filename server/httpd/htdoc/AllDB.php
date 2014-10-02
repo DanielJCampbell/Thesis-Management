@@ -13,7 +13,7 @@ function calculateDeadlines($startDate,$studentType,$partTimeStatus){
  	if (studentType === "PhD"){
  		$studentTypeModifier = 3;
  	}
- 	echo strtotime($startDate) + "<br>";
+ 	echo Date('Y-m-d', strtotime($startDate)) + "<br>";
  	echo "+" + 1*$partTimeModifier*$studentTypeModifier + " month" + "<br>";
  	$proposalDeadline = date('Y-m-d', strtotime("+" + 1*$partTimeModifier*$studentTypeModifier + " month", strtotime($startDate)));
  	$month3Deadline = date('Y-m-d', strtotime("+" + 3*$partTimeModifier*$studentTypeModifier + " month", strtotime($startDate)));
