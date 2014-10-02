@@ -4,6 +4,22 @@ $username = "poacfvyhdhwtsx";
 $password = "nVJ0Via96oYvrOfrSs3ECsVR1W";
 $database = "ddf40gpbvva8uo";
 
+function calculateDeadlines($startDate,$studentType,$partTimeStatus){
+	$studentTypeModifier = 1;
+	$partTimeModifier = 1;
+	if (partTimeStatus === "H"){
+		partTimeModifier = 2;
+	}
+	if (studentType === "PhD"){
+		studentTypeModifier = 3;
+	}
+	$proposalDeadline = date('Y-m-d', strtotime("+" + 1*partTimeModifier*studentTypeModifier + " months", strtotime($startDate)));
+	$month3Deadline = date('Y-m-d', strtotime("+" + 3*partTimeModifier*studentTypeModifier + " months", strtotime($startDate)));
+	$month8Deadline = date('Y-m-d', strtotime("+" + 3*partTimeModifier*studentTypeModifier + " months", strtotime($startDate)));
+	$thesisDeadline = date('Y-m-d', strtotime("+" + 12*partTimeModifier*studentTypeModifier + " months", strtotime($startDate)));
+	 return array("proposaldeadline" => $proposalDeadline, "report3monthdeadline" => $month3Deadline, "report8monthdeadline" => $month8Deadline, "thesisdeadline" => $thesisDeadline);
+}
+
 //$schema = array("F_Name", "L_Name", "Course",  "Specialisation", "StudentID", "Primary_SupervisorID", "Primary_SupervisorPercent", "secondary_supervisorid","Secondary_SupervisorPercent", "Scholarship", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalSeminar", "ProposalConfirmation", "Report3MonthDeadline", "Report3MonthSubmission", "Report3MonthApproval", "Report8MonthDeadline", "Report8MonthSubmission", "Report8MonthApproval", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointed", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary", "WorkHours1", "WorkHours2", "WorkHours3");
 //$tableColumns = array("Name", "ID", "Type", "Course", "Specialisation", "Start Date", "Proposal Deadline", "Proposal Submission", "Proposal Seminar", "Proposal Confirmation", "3 Month Report Deadline", "3 Month Report Submission", "3 Month report Approval", "8 Month Report Deadline", "8 Month report Submission", "8 Month report Approval", "Thesis Deadline", "Thesis Submission", "Examiners Appointed", "Examination Completed", "Revisions Finalised", "Deposited In Library", "Work Hours 1st year", "Work Hours 2nd year", "Work Hours 3rd year");
 //$schema_masters = array("StudentID", "Specialisation", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalConfirmation", "Report3MonthDeadline", "Report3MonthSubmission", "Report3MonthApproval", "Report8MonthDeadline", "Report8MonthSubmission", "Report8MonthApproval", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointed", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary");
@@ -62,7 +78,7 @@ echo "<tbody>";
 $mastersQuery = pg_query ( "SELECT * FROM Students NATURAL JOIN MastersStudents" ) or die('Query failed: ' . pg_last_error());
 
 while ($row = pg_fetch_assoc($mastersQuery)){
-
+	$deadlines = calculateDeadlines($row[startdate], "Masters", $row[enrolmenttype]);
 	echo "<tr>";
 	echo "<td class = 'editTD'> Edit </td>";
 	echo "<td>" . $row [f_name] . " " . $row [l_name] . "</td>";
@@ -98,17 +114,17 @@ while ($row = pg_fetch_assoc($mastersQuery)){
 	echo "<td>" . $suspensions . "</td>";
 
 	echo "<td>" . $row [startdate] . "</td>";
-	echo "<td>" . $row [proposaldeadline] . "</td>";
+	echo "<td>" . $deadlines [proposaldeadline] . "</td>";
 	echo "<td>" . $row [proposalsubmission] . "</td>";
 	echo "<td></td>"; //seminar is for PhD only
 	echo "<td>" . $row [proposalconfirmation] . "</td>";
-	echo "<td>" . $row [report3monthdeadline] . "</td>";
+	echo "<td>" . $deadlines [report3monthdeadline] . "</td>";
 	echo "<td>" . $row [report3monthsubmission] . "</td>";
 	echo "<td>" . $row [report3monthapproval] . "</td>";
 	echo "<td>" . $row [report8monthdeadline] . "</td>";
-	echo "<td>" . $row [report8monthsubmission] . "</td>";
+	echo "<td>" . $deadlines [report8monthsubmission] . "</td>";
 	echo "<td>" . $row [report8monthapproval] . "</td>";
-	echo "<td>" . $row [thesisdeadline] . "</td>";
+	echo "<td>" . $deadlines [thesisdeadline] . "</td>";
 	echo "<td>" . $row [thesissubmission] . "</td>";
 	echo "<td>" . $row [examinersappointed] . "</td>";
 	echo "<td>" . $row [examinationcompleted] . "</td>";
@@ -122,6 +138,7 @@ while ($row = pg_fetch_assoc($mastersQuery)){
 $phdQuery = pg_query ("SELECT * FROM Students NATURAL JOIN PhDStudents") or die('Query failed: ' . pg_last_error());
 
 while ($row = pg_fetch_assoc($phdQuery )){
+	$deadlines = calculateDeadlines($row[startdate], "PhD", $row[enrolmenttype]);
 	echo "<tr>";
 	echo "<td class = 'editTD'> Edit </td>";
 	echo "<td>" . $row [f_name] . " " . $row [l_name] . "</td>";
@@ -167,7 +184,7 @@ while ($row = pg_fetch_assoc($phdQuery )){
 	echo "<td>" . $suspensions . "</td>";
 
 	echo "<td>" . $row [startdate] . "</td>";
-	echo "<td>" . $row [proposaldeadline] . "</td>";
+	echo "<td>" . $deadlines [proposaldeadline] . "</td>";
 	echo "<td>" . $row [proposalsubmission] . "</td>";
 	echo "<td>" . $row [proposalseminar] . "</td>";
 	echo "<td>" . $row [proposalconfirmation] . "</td>";
@@ -177,7 +194,7 @@ while ($row = pg_fetch_assoc($phdQuery )){
 	echo "<td></td>";
 	echo "<td></td>";
 	echo "<td></td>";
-	echo "<td>" . $row [thesisdeadline] . "</td>";
+	echo "<td>" . $deadlines [thesisdeadline] . "</td>";
 	echo "<td>" . $row [thesissubmission] . "</td>";
 	echo "<td>" . $row [examinersappointed] . "</td>";
 	echo "<td>" . $row [examinationcompleted] . "</td>";
