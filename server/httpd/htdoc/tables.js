@@ -256,11 +256,19 @@ function format(data) {
 			: "<input type='radio' name='pt' value='Yes'/> <input type='radio' name='pt' value='No' checked/>";
 
 	var workHourString = (data[3] === "Masters") ? ""
-			: "<tr> <td> Work Hours Year 1 </td> <td> <input type = 'number' name = 'WorkY1' id = 'WorkY1' min = '0' max = '150' value = '" + data[8]  + "'</td> </tr>"
-			+ "<tr> <td> Work Hours Year 2 </td> <td> <input type = 'number' name = 'WorkY2' id = 'WorkY2' min = '0' max = '150' value = '" + data[9]  + "'</td> </tr>"
-			+ "<tr> <td> Work Hours Year 3 </td> <td> <input type = 'number' name = 'WorkY3' id = 'WorkY3' min = '0' max = '150' value = '" + data[10] + "'</td> </tr>";
+			: "<tr> <td> Work Hours Year 1: </td> <td> <input type = 'number' name = 'WorkY1' id = 'WorkY1' min = '0' max = '150' value = '" + data[8]  + "'</td> </tr>"
+			+ "<tr> <td> Work Hours Year 2: </td> <td> <input type = 'number' name = 'WorkY2' id = 'WorkY2' min = '0' max = '150' value = '" + data[9]  + "'</td> </tr>"
+			+ "<tr> <td> Work Hours Year 3: </td> <td> <input type = 'number' name = 'WorkY3' id = 'WorkY3' min = '0' max = '150' value = '" + data[10] + "'</td> </tr>";
 
-	var pPercent = data[11].split(" (").slice(0, -2);
+	var seminarString = (data[3] === "Masters") ? ""
+			: "<tr> <td> Proposal Seminar: </td> <td> <input type = 'date' name = 'proposalSeminar' id = 'proposalSeminar' value = '" + data[17] + "' </td></tr>";
+
+	var reportString = (data[3] === "Masters") ?
+			"<tr> <td> 3 Month Report Submission </td> <td> <input type = 'date' id = '3MonthSubmission' name = '3MonthSubmission' value = '" + data[20] + "'</td></tr>"
+				+ "<tr> <td> 3 Month Report Approval </td> <td> <input type = 'date' id = '3MonthApproval' name = '3MonthApproval' value = '" + data[21] + "'</td></tr>"
+			+ "<tr> <td> 8 Month Report Submission </td> <td> <input type = 'date' id = '8MonthSubmission' name = '8MonthSubmission' value = '" + data[23] + "'</td></tr>"
+				+ "<tr> <td> 8 Month Report Approval </td> <td> <input type = 'date' id = '8MonthApproval' name = '8MonthApproval' value = '" + data[24] + "'</td></tr>"
+			: "";
 
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
 	+ "<tr> <td> First Name: </td> <td> <input type = 'text' id = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
@@ -273,10 +281,15 @@ function format(data) {
 	+ "<tr> <td> Part-Time: </td> <td> " + partTimeString + "</td> </tr>"
 	+ "<tr> <td> Scholarship: </td> <td> <input type='text' id='scholarship' name='scholarship' value = '"+data[7]+"'/></tr>"
 	+ workHourString
-	+ "<tr> <td> Debug value of primary percentage: " + pPercent + "</td></tr>"
 	+ "<tr> <td> Primary Supervisor: </td> <td> <input type = 'text' id = 'pSupervisor' name = 'pSupervisor' value = '" + data[11].split(" (")[0] + "'/></td>"
 		+ "<td> Percentage: </td> <td> <input type = 'number' min = '51' max = '99' id = 'pPercentage' name = 'pPercentage' value = '" + data[11].split(" (")[1].slice(0, -2) + "'/></td></tr>"
-		+ "<tr> <td> Secondary Supervisor: </td> <td> <input type = 'text' id = 'sSupervisor' name = 'sSupervisor' value = '" + data[12].split(" (")[0] + "'/></td>"
+	+ "<tr> <td> Secondary Supervisor: </td> <td> <input type = 'text' id = 'sSupervisor' name = 'sSupervisor' value = '" + data[12].split(" (")[0] + "'/></td>"
 		+ "<td> Percentage: </td> <td> <input type = 'number' min = '0' max = '49' id = 'sPercentage' name = 'sPercentage' value = '" + data[12].split(" (")[1].slice(0, -2) + "'/></td></tr>"
+	//DO SUSPENSIONS WHEN NOT LAZY (MAKE ALVIN/REECE DO IT)
+	+ "<tr> <td> Start Date: </td> <td> <input type = 'date' id = 'startDate' name = 'startDate' value = '"+data[14]+"'/></td></tr>"
+	+ "<tr> <td> Proposal Submission: </td> <td> <input type = 'date' id = 'proposalSubmission' name = 'proposalSubmission' value = '"+data[16]+"'/></td></tr>"
+	+ seminarString
+	+ "<tr> <td> Proposal Confirmation: </td> <td> <input type = 'date' id = 'proposalConfirmation' name = 'proposalConfirmation' value = '"+data[18]+"'/></td></tr>"
+	+ reportString
 	+ "</table> </form>";
 }
