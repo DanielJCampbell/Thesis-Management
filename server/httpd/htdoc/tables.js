@@ -95,6 +95,8 @@ function refreshTable() {
   else if (type === "PhD") {
    mainTable.api().columns(":contains('Type'), :contains('3 Month'), :contains('8 Month')").visible(false);
   }
+  mainTable.addClass('display');
+  mainTable.addClass('cell-border');
   redraw();
 }
 
