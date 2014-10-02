@@ -260,6 +260,8 @@ function format(data) {
 			+ "<tr> <td> Work Hours Year 2 </td> <td> <input type = 'number' name = 'WorkY2' id = 'WorkY2' min = '0' max = '150' value = '" + data[9]  + "'</td> </tr>"
 			+ "<tr> <td> Work Hours Year 3 </td> <td> <input type = 'number' name = 'WorkY3' id = 'WorkY3' min = '0' max = '150' value = '" + data[10] + "'</td> </tr>";
 
+	var pPercent = data[11].split(" (").slice(0, -2);
+
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
 	+ "<tr> <td> First Name: </td> <td> <input type = 'text' id = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
 	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' id = 'lname'  value = '"+data[1].split(" ")[1]+"'/></td></tr>"
@@ -271,10 +273,10 @@ function format(data) {
 	+ "<tr> <td> Part-Time: </td> <td> " + partTimeString + "</td> </tr>"
 	+ "<tr> <td> Scholarship: </td> <td> <input type='text' id='scholarship' name='scholarship' value = '"+data[7]+"'/></tr>"
 	+ workHourString
-	+ "<tr> <td> Debug value of primary percentage: " + data[11].split(" (")[1].substr(0, -2) + "</td></tr>"
+	+ "<tr> <td> Debug value of primary percentage: " + pPercent + "</td></tr>"
 	+ "<tr> <td> Primary Supervisor: </td> <td> <input type = 'text' id = 'pSupervisor' name = 'pSupervisor' value = '" + data[11].split(" (")[0] + "'/></td>"
-		+ "<td> Percentage: </td> <td> <input type = 'number' min = '51' max = '99' id = 'pPercentage' name = 'pPercentage' value = '" + data[11].split(" (")[1].substr(0, -2) + "'/></td></tr>"
+		+ "<td> Percentage: </td> <td> <input type = 'number' min = '51' max = '99' id = 'pPercentage' name = 'pPercentage' value = '" + data[11].split(" (")[1].slice(0, -2) + "'/></td></tr>"
 		+ "<tr> <td> Secondary Supervisor: </td> <td> <input type = 'text' id = 'sSupervisor' name = 'sSupervisor' value = '" + data[12].split(" (")[0] + "'/></td>"
-		+ "<td> Percentage: </td> <td> <input type = 'number' min = '0' max = '49' id = 'sPercentage' name = 'sPercentage' value = '" + data[12].split(" (")[1].substr(0, -2) + "'/></td></tr>"
+		+ "<td> Percentage: </td> <td> <input type = 'number' min = '0' max = '49' id = 'sPercentage' name = 'sPercentage' value = '" + data[12].split(" (")[1].slice(0, -2) + "'/></td></tr>"
 	+ "</table> </form>";
 }
