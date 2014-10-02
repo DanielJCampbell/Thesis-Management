@@ -5,6 +5,7 @@ $password = "nVJ0Via96oYvrOfrSs3ECsVR1W";
 $database = "ddf40gpbvva8uo";
 
 function calculateDeadlines($startDate,$studentType,$partTimeStatus){
+ 	console.log($startDate);
  	$studentTypeModifier = 1;
  	$partTimeModifier = 1;
  	if (partTimeStatus === "H"){
@@ -78,7 +79,7 @@ echo "<tbody>";
 $mastersQuery = pg_query ( "SELECT * FROM Students NATURAL JOIN MastersStudents" ) or die('Query failed: ' . pg_last_error());
 
 while ($row = pg_fetch_assoc($mastersQuery)){
-	$deadlines = calculateDeadlines($row[startdate], "Masters", $row[enrolmenttype]);
+	$deadlines = calculateDeadlines($row [startdate], "Masters", $row [enrolmenttype]);
 	echo "<tr>";
 	echo "<td class = 'editTD'> Edit </td>";
 	echo "<td>" . $row [f_name] . " " . $row [l_name] . "</td>";
