@@ -41,14 +41,16 @@
   <body>
   <div id = "left" style = "float: left; background-color: steelblue;">
 
-  <input type = "button" onclick = "showStudentTable();" value = "Clear filters"/><br/>
-  <input type = "button" onclick = "showOverdue();" value = "Show Overdue Students"/><br/>
-  <input type = "button" onclick = "showProvisional();" value = "Show Provisional Students"/><br/>
-  <input type = "button" onclick = "showUnassessed();" value = "Show Not Assessed"/><br/>
-  <input type = "button" onclick = "showSuspensions();" value = "Show Suspended Students"/><br/>
-  <input type = "button" onclick = "showWorkHours();" value = "Show Work Hours"/><br/>
-  <input type = "button" onclick = "showSupervisor();" value = "Show Supervisor Workload"/><br/>
-  <input type = "button" onclick = "showNonCurrent();" value = "Show Non-current Students"/><br/>
+	  <input type = "button" onclick = "showStudentTable();" value = "Clear filters"/><br/>
+	  <input type = "button" onclick = "showOverdue();" value = "Show Overdue Students"/><br/>
+	  <input type = "button" onclick = "showProvisional();" value = "Show Provisional Students"/><br/>
+	  <input type = "button" onclick = "showUnassessed();" value = "Show Not Assessed"/><br/>
+  </div>
+  <div id = "bottom" style = "float: left; background-color: steelblue;">
+	<input type = "button" onclick = "showSuspensions();" value = "Show Suspended Students"/><br/>
+  	<input type = "button" onclick = "showWorkHours();" value = "Show Work Hours"/><br/>
+  	<input type = "button" onclick = "showSupervisor();" value = "Show Supervisor Workload"/><br/>
+  	<input type = "button" onclick = "showNonCurrent();" value = "Show Non-current Students"/><br/>
   </div>
   <div id = "body">
   Filter On: <select id = "students" onchange = "changeStudentfilter(this.value)" selected = "All">
