@@ -73,6 +73,7 @@ function showNonCurrent(){
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
   $('#mainTable').parents('div.dataTables_wrapper').first().show();
   refreshTable();
+  mainTable.api().columns(":contains('Withdrawn')").visible(true);
 }
 
 function changeStudentfilter(value){
