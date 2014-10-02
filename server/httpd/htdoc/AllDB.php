@@ -5,7 +5,7 @@ $password = "nVJ0Via96oYvrOfrSs3ECsVR1W";
 $database = "ddf40gpbvva8uo";
 
 function calculateDeadlines($startDate,$studentType,$partTimeStatus){
- 	console.log($startDate);
+ 	echo $startDate;
  	$studentTypeModifier = 1;
  	$partTimeModifier = 1;
  	if (partTimeStatus === "H"){
