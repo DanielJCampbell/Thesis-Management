@@ -252,24 +252,78 @@ function format(data) {
 	var typeString = (data[3] === "Masters") ?  "<option value = 'PhD'>PhD</option> <option value = 'Masters' selected = 'selected'>Masters</option>"
 			: "<option value = 'PhD' selected = 'selected'>PhD</option> <option value = 'Masters'>Masters</option>";
 
-	var partTimeString = (data[6] === "Yes") ? "<input type='radio' name='pt' value='Yes' checked/> <input type='radio' name='pt' value='No'/>"
-			: "<input type='radio' name='pt' value='Yes'/> <input type='radio' name='pt' value='No' checked/>";
+	var partTimeString = (data[6] === "Yes") ? "<input type='radio' name='pt' value='Yes' checked> Yes </input> <input type='radio' name='pt' value='No'> No </input>"
+			: "<input type='radio' name='pt' value='Yes'> Yes </input> <input type='radio' name='pt' value='No' checked> No </input>";
 
 	var workHourString = (data[3] === "Masters") ? ""
-			: "<tr> <td> Work Hours Year 1 </td> <td> <input type = 'number' name = 'WorkY1' id = 'WorkY1' min = '0' max = '150' value = '" + data[8]  + "'</td> </tr>"
-			+ "<tr> <td> Work Hours Year 2 </td> <td> <input type = 'number' name = 'WorkY2' id = 'WorkY2' min = '0' max = '150' value = '" + data[9]  + "'</td> </tr>"
-			+ "<tr> <td> Work Hours Year 3 </td> <td> <input type = 'number' name = 'WorkY3' id = 'WorkY3' min = '0' max = '150' value = '" + data[10] + "'</td> </tr>";
+			: "<tr> <td> Work Hours Year 1: </td> <td> <input type = 'number' name = 'WorkY1' id = 'WorkY1' min = '0' max = '150' value = '" + data[8]  + "'</td> </tr>"
+			+ "<tr> <td> Work Hours Year 2: </td> <td> <input type = 'number' name = 'WorkY2' id = 'WorkY2' min = '0' max = '150' value = '" + data[9]  + "'</td> </tr>"
+			+ "<tr> <td> Work Hours Year 3: </td> <td> <input type = 'number' name = 'WorkY3' id = 'WorkY3' min = '0' max = '150' value = '" + data[10] + "'</td> </tr>";
+
+//Retired until we figure out how this will work
+//	var suspensionData = [];
+//	var suspensionString = (data[13] === "") ? "" : "<tr> <td> Past Suspensions: </td> </tr>";
+//	var num = 0;
+//	var count = 0;
+
+//	while (count < data[13].length) {
+//		suspensionData[num++] = data[13].substr(count, 10);
+//		suspensionData[num++] = data[13].substr(count+13, 10);
+//		count += 24;
+//	}
+//	for (int i = 0; i < num; i+= 2) {
+//		suspensionString += "<tr><td> <input type = 'date' input"
+//	}
+
+
+
+	var seminarString = (data[3] === "Masters") ? ""
+			: "<tr> <td> Proposal Seminar: </td> <td> <input type = 'date' name = 'proposalSeminar' id = 'proposalSeminar' value = '" + data[17] + "' </td></tr>";
+
+	var reportString = (data[3] === "Masters") ?
+			"<tr> <td> 3 Month Report Submission: </td> <td> <input type = 'date' id = '3MonthSubmission' name = '3MonthSubmission' value = '" + data[20] + "'</td></tr>"
+				+ "<tr> <td> 3 Month Report Approval: </td> <td> <input type = 'date' id = '3MonthApproval' name = '3MonthApproval' value = '" + data[21] + "'</td></tr>"
+			+ "<tr> <td> 8 Month Report Submission: </td> <td> <input type = 'date' id = '8MonthSubmission' name = '8MonthSubmission' value = '" + data[23] + "'</td></tr>"
+				+ "<tr> <td> 8 Month Report Approval: </td> <td> <input type = 'date' id = '8MonthApproval' name = '8MonthApproval' value = '" + data[24] + "'</td></tr>"
+			: "";
+
+	var originString = (data[32] === "D") ?  "<option value = 'D' selected = 'selected'>Domestic</option> <option value = 'I'>International</option>"
+			: "<option value = 'D'>Domestic</option> <option value = 'I' selected = 'selected'>International</option>";
+
+	var withdrawnString = (data[33] === "True") ?  "<option value = 'True' selected = 'selected'>True</option> <option value = 'False'>False</option>"
+			: "<option value = 'True' >True</option> <option value = 'False' selected = 'selected'>False</option>";
 
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
-	+ "<tr> <td> First Name: </td> <td> <input type = 'text' id = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
-	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' id = 'lname'  value = '"+data[1].split(" ")[1]+"'/></td></tr>"
-	+ "<tr> <td> Student ID: </td> <td> <input type = 'number' id = 'sID'  value = '"+data[2]+"'/></td></tr>"
+	+ "<tr> <td> First Name: </td> <td> <input type = 'text' required id = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
+	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' required id = 'lname'  value = '"+data[1].split(" ")[1]+"'/></td></tr>"
+	+ "<tr> <td> Student ID: </td> <td> <input type = 'number' required id = 'sID'  value = '"+data[2]+"'/></td></tr>"
 	+ "<tr> <td> Type: </td> <td> <select id = 'type'>"
 	+ typeString + "</select></td></tr>"
-	+ "<tr> <td> Course: </td> <td> <input type='text' id='course' name='course' value = '"+data[4]+"'/></td></tr>"
-	+ "<tr> <td> Specialisation: </td> <td> <input type='text' id='specialisation' name='specialisation' value = '"+data[5]+"'/></td></tr>"
+	+ "<tr> <td> Course: </td> <td> <input type='text' required id='course' name='course' value = '"+data[4]+"'/></td></tr>"
+	+ "<tr> <td> Specialisation: </td> <td> <input type='text' required id='specialisation' name='specialisation' value = '"+data[5]+"'/></td></tr>"
 	+ "<tr> <td> Part-Time: </td> <td> " + partTimeString + "</td> </tr>"
 	+ "<tr> <td> Scholarship: </td> <td> <input type='text' id='scholarship' name='scholarship' value = '"+data[7]+"'/></tr>"
 	+ workHourString
+	+ "<tr> <td> Primary Supervisor: </td> <td> <input type = 'text' required id = 'pSupervisor' name = 'pSupervisor' value = '" + data[11].split(" (")[0] + "'/></td>"
+		+ "<td> Percentage: </td> <td> <input type = 'number' required min = '51' max = '99' id = 'pPercentage' name = 'pPercentage' value = '" + data[11].split(" (")[1].slice(0, -2) + "'/></td></tr>"
+	+ "<tr> <td> Secondary Supervisor: </td> <td> <input type = 'text' required id = 'sSupervisor' name = 'sSupervisor' value = '" + data[12].split(" (")[0] + "'/></td>"
+		+ "<td> Percentage: </td> <td> <input type = 'number' min = '1' required max = '49' id = 'sPercentage' name = 'sPercentage' value = '" + data[12].split(" (")[1].slice(0, -2) + "'/></td></tr>"
+	+ "<tr> <td> Add New Suspension: </td> <td> Start Date <input type = 'date' name = 'suspensionStart' id = 'suspensionStart' placeholder = 'yyyy-mm-dd'/></td> "
+		+ "<td> End Date <input type = 'date' name = 'suspensionEnd' id = 'suspensionEnd' placeholder = 'yyyy-mm-dd'/></td></tr>"
+	+ "<tr> <td> Start Date: </td> <td> <input type = 'date' required id = 'startDate' name = 'startDate' value = '"+data[14]+"'/></td></tr>"
+	+ "<tr> <td> Proposal Submission: </td> <td> <input type = 'date' id = 'proposalSubmission' name = 'proposalSubmission' value = '"+data[16]+"'/></td></tr>"
+	+ seminarString
+	+ "<tr> <td> Proposal Confirmation: </td> <td> <input type = 'date' id = 'proposalConfirmation' name = 'proposalConfirmation' value = '"+data[18]+"'/></td></tr>"
+	+ reportString
+	+ "<tr> <td> Thesis Submission: </td> <td> <input type = 'date' id = 'thesisSubmission' name = 'thesisSubmission' value = '"+data[26]+"'/></td></tr>"
+	+ "<tr> <td> Examiners Appointed: </td> <td> <input type = 'date' id = 'examinersAppointed' name = 'examinersAppointed' value = '"+data[27]+"'/></td></tr>"
+	+ "<tr> <td> Examination Completed: </td> <td> <input type = 'date' id = 'examinationCompleted' name = 'examinationCompleted' value = '"+data[28]+"'/></td></tr>"
+	+ "<tr> <td> Revisions Finalised: </td> <td> <input type = 'date' id = 'revisionsFinalised' name = 'revisionsFinalised' value = '"+data[29]+"'/></td></tr>"
+	+ "<tr> <td> Deposited In Library: </td> <td> <input type = 'date' id = 'deposited' name = 'deposited' value = '"+data[30]+"'/></td></tr>"
+	+ "<tr> <td> Notes: </td> <td> <input type = 'text' id = 'notes' name = 'notes' value = '"+data[31] +"'/></td></tr>"
+	+ "<tr> <td> Origin: </td> <td> <select id = 'origin'>"
+	+ originString + "</select></td></tr>"
+	+ "<tr> <td> Withdrawn: </td> <td> <select id = 'withdrawn'>"
+	+ withdrawnString + "</select></td></tr>"
 	+ "</table> </form>";
 }

@@ -7,10 +7,23 @@ public class RandomWorkHours {
 	 public String third;
 
 	  public RandomWorkHours(){
+		  
+		  int value = 0;
+		  int value2 = 0;
+		  int value3 = 0;
 
-		  int value = randBetween(0,450);
-		  int value2 = randBetween(0,450-value);
-		  int value3 = 450 - (value+value2);
+		  boolean rand = new RandomBoolean().symbols;
+		  if(rand){
+		  value = 150;
+		  rand = new RandomBoolean().symbols;
+			  if(rand){
+			  value2 = 150;
+				  if(rand){
+					  value3 = 150;
+					  }
+			  }
+		  }
+		  
 		  first = Integer.toString(value);
 		  second = Integer.toString(value2);
 		  third = Integer.toString(value3);
