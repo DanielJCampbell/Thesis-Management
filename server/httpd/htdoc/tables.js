@@ -254,7 +254,7 @@ function format(data) {
 	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' id = 'lname'  value = '"+data[1].split(" ")[1]+"'/></tr>"
 	+ "<tr> <td> Student ID: </td> <td> <input type = 'number' id = 'sID'  value = '"+data[2]+"'/></tr>"
 	+ "<tr> <td> Debugging: </td> <td> " + data[3] + "</td> <td> '" + typeString +"'</td> </tr>"
-	+ "<tr> <td> Type: </td> <td> <select id = 'type'>" +
+	+ "<tr> <td> Type: </td> <td> <select id = 'type'>"
 	+ typeString + "</select></tr>"
 	+ "<tr> <td> Course: </td> <td> <input type='text' id='course' name='course' value = '"+data[4]+"'/></tr>"
 	+ "</table> </form>";
