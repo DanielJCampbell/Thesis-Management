@@ -252,8 +252,8 @@ function format(data) {
 	var typeString = (data[3] === "Masters") ?  "<option value = 'PhD'>PhD</option> <option value = 'Masters' selected = 'selected'>Masters</option>"
 			: "<option value = 'PhD' selected = 'selected'>PhD</option> <option value = 'Masters'>Masters</option>";
 
-	var partTimeString = (data[6] === "Yes") ? "<input type='radio' name='pt' value='Yes' checked/> <input type='radio' name='pt' value='No'/>"
-			: "<input type='radio' name='pt' value='Yes'/> <input type='radio' name='pt' value='No' checked/>";
+	var partTimeString = (data[6] === "Yes") ? "<input type='radio' name='pt' value='Yes' checked> Yes </input> <input type='radio' name='pt' value='No'> No </input>"
+			: "<input type='radio' name='pt' value='Yes'> Yes </input> <input type='radio' name='pt' value='No' checked> No </input>";
 
 	var workHourString = (data[3] === "Masters") ? ""
 			: "<tr> <td> Work Hours Year 1: </td> <td> <input type = 'number' name = 'WorkY1' id = 'WorkY1' min = '0' max = '150' value = '" + data[8]  + "'</td> </tr>"
@@ -264,11 +264,17 @@ function format(data) {
 			: "<tr> <td> Proposal Seminar: </td> <td> <input type = 'date' name = 'proposalSeminar' id = 'proposalSeminar' value = '" + data[17] + "' </td></tr>";
 
 	var reportString = (data[3] === "Masters") ?
-			"<tr> <td> 3 Month Report Submission </td> <td> <input type = 'date' id = '3MonthSubmission' name = '3MonthSubmission' value = '" + data[20] + "'</td></tr>"
-				+ "<tr> <td> 3 Month Report Approval </td> <td> <input type = 'date' id = '3MonthApproval' name = '3MonthApproval' value = '" + data[21] + "'</td></tr>"
-			+ "<tr> <td> 8 Month Report Submission </td> <td> <input type = 'date' id = '8MonthSubmission' name = '8MonthSubmission' value = '" + data[23] + "'</td></tr>"
-				+ "<tr> <td> 8 Month Report Approval </td> <td> <input type = 'date' id = '8MonthApproval' name = '8MonthApproval' value = '" + data[24] + "'</td></tr>"
+			"<tr> <td> 3 Month Report Submission: </td> <td> <input type = 'date' id = '3MonthSubmission' name = '3MonthSubmission' value = '" + data[20] + "'</td></tr>"
+				+ "<tr> <td> 3 Month Report Approval: </td> <td> <input type = 'date' id = '3MonthApproval' name = '3MonthApproval' value = '" + data[21] + "'</td></tr>"
+			+ "<tr> <td> 8 Month Report Submission: </td> <td> <input type = 'date' id = '8MonthSubmission' name = '8MonthSubmission' value = '" + data[23] + "'</td></tr>"
+				+ "<tr> <td> 8 Month Report Approval: </td> <td> <input type = 'date' id = '8MonthApproval' name = '8MonthApproval' value = '" + data[24] + "'</td></tr>"
 			: "";
+
+	var originString = (data[32] === "D") ?  "<option value = 'D' selected = 'selected'>Domestic</option> <option value = 'I'>International</option>"
+			: "<option value = 'D'>Domestic</option> <option value = 'I' selected = 'selected'>International</option>";
+
+	var withdrawnString = (data[33] === "True") ?  "<option value = 'True' selected = 'selected'>True</option> <option value = 'False'>False</option>"
+			: "<option value = 'True' >True</option> <option value = 'False' selected = 'selected'>False</option>";
 
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
 	+ "<tr> <td> First Name: </td> <td> <input type = 'text' id = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
@@ -291,5 +297,15 @@ function format(data) {
 	+ seminarString
 	+ "<tr> <td> Proposal Confirmation: </td> <td> <input type = 'date' id = 'proposalConfirmation' name = 'proposalConfirmation' value = '"+data[18]+"'/></td></tr>"
 	+ reportString
+	+ "<tr> <td> Thesis Submission: </td> <td> <input type = 'date' id = 'thesisSubmission' name = 'thesisSubmission' value = '"+data[26]+"'/></td></tr>"
+	+ "<tr> <td> Examiners Appointed: </td> <td> <input type = 'date' id = 'examinersAppointed' name = 'examinersAppointed' value = '"+data[27]+"'/></td></tr>"
+	+ "<tr> <td> Examination Completed: </td> <td> <input type = 'date' id = 'examinationCompleted' name = 'examinationCompleted' value = '"+data[28]+"'/></td></tr>"
+	+ "<tr> <td> Revisions Finalised: </td> <td> <input type = 'date' id = 'revisionsFinalised' name = 'revisionsFinalised' value = '"+data[29]+"'/></td></tr>"
+	+ "<tr> <td> Deposited In Library: </td> <td> <input type = 'date' id = 'deposited' name = 'deposited' value = '"+data[30]+"'/></td></tr>"
+	+ "<tr> <td> Notes: </td> <td> <input type = 'text' id = 'notes' name = 'notes' value = '"+data[31] +"'/></td></tr>"
+	+ "<tr> <td> Origin: </td> <td> <select id = 'origin'>"
+	+ originString + "</select></td></tr>"
+	+ "<tr> <td> Withdrawn: </td> <td> <select id = 'withdrawn'>"
+	+ withdrawnString + "</select></td></tr>"
 	+ "</table> </form>";
 }
