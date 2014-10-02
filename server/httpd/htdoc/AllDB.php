@@ -13,11 +13,11 @@ function calculateDeadlines($startDate,$studentType,$partTimeStatus){
  	if (studentType === "PhD"){
  		$studentTypeModifier = 3;
  	}
-// 	$proposalDeadline = date('Y-m-d', strtotime("+" + 1*partTimeModifier*studentTypeModifier + " months", strtotime($startDate)));
-// 	$month3Deadline = date('Y-m-d', strtotime("+" + 3*partTimeModifier*studentTypeModifier + " months", strtotime($startDate)));
-// 	$month8Deadline = date('Y-m-d', strtotime("+" + 3*partTimeModifier*studentTypeModifier + " months", strtotime($startDate)));
-// 	$thesisDeadline = date('Y-m-d', strtotime("+" + 12*partTimeModifier*studentTypeModifier + " months", strtotime($startDate)));
-// 	 return array("proposaldeadline" => $proposalDeadline, "report3monthdeadline" => $month3Deadline, "report8monthdeadline" => $month8Deadline, "thesisdeadline" => $thesisDeadline);
+ 	$proposalDeadline = date('Y-m-d', strtotime("+" + 1*$partTimeModifier*$studentTypeModifier + " months", strtotime($startDate)));
+ 	$month3Deadline = date('Y-m-d', strtotime("+" + 3*$partTimeModifier*$studentTypeModifier + " months", strtotime($startDate)));
+ 	$month8Deadline = date('Y-m-d', strtotime("+" + 3*$partTimeModifier*$studentTypeModifier + " months", strtotime($startDate)));
+ 	$thesisDeadline = date('Y-m-d', strtotime("+" + 12*$partTimeModifier*$studentTypeModifier + " months", strtotime($startDate)));
+ 	return array("proposaldeadline" => $proposalDeadline, "report3monthdeadline" => $month3Deadline, "report8monthdeadline" => $month8Deadline, "thesisdeadline" => $thesisDeadline);
 }
 
 //$schema = array("F_Name", "L_Name", "Course",  "Specialisation", "StudentID", "Primary_SupervisorID", "Primary_SupervisorPercent", "secondary_supervisorid","Secondary_SupervisorPercent", "Scholarship", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalSeminar", "ProposalConfirmation", "Report3MonthDeadline", "Report3MonthSubmission", "Report3MonthApproval", "Report8MonthDeadline", "Report8MonthSubmission", "Report8MonthApproval", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointed", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary", "WorkHours1", "WorkHours2", "WorkHours3");
