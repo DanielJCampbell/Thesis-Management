@@ -252,12 +252,18 @@ function format(data) {
 	var typeString = (data[3] === "Masters") ?  "<option value = 'PhD'>PhD</option> <option value = 'Masters' selected = 'selected'>Masters</option>"
 			: "<option value = 'PhD' selected = 'selected'>PhD</option> <option value = 'Masters'>Masters</option>";
 
+	var partTimeString = (data[6] === "Yes") ? "<input type='radio' name='pt' value='Yes' checked/> <input type='radio' name='pt' value='No'/>"
+			: "<input type='radio' name='pt' value='Yes'/> <input type='radio' name='pt' value='No' checked/>";
+
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
-	+ "<tr> <td> First Name: </td> <td> <input type = 'text' id = 'fname' value = '"+data[1].split(" ")[0]+"'/></tr>"
-	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' id = 'lname'  value = '"+data[1].split(" ")[1]+"'/></tr>"
-	+ "<tr> <td> Student ID: </td> <td> <input type = 'number' id = 'sID'  value = '"+data[2]+"'/></tr>"
+	+ "<tr> <td> First Name: </td> <td> <input type = 'text' id = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
+	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' id = 'lname'  value = '"+data[1].split(" ")[1]+"'/></td></tr>"
+	+ "<tr> <td> Student ID: </td> <td> <input type = 'number' id = 'sID'  value = '"+data[2]+"'/></td></tr>"
 	+ "<tr> <td> Type: </td> <td> <select id = 'type'>"
-	+ typeString + "</select></tr>"
-	+ "<tr> <td> Course: </td> <td> <input type='text' id='course' name='course' value = '"+data[4]+"'/></tr>"
+	+ typeString + "</select></td></tr>"
+	+ "<tr> <td> Course: </td> <td> <input type='text' id='course' name='course' value = '"+data[4]+"'/></td></tr>"
+	+ "<tr> <td> Specialisation: </td> <td> <input type='text' id='specialisation' name='specialisation' value = '"+data[5]+"'/></td></tr>"
+	+ "<tr> <td> Part-Time: </td> <td> " + partTimeString + "</td> </tr>"
+	+ "<tr> <td> Scholarship: </td> <td> <input type='text' id='scholarship' name='scholarship' value = '"+data[7]+"'/></tr>"
 	+ "</table> </form>";
 }
