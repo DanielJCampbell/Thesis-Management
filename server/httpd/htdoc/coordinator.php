@@ -47,7 +47,7 @@
   <input type = "button" onclick = "showSuspensions();" value = "Show Suspended Students"/><br/>
   <input type = "button" onclick = "showWorkHours();" value = "Show Work Hours"/><br/>
   <input type = "button" onclick = "showSupervisor();" value = "Show Supervisor Workload"/><br/>
-  <input type = "button" onclick = "showNonCurrentStudents();" value = "Show Non-current Students"/><br/>
+  <input type = "button" onclick = "showNonCurrent();" value = "Show Non-current Students"/><br/>
   </div>
   <div id = "body">
   Filter On: <select id = "students" onchange = "changeStudentfilter(this.value)" selected = "All">
