@@ -14,7 +14,6 @@ input[type="button"]{
 	text-shadow:0px 1px 0px #ffffff;
 	margin-bottom: 1px;
 	float: left;
-	position:absolute;
 }
 input[type="button"]:hover{
 	background-color:#dfdfdf;
