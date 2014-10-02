@@ -271,5 +271,7 @@ function format(data) {
 	+ "<tr> <td> Part-Time: </td> <td> " + partTimeString + "</td> </tr>"
 	+ "<tr> <td> Scholarship: </td> <td> <input type='text' id='scholarship' name='scholarship' value = '"+data[7]+"'/></tr>"
 	+ workHourString
+	+ "<tr> <td> Primary Supervisor: </td> <td> <input type = 'text' id = 'pSupervisor' name = 'pSupervisor' value = '" + data[10].split(" (")[0] + "'/></td>"
+		+ "<td> Percentage: </td> <td> <input type = 'number' min = '51' max = '99' id = 'pPercentage' name = 'pPercentage' value = '" + data[10].split(" (")[1].substr(0, -2) + "'/></td></tr>"
 	+ "</table> </form>";
 }
