@@ -90,6 +90,9 @@ CHECK (ExaminersAppointed  > ThesisSubmission OR ExaminersAppointed IS NULL),
 CHECK (ExaminationCompleted > ExaminersAppointed OR ExaminationCompleted IS NULL),
 CHECK (RevisionsFinalised > ExaminationCompleted OR RevisionsFinalised IS NULL),
 CHECK (DepositedInLibrary >= RevisionsFinalised OR DepositedInLibrary IS NULL),
+CHECK (WorkHours1 <= 150),
+CHECK (WorkHours2 <= 150),
+CHECK (WorkHours3 <= 150),
 PRIMARY KEY (StudentID),
 FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
 );
