@@ -52,7 +52,7 @@
 	<input type = "button" onclick = "showSuspensions();" value = "Show Suspended Students"/><br/>
   	<input type = "button" onclick = "showWorkHours();" value = "Show Work Hours"/><br/>
   </div>
-  <div id = "left" style = "float: left; background-color: steelblue;">
+  <div id = "last" style = "float: left; background-color: steelblue;">
   	<input type = "button" onclick = "showSupervisor();" value = "Show Supervisor Workload"/><br/>
   	<input type = "button" onclick = "showNonCurrent();" value = "Show Non-current Students"/><br/>
   </div>

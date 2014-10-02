@@ -33,7 +33,7 @@ function sendPHPRequest() {
 	  mainTable = $("#mainTable").dataTable({"autoWidth":false});
 	  supTable =  $("#supTable").dataTable();
 	  var colvis = new $.fn.dataTable.ColVis( mainTable );
-		$( colvis.button() ).insertAfter('div#last');
+		$( colvis.button() ).insertAfter('div.last');
 	  $.fn.dataTable.ext.search.push(studentTypeFilter);
 	  $.fn.dataTable.ext.search.push(nonCurrentStudentFilter);
 	  $("#mainTable").on('click', 'td.editTD', function () {
