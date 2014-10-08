@@ -8,34 +8,7 @@
 	<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://datatables.net/release-datatables/extensions/ColVis/js/dataTables.colVis.js"></script>
     <script src = "tables.js"></script>
-<!--
-    <style>
-
-
-      .active {
-	display: block;
-      }
-      .passive {
-	display: none;
-      }
-      table {
-	border: solid 2px;
-	border-collapse: collapse;
-	text-align: center;
-	font-size: 14px;
-      }
-      tr {
-	border: solid 1px;
-      }
-      td {
-      border: solid 1px;
-      }
-      th {
-      border: solid 1px;
-      }
-    </style>
-    -->
-    <h1> COORDINATOR PAGE MOCKUP </h1>
+    <h1> Thesis Management Staff Page</h1>
   </head>
 
   <body>
