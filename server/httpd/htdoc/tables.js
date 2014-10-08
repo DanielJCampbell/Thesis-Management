@@ -294,7 +294,7 @@ function format(data) {
 	+ "<tr> <td> Course: </td> <td> <input type='text' required id='course' name='course' value = '"+data[4]+"'/></td></tr>"
 	+ "<tr> <td> Specialisation: </td> <td> <input type='text' required id='specialisation' name='specialisation' value = '"+data[5]+"'/></td></tr>"
 	+ "<tr> <td> Part-Time: </td> <td> " + partTimeString + "</td> </tr>"
-	+ "<tr> <td> <input type = 'hidden' name = 'oldPT' value = '".oldPTString."'/></td> </tr>"
+	+ "<tr> <td> <input type = 'hidden' name = 'oldPT' value = '" + oldPTString + "'/></td> </tr>"
 	+ "<tr> <td> Scholarship: </td> <td> <input type='text' id='scholarship' name='scholarship' value = '"+data[7]+"'/></tr>"
 	+ workHourString
 	+ "<tr> <td> Primary Supervisor: </td> <td> <input type = 'text' required id = 'pSupervisor' name = 'pSupervisor' value = '" + data[11].split(" (")[0] + "'/></td>"
