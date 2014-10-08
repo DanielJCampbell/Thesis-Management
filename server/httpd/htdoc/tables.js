@@ -30,7 +30,7 @@ function sendPHPRequest() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
 	  $('#supTable').parents('div.dataTables_wrapper').first().hide();
-	  mainTable = $("#mainTable").dataTable({"autoWidth":false, "scrollX":true, "colVis": { "exclude": [0] });
+	  mainTable = $("#mainTable").dataTable({"autoWidth":false, "scrollX":true, "colVis": { "exclude": [0] } });
 	  supTable =  $("#supTable").dataTable();
 	  var colvis = new $.fn.dataTable.ColVis( mainTable );
 		$( colvis.button() ).insertAfter('div#last');
