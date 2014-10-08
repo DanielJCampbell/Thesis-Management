@@ -285,7 +285,7 @@ function format(data) {
 
 	var oldPTString = (data[6] === "Yes") ? 'H' : 'F';
 
-	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
+	return '<form action = "inlineEdit.php" method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
 	+ "<tr> <td> Editing Student With Id: </td> <td> <input type = 'text' name = 'sID' readonly value = '"+data[2]+"'/></td></tr>"
 	+ "<tr> <td> First Name: </td> <td> <input type = 'text' required id = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
 	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' required id = 'lname'  value = '"+data[1].split(" ")[1]+"'/></td></tr>"
