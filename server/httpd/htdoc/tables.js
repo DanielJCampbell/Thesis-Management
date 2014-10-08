@@ -100,16 +100,6 @@ function refreshTable() {
   redraw();
 }
 
-//Kill type for both
-
-//To kill for masters
-//echo "<th> 3 Month Report Deadline </th>";
-//echo "<th> 3 Month Report Submission </th>";
-//echo "<th> 3 Month Report Approval </th>";
-//echo "<th> 8 Month Report Deadline </th>";
-//echo "<th> 8 Month Report Submission </th>";
-//echo "<th> 8 Month Report Approval </th>";
-
 function redraw() {
   mainTable.fnDraw();
   supTable.fnDraw();
@@ -252,8 +242,8 @@ function format(data) {
 	var typeString = (data[3] === "Masters") ?  "<option value = 'PhD'>PhD</option> <option value = 'Masters' selected = 'selected'>Masters</option>"
 			: "<option value = 'PhD' selected = 'selected'>PhD</option> <option value = 'Masters'>Masters</option>";
 
-	var partTimeString = (data[6] === "Yes") ? "<input type='radio' name='pt' value='Yes' checked> Yes </input> <input type='radio' name='pt' value='No'> No </input>"
-			: "<input type='radio' name='pt' value='Yes'> Yes </input> <input type='radio' name='pt' value='No' checked> No </input>";
+	var partTimeString = (data[6] === "Yes") ? "<input type='radio' name='pt' value='H' checked> Yes </input> <input type='radio' name='pt' value='F'> No </input>"
+			: "<input type='radio' name='pt' value='H'> Yes </input> <input type='radio' name='pt' value='F' checked> No </input>";
 
 	var workHourString = (data[3] === "Masters") ? ""
 			: "<tr> <td> Work Hours Year 1: </td> <td> <input type = 'number' name = 'WorkY1' id = 'WorkY1' min = '0' max = '150' value = '" + data[8]  + "'</td> </tr>"
@@ -293,21 +283,25 @@ function format(data) {
 	var withdrawnString = (data[33] === "True") ?  "<option value = 'True' selected = 'selected'>True</option> <option value = 'False'>False</option>"
 			: "<option value = 'True' >True</option> <option value = 'False' selected = 'selected'>False</option>";
 
+	var oldPTString = (data[6] === "Yes") ? 'H' : 'F';
+
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
+	+ "<tr> <td> Editing Student With Id: </td> <td> <input type = 'text' name = 'sID' readonly value = '"+data[2]+"'/></td></tr>"
 	+ "<tr> <td> First Name: </td> <td> <input type = 'text' required id = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
 	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' required id = 'lname'  value = '"+data[1].split(" ")[1]+"'/></td></tr>"
-	+ "<tr> <td> Student ID: </td> <td> <input type = 'number' required id = 'sID'  value = '"+data[2]+"'/></td></tr>"
-	+ "<tr> <td> Type: </td> <td> <select id = 'type'>"
+	+ "<tr> <td> Type: </td> <td> <select id = 'type' name = 'type'>"
 	+ typeString + "</select></td></tr>"
 	+ "<tr> <td> Course: </td> <td> <input type='text' required id='course' name='course' value = '"+data[4]+"'/></td></tr>"
 	+ "<tr> <td> Specialisation: </td> <td> <input type='text' required id='specialisation' name='specialisation' value = '"+data[5]+"'/></td></tr>"
 	+ "<tr> <td> Part-Time: </td> <td> " + partTimeString + "</td> </tr>"
+	+ "<tr> <td> <input type = 'hidden' name = 'oldPT' value = '".oldPTString."'/></td> </tr>"
 	+ "<tr> <td> Scholarship: </td> <td> <input type='text' id='scholarship' name='scholarship' value = '"+data[7]+"'/></tr>"
 	+ workHourString
 	+ "<tr> <td> Primary Supervisor: </td> <td> <input type = 'text' required id = 'pSupervisor' name = 'pSupervisor' value = '" + data[11].split(" (")[0] + "'/></td>"
 		+ "<td> Percentage: </td> <td> <input type = 'number' required min = '51' max = '99' id = 'pPercentage' name = 'pPercentage' value = '" + data[11].split(" (")[1].slice(0, -2) + "'/></td></tr>"
 	+ "<tr> <td> Secondary Supervisor: </td> <td> <input type = 'text' required id = 'sSupervisor' name = 'sSupervisor' value = '" + data[12].split(" (")[0] + "'/></td>"
 		+ "<td> Percentage: </td> <td> <input type = 'number' min = '1' required max = '49' id = 'sPercentage' name = 'sPercentage' value = '" + data[12].split(" (")[1].slice(0, -2) + "'/></td></tr>"
+	+ "<tr> <td> <input type = 'hidden' name = 'suspensions' value = '" + data[13] + "' /></td></tr>"
 	+ "<tr> <td> Add New Suspension: </td> <td> Start Date <input type = 'date' name = 'suspensionStart' id = 'suspensionStart' placeholder = 'yyyy-mm-dd'/></td> "
 		+ "<td> End Date <input type = 'date' name = 'suspensionEnd' id = 'suspensionEnd' placeholder = 'yyyy-mm-dd'/></td></tr>"
 	+ "<tr> <td> Start Date: </td> <td> <input type = 'date' required id = 'startDate' name = 'startDate' value = '"+data[14]+"'/></td></tr>"
@@ -325,5 +319,10 @@ function format(data) {
 	+ originString + "</select></td></tr>"
 	+ "<tr> <td> Withdrawn: </td> <td> <select id = 'withdrawn'>"
 	+ withdrawnString + "</select></td></tr>"
+	+ "<tr> <td> <button type = 'submit' id = 'editInline' name = 'Edit' value = 'Edit'>Edit Student</button></td></tr>"
 	+ "</table> </form>";
+}
+
+function failChange(error) {
+	alert(error);
 }
