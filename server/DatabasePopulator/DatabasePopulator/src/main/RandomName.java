@@ -1,16 +1,13 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class RandomName {
 
 	public String first;
 	public String last;
 
-	private String fnames[] = {"John","Jane","Allan","George","Ezreal","Robert","Sue","Jack","Nikita"};
+	private String fnames[] = {"John","Jane","Allan","Georgie","Ezreal","Robert","Jack"};
 
-	private String lnames[] = {"Doe","Dane","Colt","Hallam","Rickman","Downey","Carr","Lee","Smith"};
+	private String lnames[] = {"Doe","Dane","Rickman","Pie","Colt","Downey","Daniels"};
 
 	public RandomName() {
 		first = fnames[randBetween(0,fnames.length-1)];

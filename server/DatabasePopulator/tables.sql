@@ -10,6 +10,7 @@ CREATE TABLE Students
 (
 F_Name varchar(50) NOT NULL,
 L_Name varchar(50) NOT NULL,
+StartDate date NOT NULL,
 Course varchar(50) NOT NULL,
 Specialisation varchar(50) NOT NULL,
 StudentID numeric(9,0) NOT NULL,
@@ -33,7 +34,6 @@ FOREIGN KEY (Secondary_SupervisorID) REFERENCES Supervisors(SupervisorID)
 CREATE TABLE MastersStudents
 (
 StudentID numeric(9,0) NOT NULL,
-StartDate date NOT NULL,
 ProposalDeadline date,
 ProposalSubmission date,
 ProposalConfirmation  date,
@@ -68,7 +68,6 @@ FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
 CREATE TABLE PhDStudents
 (
 StudentID numeric(9,0) NOT NULL,
-StartDate date NOT NULL,
 ProposalDeadline date,
 ProposalSubmission date,
 ProposalSeminar date,
@@ -107,13 +106,6 @@ SuspensionStartDate date,
 SuspensionEndDate date,
 CHECK (SuspensionEndDate > SuspensionStartDate),
 PRIMARY KEY (SuspensionID),
-FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
-);
-
-CREATE TABLE Withdrawals
-(
-StudentID int NOT NULL,
-PRIMARY KEY (StudentID),
 FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
 );
 
