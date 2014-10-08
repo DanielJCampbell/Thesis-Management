@@ -283,7 +283,7 @@ public class MyWriter {
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<23){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else{
