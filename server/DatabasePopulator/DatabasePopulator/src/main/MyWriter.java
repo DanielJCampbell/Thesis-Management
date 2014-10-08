@@ -60,7 +60,7 @@ public class MyWriter {
 		
 		boolean withdrawn = new RandomBoolean().symbols;
 		
-		writer.println("INSERT INTO Students Values ("+fname+","+ lname +","+ course +","+spec+","+ studentid +","+rs.supid1+","+rs.supPercent + ","+rs.supid2+","+rs.supPercent2+","+scholar+","+notes+","+ origin+","+ withdrawn +");");
+		writer.println("INSERT INTO Students Values ("+fname+","+ lname +"," + startDate +","+ course +","+spec+","+ studentid +","+rs.supid1+","+rs.supPercent + ","+rs.supid2+","+rs.supPercent2+","+scholar+","+notes+","+ origin+","+ withdrawn +");");
 		
 		// Start of enrolment - Initial enrolment Type
 		String enrolmentType = "";
@@ -72,7 +72,7 @@ public class MyWriter {
 		}
 		
 		// Initial Change - So they they HAVE an enrolment type.
-		writer.println("INSERT INTO EnrolmentTypeChanges VALUES (" + studentid + "," + enrolmentType + "," + startDate + ");");
+		writer.println("INSERT INTO EnrolmentTypeChanges VALUES (" + studentid + "," + enrolmentType + "," + "" + ");");
 		
 		// Suspend Location 1 - Before Proposition Masters
 		if(suspendLocation == 1 ){
@@ -95,7 +95,6 @@ public class MyWriter {
 		//Masters
 		String propSubDate = prop.symbols;
 		prop.moveMonths(randBetween(1,3));
-		String propDeadDate = prop.symbols;
 		prop.moveMonths(randBetween(1,3));
 		String propConfDate = prop.symbols;
 		
@@ -120,7 +119,6 @@ public class MyWriter {
 		prop.moveMonths(3);
 		String prop3mthSubDate = prop.symbols;
 		prop.moveMonths(randBetween(1,3));
-		String prop3mthDeadDate = prop.symbols;
 		prop.moveMonths(randBetween(1,3));
 		String prop3mthApprDate = prop.symbols;
 
@@ -143,7 +141,6 @@ public class MyWriter {
 		}
 		
 		prop.moveMonths(5);
-		String prop8mthDeadDate = prop.symbols;
 		prop.moveMonths(randBetween(1,3));
 		String prop8mthSubDate = prop.symbols;
 		prop.moveMonths(randBetween(1,3));
@@ -193,7 +190,6 @@ public class MyWriter {
 		// thesisM due 1 year from start (masters)
 		String thesisSub = thesisM.symbols;
 		thesisM.moveMonths(randBetween(1,3));
-		String thesisDead = thesisM.symbols;
 		thesisM.moveMonths(randBetween(1,3));
 		String examinersAppointed = thesisM.symbols;
 		thesisM.moveMonths(randBetween(1,3));
@@ -225,7 +221,6 @@ public class MyWriter {
 		// thesisP due 3 years from start (PhD)
 		String thesisPSub = thesisP.symbols;
 		thesisP.moveMonths(randBetween(1,3));
-		String thesisPDead = thesisP.symbols;
 		thesisP.moveMonths(randBetween(1,3));
 		String examinersPAppointed = thesisP.symbols;
 		thesisP.moveMonths(randBetween(1,3));
@@ -246,98 +241,93 @@ public class MyWriter {
 		if(i<25){
 			if(i<2){			
 				// Suspension that start before current date, End after current date - Masters
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +"NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ ""+","+ prop8mthSubDate+","+prop8mthApprDate+","+ ""+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +"NULL"+");");
 				suspend(writer,studentid,"'2014-08-10'","'2014-09-10'");
 				suspend(writer,studentid,susStart1,susEnd1);
 				}
 			else if(i<4){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +"NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ ""+","+ prop8mthSubDate+","+prop8mthApprDate+","+ ""+","+thesisSub +","+ examinersAppointed+ "," +"NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<6){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+"NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ ""+","+ prop8mthSubDate+","+prop8mthApprDate+","+"NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<8){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+"NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ ""+","+ prop8mthSubDate+","+"NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<10){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<12){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}			
 			else if(i<14){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+"NULL"+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+"NULL"+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<16){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+"NULL"+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+"NULL"+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<18){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+",NULL,"+"NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ ""+",NULL,"+"NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 
 			else if(i<20){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+",NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ ""+","+ prop8mthSubDate+","+prop8mthApprDate+",NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<23){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+""+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else{
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propConfDate+","+prop3mthDeadDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthDeadDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+ thesisDead+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +deposited+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ ""+","+ prop8mthSubDate+","+prop8mthApprDate+","+ ""+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +deposited+");");
 			}
 		}
 		else{
 			if(i<40){
-			writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub +","+ examinersPAppointed+ "," +examinationPComplete+"," + revisionsP+"," +depositedP+","+workHours1+","+workHours2+","+workHours3+");");
+			writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+propSubDate+","+propSeminar+","+propConfDate+","+ ""+","+thesisPSub +","+ examinersPAppointed+ "," +examinationPComplete+"," + revisionsP+"," +depositedP+","+workHours1+","+workHours2+","+workHours3+");");
 			}
 			else{
 				if(i<45){
-				writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub +","+ examinersPAppointed+ "," +examinationPComplete+"," + revisionsP+"," +depositedP+","+workHours1+","+workHours2+","+"NULL"+");");
+				writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+propSubDate+","+propSeminar+","+propConfDate+","+ ""+","+thesisPSub +","+ examinersPAppointed+ "," +examinationPComplete+"," + revisionsP+"," +depositedP+","+workHours1+","+workHours2+","+"NULL"+");");
 				}
 				else if(i<50){
-				writer.println("INSERT INTO PhDStudents (StudentId,StartDate,ProposalDeadline) Values ("+ studentid +","+startDate+","+propDeadDate+");");
+				writer.println("INSERT INTO PhDStudents (StudentId) Values ("+ studentid +","+""+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 				else if(i<60){
-					writer.println("INSERT INTO PhDStudents (StudentId,StartDate,ProposalDeadline,ProposalSubmission) Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+");");
+					writer.println("INSERT INTO PhDStudents (StudentId,ProposalSubmission) Values ("+ studentid +","+propSubDate+");");
 					suspend(writer,studentid,susStart,susEnd);
 					}
 				else if(i<62){
-					writer.println("INSERT INTO PhDStudents (StudentId,StartDate,ProposalDeadline,ProposalSubmission,ProposalSeminar) Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+");");
+					writer.println("INSERT INTO PhDStudents (StudentId,ProposalSubmission,ProposalSeminar) Values ("+ studentid +","+propSubDate+","+propSeminar+");");
 					
 					}
 				else if(i<64){
-					writer.println("INSERT INTO PhDStudents (StudentId,StartDate,ProposalDeadline,ProposalSubmission,ProposalSeminar,ProposalConfirmation,ThesisDeadline,ThesisSubmission) Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub +");");
+					writer.println("INSERT INTO PhDStudents (StudentId,ProposalSubmission,ProposalSeminar,ProposalConfirmation,ThesisSubmission) Values ("+ studentid +","+propSubDate+","+propSeminar+","+propConfDate+","+ ""+","+thesisPSub +");");
 					
 					}
 				else if(i<66){
-					writer.println("INSERT INTO PhDStudents (StudentId,StartDate,ProposalDeadline,ProposalSubmission,ProposalSeminar,ProposalConfirmation,ThesisDeadline,ThesisSubmission,ExaminersAppointed) Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub + ","+ examinersPAppointed+");");
+					writer.println("INSERT INTO PhDStudents (StudentId,ProposalSubmission,ProposalSeminar,ProposalConfirmation,ThesisSubmission,ExaminersAppointed) Values ("+ studentid +","+propSubDate+","+propSeminar+","+propConfDate+","+ ""+","+thesisPSub + ","+ examinersPAppointed+");");
 					
 					}
 				else if(i<68){
-					writer.println("INSERT INTO PhDStudents (StudentId,StartDate,ProposalDeadline,ProposalSubmission,ProposalSeminar,ProposalConfirmation,ThesisDeadline,ThesisSubmission,ExaminersAppointed,ExaminationCompleted) Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub + ","+ examinersPAppointed+ "," +examinationPComplete+");");
+					writer.println("INSERT INTO PhDStudents (StudentId,ProposalSubmission,ProposalSeminar,ProposalConfirmation,ThesisSubmission,ExaminersAppointed,ExaminationCompleted) Values ("+ studentid +","+propSubDate+","+propSeminar+","+propConfDate+","+ ""+","+thesisPSub + ","+ examinersPAppointed+ "," +examinationPComplete+");");
 					
 					}
 				else if(i<=70){
-					writer.println("INSERT INTO PhDStudents (StudentId,StartDate,ProposalDeadline,ProposalSubmission,ProposalSeminar,ProposalConfirmation,ThesisDeadline,ThesisSubmission,ExaminersAppointed,ExaminationCompleted,RevisionsFinalised) Values ("+ studentid +","+startDate+","+propDeadDate+","+propSubDate+","+propSeminar+","+propConfDate+","+ thesisPDead+","+thesisPSub + ","+ examinersPAppointed+ "," +examinationPComplete+"," + revisionsP+");");
+					writer.println("INSERT INTO PhDStudents (StudentId,ProposalSubmission,ProposalSeminar,ProposalConfirmation,ThesisSubmission,ExaminersAppointed,ExaminationCompleted,RevisionsFinalised) Values ("+ studentid +","+propSubDate+","+propSeminar+","+propConfDate+","+ ""+","+thesisPSub + ","+ examinersPAppointed+ "," +examinationPComplete+"," + revisionsP+");");
 					suspend(writer,studentid,susStart,susEnd);
 					suspend(writer,studentid,susStart2,susEnd2);
 					}
 			}
-		}
-		
-		// Withdrawals at indices: 15 (Masters) and 45 (PhD)
-		if(i == 15 || i == 45){
-			writer.println("INSERT INTO Withdrawals VALUES ("+ studentid +");");
 		}
 		
 		}

@@ -10,6 +10,7 @@ CREATE TABLE Students
 (
 F_Name varchar(50) NOT NULL,
 L_Name varchar(50) NOT NULL,
+StartDate date NOT NULL,
 Course varchar(50) NOT NULL,
 Specialisation varchar(50) NOT NULL,
 StudentID numeric(9,0) NOT NULL,
@@ -33,17 +34,12 @@ FOREIGN KEY (Secondary_SupervisorID) REFERENCES Supervisors(SupervisorID)
 CREATE TABLE MastersStudents
 (
 StudentID numeric(9,0) NOT NULL,
-StartDate date NOT NULL,
-ProposalDeadline date,
 ProposalSubmission date,
 ProposalConfirmation  date,
-Report3MonthDeadline date,
 Report3MonthSubmission date,
 Report3MonthApproval date,
-Report8MonthDeadline date,
 Report8MonthSubmission date,
 Report8MonthApproval date,
-ThesisDeadline date,
 ThesisSubmission date,
 ExaminersAppointed  date,
 ExaminationCompleted date,
@@ -51,11 +47,8 @@ RevisionsFinalised date,
 DepositedInLibrary date,
 CHECK (ProposalDeadline > StartDate),
 CHECK (ProposalConfirmation  > ProposalSubmission OR ProposalConfirmation IS NULL),
-CHECK (Report3MonthDeadline > ProposalDeadline OR Report3MonthDeadline IS NULL),
 CHECK (Report3MonthApproval > Report3MonthSubmission OR Report3MonthApproval IS NULL),
-CHECK (Report8MonthDeadline > Report3MonthDeadline OR Report8MonthDeadline IS NULL),
 CHECK (Report8MonthApproval > Report8MonthSubmission OR Report8MonthApproval IS NULL),
-CHECK (ThesisDeadline > Report8MonthDeadline OR ThesisDeadline IS NULL),
 CHECK (ThesisSubmission > ProposalConfirmation OR ThesisSubmission IS NULL),
 CHECK (ExaminersAppointed  > ThesisSubmission OR ExaminersAppointed IS NULL),
 CHECK (ExaminationCompleted > ExaminersAppointed OR ExaminationCompleted IS NULL),
@@ -68,12 +61,9 @@ FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
 CREATE TABLE PhDStudents
 (
 StudentID numeric(9,0) NOT NULL,
-StartDate date NOT NULL,
-ProposalDeadline date,
 ProposalSubmission date,
 ProposalSeminar date,
 ProposalConfirmation date,
-ThesisDeadline date,
 ThesisSubmission date,
 ExaminersAppointed  date,
 ExaminationCompleted date,
@@ -84,7 +74,6 @@ WorkHours2 int DEFAULT 0 CHECK (WorkHours2 >= 0),
 WorkHours3 int DEFAULT 0 CHECK (WorkHours3 >= 0),
 CHECK (ProposalDeadline > StartDate OR ProposalDeadline IS NULL),
 CHECK (ProposalConfirmation > ProposalSubmission OR ProposalConfirmation IS NULL),
-CHECK (ThesisDeadline > ProposalDeadline OR ThesisDeadline IS NULL),
 CHECK (ThesisSubmission > ProposalConfirmation OR ThesisSubmission IS NULL),
 CHECK (ExaminersAppointed  > ThesisSubmission OR ExaminersAppointed IS NULL),
 CHECK (ExaminationCompleted > ExaminersAppointed OR ExaminationCompleted IS NULL),
@@ -107,13 +96,6 @@ SuspensionStartDate date,
 SuspensionEndDate date,
 CHECK (SuspensionEndDate > SuspensionStartDate),
 PRIMARY KEY (SuspensionID),
-FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
-);
-
-CREATE TABLE Withdrawals
-(
-StudentID int NOT NULL,
-PRIMARY KEY (StudentID),
 FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
 );
 

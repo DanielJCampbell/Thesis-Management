@@ -34,7 +34,7 @@
     <option value = "PhD">PhD Students</option>
     <option value = "Masters">Masters Students</option>
   </select>
-  <div id = "Tables">
+  <div id = "Tables" width="80%">
   </div>
   </div>
   <?php
