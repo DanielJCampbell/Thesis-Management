@@ -32,6 +32,7 @@ function sendPHPRequest() {
 	  $('#supTable').parents('div.dataTables_wrapper').first().hide();
 	  mainTable = $("#mainTable").dataTable({"autoWidth":false, "scrollX":true,"dom": 'C<"clear">lfrtip', "colVis": { "exclude": [0] } });
 	  supTable =  $("#supTable").dataTable();
+	  $("div.clear").insertAfter('div#last');
 	  //var colvis = new $.fn.dataTable.ColVis( mainTable );
 		//$( colvis.button() ).insertAfter('div#last');
 	  $.fn.dataTable.ext.search.push(studentTypeFilter);
