@@ -56,20 +56,14 @@
   	<input type = "button" onclick = "showNonCurrent();" value = "Show Non-current Students"/><br/>
   </div>
   <div id = "body">
-<nav>
-	<ul>
-	<li><a href="changeStudentfilter(All)">All</a></li>
-	<li><a href="changeStudentfilter(PhD)">PhD</a></li>
-	<li><a href="changeStudentfilter(Masters)">Masters</a></li>
-	</ul>
-</nav
-<!--
+
+
   <select id = "students" onchange = "changeStudentfilter(this.value)" selected = "All">
     <option value = "All" selected = "selected">All Students</option>
     <option value = "PhD">PhD Students</option>
     <option value = "Masters">Masters Students</option>
   </select>
--->
+
   <div id = "Tables" width="80%">
   </div>
   </div>
