@@ -55,7 +55,7 @@ $db = pg_connect("host = '".$location."'user = '".$username."' password = '".$pa
 /** Main Table */
 
 //headers
-echo "<table id='mainTable'  class='stripe'>";
+echo "<table id='mainTable'  class='stripe' width="100%">";
 echo "<thead>";
 echo "<tr>";
 echo "<th></th>";
