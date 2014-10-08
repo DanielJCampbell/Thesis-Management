@@ -250,31 +250,31 @@ public class MyWriter {
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<6){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+"NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+"NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<8){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthSubDate+","+"NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthSubDate+","+"NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<10){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<12){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}			
 			else if(i<14){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+"NULL"+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+"NULL"+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<16){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+"NULL"+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<18){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ ""+",NULL,"+"NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 
@@ -283,7 +283,7 @@ public class MyWriter {
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<23){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+""+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents Values ("+ studentid +",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else{
@@ -299,7 +299,7 @@ public class MyWriter {
 				writer.println("INSERT INTO PhDStudents Values ("+ studentid +","+propSubDate+","+propSeminar+","+propConfDate+","+thesisPSub +","+ examinersPAppointed+ "," +examinationPComplete+"," + revisionsP+"," +depositedP+","+workHours1+","+workHours2+","+"NULL"+");");
 				}
 				else if(i<50){
-				writer.println("INSERT INTO PhDStudents (StudentId) Values ("+ studentid +","+""+");");
+				writer.println("INSERT INTO PhDStudents (StudentId) Values ("+ studentid+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 				else if(i<60){
