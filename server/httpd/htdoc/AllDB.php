@@ -85,7 +85,7 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 // 					$thesisFTE += 1;//$suspensionFTE;
 // 				}
  			//}
-		}
+//		}
 		// For each deadline, if said deadlines FTE is after the FTE for the start of this period and before the FTE at the end of this period, it is during this enrolment type period
 		if ($startFTE <= $proposalFTE && ($endFTE === null || $proposalFTE < $endFTE)) {
 			$proposalFTESinceStart = $proposalFTE - $startFTE;
