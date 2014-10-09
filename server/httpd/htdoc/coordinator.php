@@ -20,7 +20,7 @@
 
 		button.style.background-color = "#dfdfdf";
 	}
-	}
+	</script>
     <div id = "image"> <img src="vuw-logo.png" style="height:75px"> </div>
     <h1> Thesis Management Staff Page</h1>
   </head>
