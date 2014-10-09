@@ -30,7 +30,7 @@ function sendPHPRequest() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
 	  $('#supTable').parents('div.dataTables_wrapper').first().hide();
-	  mainTable = $("#mainTable").dataTable({"autoWidth":false, "scrollX":true});
+	  mainTable = $("#mainTable").dataTable({"autoWidth":false, "scrollX":true, "scrollY":true});
 	  supTable =  $("#supTable").dataTable();
 
 	  var colvis = new $.fn.dataTable.ColVis( mainTable, {exclude: [0] } );
