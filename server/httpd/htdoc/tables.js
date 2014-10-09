@@ -316,9 +316,9 @@ function format(data) {
 	+ "<tr> <td> Revisions Finalised: </td> <td> <input type = 'date' id = 'revisionsFinalised' name = 'revisionsFinalised' value = '"+data[29]+"'/></td></tr>"
 	+ "<tr> <td> Deposited In Library: </td> <td> <input type = 'date' id = 'deposited' name = 'deposited' value = '"+data[30]+"'/></td></tr>"
 	+ "<tr> <td> Notes: </td> <td> <input type = 'text' id = 'notes' name = 'notes' value = '"+data[31] +"'/></td></tr>"
-	+ "<tr> <td> Origin: </td> <td> <select id = 'origin'>"
+	+ "<tr> <td> Origin: </td> <td> <select name = 'origin' id = 'origin'>"
 	+ originString + "</select></td></tr>"
-	+ "<tr> <td> Withdrawn: </td> <td> <select id = 'withdrawn'>"
+	+ "<tr> <td> Withdrawn: </td> <td> <select name = 'withdrawn' id = 'withdrawn'>"
 	+ withdrawnString + "</select></td></tr>"
 	+ "<tr> <td> <button type = 'submit' id = 'editInline' name = 'Edit' value = 'Edit'>Edit Student</button></td></tr>"
 	+ "</table> </form>";
