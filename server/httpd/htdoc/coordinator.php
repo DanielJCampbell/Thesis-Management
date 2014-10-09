@@ -8,9 +8,10 @@
 	<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://datatables.net/release-datatables/extensions/ColVis/js/dataTables.colVis.js"></script>
     <script src = "tables.js"></script>
+    <div id = "image"> <img src="vuw-logo.png" style="height:75px"> </div>
     <h1> Thesis Management Staff Page</h1>
   </head>
-
+  <div style="clear:both"></div>
   <body>
   <div id = "left">
 	  <input type = "button" onclick = "showStudentTable();" value = "Clear filters"/><br/>
@@ -32,7 +33,8 @@
 
 
   <select id = "students" onchange = "changeStudentfilter(this.value)" selected = "All">
-    <option value = "All" selected = "selected">All Students</option>
+    <option selected disabled>Filter students by type</option>
+    <option value = "All">All Students</option>
     <option value = "PhD">PhD Students</option>
     <option value = "Masters">Masters Students</option>
   </select>
