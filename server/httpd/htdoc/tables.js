@@ -26,7 +26,9 @@ window.onload = sendPHPRequest();
 function sendPHPRequest() {
   var req = new XMLHttpRequest();
 	var tableheight = $(window).height()/2;
+	console.log(tableheight);
 	tableheight = tableheight.toString().concat("px");
+	console.log(tableheight);
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
