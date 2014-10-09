@@ -18,9 +18,9 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 	if ($studentType === "PhD") { // PhD students have 3 months for proposal and 3 years for their thesis
 		$studentTypeModifier = 3;
 	}
-	$studentStartDate = strtotime ( $start ); // convert $start to php datetime object
-	                                       // Full time equivalence to each deadline
-	                                       // TODO Change FTE to use dateTime months
+	//$studentStartDate = $start; // convert $start to unix time
+	                                          // Full time equivalence to each deadline
+	                                          // TODO Change FTE to use dateTime months
 	$proposalFTE = 30 * $studentTypeModifier; // 1 month
 	$month3FTE = 90;
 	$month8FTE = 240;
@@ -47,10 +47,10 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 			$currTypeModifier = 2; // halftime students take twice as long for their enrolment
 		}
 		// Get dates for the start and end of this enrolment type period
-		$startDate = strtotime ( $enrolmentTypeChangeList [$i] ['ChangeDate'] );
+		$startDate = Date('Y-m-d',$enrolmentTypeChangeList [$i] ['ChangeDate']);
 		$endDate = null;
 		if ($i + 1 < $typeChangelength) { // Check if next type change exists
-			$endDate = strtotime ( $enrolmentTypeChangeList [$i + 1] ['ChangeDate'] );
+			$endDate = date('Y-m-d',$enrolmentTypeChangeList [$i + 1] ['ChangeDate']);
 		}
 		// Calculate Full Time Equivalence
 		$currFTE = null;
@@ -63,9 +63,9 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 		// Modify the deadline FTEs according to suspensions that happen during this period. Assumes suspensions do not happen over enrolment type changes (why would they?)
 		$numSuspensions = count ( $suspensionsList );
 		for($i = 0; $i < $numSuspensions; $i ++) {
-			$currSuspStart = strtotime ( $suspensionsList [$i] ['SuspensionStartDate'] );
+			$currSuspStart = Date('Y-m-d', $suspensionsList [$i] ['SuspensionStartDate'] );
 			if ($startDate < $currSuspStart && ($endDate === null || $currSuspStart < $endDate)) { // suspension is in current enrolment type period
-				$currSuspEnd = strtotime ( $suspensionsList [$i] ['SuspensionEndDate'] );
+				$currSuspEnd = Date('Y-m-d', $suspensionsList [$i] ['SuspensionEndDate'] );
 
 				$timeFromCurr = date_diff ( $startDate, $currSuspStart );
 				$fromStartFTE = $startFTE + ($timeFromCurr->format ( '%a' ) / $partTimeModifier);
@@ -122,19 +122,19 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 	);
 }
 
-//$schema = array("F_Name", "L_Name", "Course",  "Specialisation", "StudentID", "Primary_SupervisorID", "Primary_SupervisorPercent", "secondary_supervisorid","Secondary_SupervisorPercent", "Scholarship", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalSeminar", "ProposalConfirmation", "Report3MonthDeadline", "Report3MonthSubmission", "Report3MonthApproval", "Report8MonthDeadline", "Report8MonthSubmission", "Report8MonthApproval", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointed", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary", "WorkHours1", "WorkHours2", "WorkHours3");
-//$tableColumns = array("Name", "ID", "Type", "Course", "Specialisation", "Start Date", "Proposal Deadline", "Proposal Submission", "Proposal Seminar", "Proposal Confirmation", "3 Month Report Deadline", "3 Month Report Submission", "3 Month report Approval", "8 Month Report Deadline", "8 Month report Submission", "8 Month report Approval", "Thesis Deadline", "Thesis Submission", "Examiners Appointed", "Examination Completed", "Revisions Finalised", "Deposited In Library", "Work Hours 1st year", "Work Hours 2nd year", "Work Hours 3rd year");
-//$schema_masters = array("StudentID", "Specialisation", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalConfirmation", "Report3MonthDeadline", "Report3MonthSubmission", "Report3MonthApproval", "Report8MonthDeadline", "Report8MonthSubmission", "Report8MonthApproval", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointed", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary");
-//$schema_masters_human_readable = array("Student ID", "Course Specialisation", "Start Date", "Proposal Deadline", "Proposal Submission", "Proposal Confirmation", "3 Month Report Deadline", "3 Month Report Submission", "3 Month report Approval", "8 Month Report Deadline", "8 Month report Submission", "8 Month report Approval", "Thesis Deadline", "Thesis Submission", "Examiners Appointed", "Examination Completed", "Revisions Finalised", "Deposited In Library");
+// $schema = array("F_Name", "L_Name", "Course", "Specialisation", "StudentID", "Primary_SupervisorID", "Primary_SupervisorPercent", "secondary_supervisorid","Secondary_SupervisorPercent", "Scholarship", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalSeminar", "ProposalConfirmation", "Report3MonthDeadline", "Report3MonthSubmission", "Report3MonthApproval", "Report8MonthDeadline", "Report8MonthSubmission", "Report8MonthApproval", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointed", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary", "WorkHours1", "WorkHours2", "WorkHours3");
+// $tableColumns = array("Name", "ID", "Type", "Course", "Specialisation", "Start Date", "Proposal Deadline", "Proposal Submission", "Proposal Seminar", "Proposal Confirmation", "3 Month Report Deadline", "3 Month Report Submission", "3 Month report Approval", "8 Month Report Deadline", "8 Month report Submission", "8 Month report Approval", "Thesis Deadline", "Thesis Submission", "Examiners Appointed", "Examination Completed", "Revisions Finalised", "Deposited In Library", "Work Hours 1st year", "Work Hours 2nd year", "Work Hours 3rd year");
+// $schema_masters = array("StudentID", "Specialisation", "StartDate", "ProposalDeadline", "ProposalSubmission", "ProposalConfirmation", "Report3MonthDeadline", "Report3MonthSubmission", "Report3MonthApproval", "Report8MonthDeadline", "Report8MonthSubmission", "Report8MonthApproval", "ThesisDeadline", "ThesisSubmission", "ExaminersAppointed", "ExaminationCompleted", "RevisionsFinalised", "DepositedInLibrary");
+// $schema_masters_human_readable = array("Student ID", "Course Specialisation", "Start Date", "Proposal Deadline", "Proposal Submission", "Proposal Confirmation", "3 Month Report Deadline", "3 Month Report Submission", "3 Month report Approval", "8 Month Report Deadline", "8 Month report Submission", "8 Month report Approval", "Thesis Deadline", "Thesis Submission", "Examiners Appointed", "Examination Completed", "Revisions Finalised", "Deposited In Library");
 
+// Connect to database
+$db = pg_connect ( "host = '" . $location . "'user = '" . $username . "' password = '" . $password . "' dbname = '" . $database . "'" ) or die ( 'Unable to connect to database: ' . pg_last_error () );
 
-//Connect to database
-$db = pg_connect("host = '".$location."'user = '".$username."' password = '".$password."' dbname = '".$database."'")
-		or die('Unable to connect to database: ' . pg_last_error());
+/**
+ * Main Table
+ */
 
-/** Main Table */
-
-//headers
+// headers
 echo "<table id='mainTable'  class='stripe'>";
 echo "<thead>";
 echo "<tr>";
@@ -176,20 +176,17 @@ echo "</tr>";
 echo "</thead>";
 echo "<tbody>";
 
-//data
-$mastersQuery = pg_query ( "SELECT * FROM Students NATURAL JOIN MastersStudents" ) or die('Query failed: ' . pg_last_error());
+// data
+$mastersQuery = pg_query ( "SELECT * FROM Students NATURAL JOIN MastersStudents" ) or die ( 'Query failed: ' . pg_last_error () );
 
-while ($row = pg_fetch_assoc($mastersQuery)){
+while ( $row = pg_fetch_assoc ( $mastersQuery ) ) {
 
-	$enrolmentTypeQuery = pg_query ("SELECT * FROM EnrolmentTypeChanges WHERE (StudentID = ".$row[studentid].") ORDER BY ChangeDate");
-	$enrolmentTypeArray = pg_fetch_all($enrolmentTypeQuery);
-	$suspensionsQuery = pg_query("SELECT * FROM Suspensions s WHERE s.StudentID = " . $row [studentid] );
-	$suspensionsArray = pg_fetch_all($suspensionsQuery);
+	$enrolmentTypeQuery = pg_query ( "SELECT * FROM EnrolmentTypeChanges WHERE (StudentID = " . $row [studentid] . ") ORDER BY ChangeDate" );
+	$enrolmentTypeArray = pg_fetch_all ( $enrolmentTypeQuery );
+	$suspensionsQuery = pg_query ( "SELECT * FROM Suspensions s WHERE s.StudentID = " . $row [studentid] );
+	$suspensionsArray = pg_fetch_all ( $suspensionsQuery );
 
-
-	$deadlines = calculateDeadlines($row [startdate], "Masters", $enrolmentTypeArray, $suspensionsArray);
-
-
+	$deadlines = calculateDeadlines ( $row [startdate], "Masters", $enrolmentTypeArray, $suspensionsArray );
 
 	echo "<tr>";
 	echo "<td class = 'editTD'> Edit </td>";
@@ -199,28 +196,27 @@ while ($row = pg_fetch_assoc($mastersQuery)){
 	echo "<td>" . $row [course] . "</td>";
 	echo "<td>" . $row [specialisation] . "</td>";
 
-	$halftimeQuery = pg_query ("SELECT * FROM EnrolmentTypeChanges WHERE (StudentID = ".$row[studentid].") ORDER BY ChangeDate DESC LIMIT 1");
-	$isHalftime = pg_fetch_assoc($halftimeQuery);
+	$halftimeQuery = pg_query ( "SELECT * FROM EnrolmentTypeChanges WHERE (StudentID = " . $row [studentid] . ") ORDER BY ChangeDate DESC LIMIT 1" );
+	$isHalftime = pg_fetch_assoc ( $halftimeQuery );
 	if ($isHalftime [enrolmenttype] == 'H') {
 		echo "<td>Yes</td>";
-	} else{
+	} else {
 		echo "<td>No</td>";
 	}
 	echo "<td>" . $row [scholarship] . "</td>";
-	echo "<td></td>"; //Work hours is for PhD students only
+	echo "<td></td>"; // Work hours is for PhD students only
 	echo "<td></td>";
 	echo "<td></td>";
 
-	$pQuery = pg_query("SELECT * FROM Supervisors s WHERE s.SupervisorID = " . $row [primary_supervisorid]);
-	$sQuery = pg_query("SELECT * FROM Supervisors s WHERE s.SupervisorID = " . $row [secondary_supervisorid]);
-	$primary = pg_fetch_assoc($pQuery );
-	$secondary = pg_fetch_assoc($sQuery );
+	$pQuery = pg_query ( "SELECT * FROM Supervisors s WHERE s.SupervisorID = " . $row [primary_supervisorid] );
+	$sQuery = pg_query ( "SELECT * FROM Supervisors s WHERE s.SupervisorID = " . $row [secondary_supervisorid] );
+	$primary = pg_fetch_assoc ( $pQuery );
+	$secondary = pg_fetch_assoc ( $sQuery );
 	echo "<td>" . $primary [f_name] . " " . $primary [l_name] . " (" . $row [primary_supervisorpercent] . "%)</td>";
 	echo "<td>" . $secondary [f_name] . " " . $secondary [l_name] . " (" . $row [secondary_supervisorpercent] . "%)</td>";
 
-
 	$suspensions = "";
-	while ( $tmp = pg_fetch_assoc($suspensionsQuery  ) ) {
+	while ( $tmp = pg_fetch_assoc ( $suspensionsQuery ) ) {
 		$suspensions .= ($tmp [suspensionstartdate] . " - " . $tmp [suspensionenddate] . "<br>");
 	}
 	echo "<td>" . $suspensions . "</td>";
@@ -228,7 +224,7 @@ while ($row = pg_fetch_assoc($mastersQuery)){
 	echo "<td>" . $row [startdate] . "</td>";
 	echo "<td>" . $deadlines [proposaldeadline] . "</td>";
 	echo "<td>" . $row [proposalsubmission] . "</td>";
-	echo "<td></td>"; //seminar is for PhD only
+	echo "<td></td>"; // seminar is for PhD only
 	echo "<td>" . $row [proposalconfirmation] . "</td>";
 	echo "<td>" . $deadlines [report3monthdeadline] . "</td>";
 	echo "<td>" . $row [report3monthsubmission] . "</td>";
@@ -245,19 +241,21 @@ while ($row = pg_fetch_assoc($mastersQuery)){
 	echo "<td>" . $row [notes] . "</td>";
 	echo "<td>" . $row [origin] . "</td>";
 	$withdrawn = "False";
-	if ($row [withdrawn] === "t"){$withdrawn = "True";}
+	if ($row [withdrawn] === "t") {
+		$withdrawn = "True";
+	}
 	echo "<td>" . $withdrawn . "</td>";
 	echo "</tr>";
 }
-$phdQuery = pg_query ("SELECT * FROM Students NATURAL JOIN PhDStudents") or die('Query failed: ' . pg_last_error());
+$phdQuery = pg_query ( "SELECT * FROM Students NATURAL JOIN PhDStudents" ) or die ( 'Query failed: ' . pg_last_error () );
 
-while ($row = pg_fetch_assoc($phdQuery )){
-	$enrolmentTypeQuery = pg_query ("SELECT * FROM EnrolmentTypeChanges WHERE (StudentID = ".$row[studentid].") ORDER BY ChangeDate");
-	$enrolmentTypeArray = pg_fetch_all($enrolmentTypeQuery);
-	$suspensionsQuery = pg_query("SELECT * FROM Suspensions s WHERE s.StudentID = " . $row [studentid] );
-	$suspensionsArray = pg_fetch_all($suspensionsQuery);
+while ( $row = pg_fetch_assoc ( $phdQuery ) ) {
+	$enrolmentTypeQuery = pg_query ( "SELECT * FROM EnrolmentTypeChanges WHERE (StudentID = " . $row [studentid] . ") ORDER BY ChangeDate" );
+	$enrolmentTypeArray = pg_fetch_all ( $enrolmentTypeQuery );
+	$suspensionsQuery = pg_query ( "SELECT * FROM Suspensions s WHERE s.StudentID = " . $row [studentid] );
+	$suspensionsArray = pg_fetch_all ( $suspensionsQuery );
 
-	$deadlines = calculateDeadlines($row[startdate], "PhD", $enrolmentTypeArray, $suspensionsArray);
+	$deadlines = calculateDeadlines ( $row [startdate], "PhD", $enrolmentTypeArray, $suspensionsArray );
 	echo "<tr>";
 	echo "<td class = 'editTD'> Edit </td>";
 	echo "<td>" . $row [f_name] . " " . $row [l_name] . "</td>";
@@ -266,36 +264,36 @@ while ($row = pg_fetch_assoc($phdQuery )){
 	echo "<td>" . $row [course] . "</td>";
 	echo "<td>" . $row [specialisation] . "</td>";
 
-	$halftimeQuery = pg_query ("SELECT * FROM EnrolmentTypeChanges WHERE StudentID = ".$row[studentid]." ORDER BY ChangeDate DESC LIMIT 1");
-	$isHalftime = pg_fetch_assoc($halftimeQuery );
+	$halftimeQuery = pg_query ( "SELECT * FROM EnrolmentTypeChanges WHERE StudentID = " . $row [studentid] . " ORDER BY ChangeDate DESC LIMIT 1" );
+	$isHalftime = pg_fetch_assoc ( $halftimeQuery );
 	if ($isHalftime [enrolmenttype] == 'H') {
 		echo "<td>Yes</td>";
-	} else{
+	} else {
 		echo "<td>No</td>";
 	}
 	echo "<td>" . $row [scholarship] . "</td>";
 
-	if (is_null ( $row[workhours1]))
+	if (is_null ( $row [workhours1] ))
 		echo "<td>0</td>";
 	else
 		echo "<td>" . $row [workhours1] . "</td>";
-	if (is_null ( $row[workhours2]))
+	if (is_null ( $row [workhours2] ))
 		echo "<td>0</td>";
 	else
 		echo "<td>" . $row [workhours2] . "</td>";
-	if (is_null ( $row[workhours3]))
+	if (is_null ( $row [workhours3] ))
 		echo "<td>0</td>";
 	else
 		echo "<td>" . $row [workhours3] . "</td>";
 
-	$pQuery = pg_query("SELECT * FROM Supervisors s WHERE s.SupervisorID = " . $row [primary_supervisorid]);
-	$sQuery = pg_query("SELECT * FROM Supervisors s WHERE s.SupervisorID = " . $row [secondary_supervisorid]);
-	$primary = pg_fetch_assoc($pQuery );
-	$secondary = pg_fetch_assoc($sQuery );
+	$pQuery = pg_query ( "SELECT * FROM Supervisors s WHERE s.SupervisorID = " . $row [primary_supervisorid] );
+	$sQuery = pg_query ( "SELECT * FROM Supervisors s WHERE s.SupervisorID = " . $row [secondary_supervisorid] );
+	$primary = pg_fetch_assoc ( $pQuery );
+	$secondary = pg_fetch_assoc ( $sQuery );
 	echo "<td>" . $primary [f_name] . " " . $primary [l_name] . " (" . $row [primary_supervisorpercent] . "%)</td>";
 	echo "<td>" . $secondary [f_name] . " " . $secondary [l_name] . " (" . $row [secondary_supervisorpercent] . "%)</td>";
 	$suspensions = "";
-	while ( $tmp = pg_fetch_assoc($suspensionsQuery  ) ) {
+	while ( $tmp = pg_fetch_assoc ( $suspensionsQuery ) ) {
 		$suspensions .= ($tmp [suspensionstartdate] . " - " . $tmp [suspensionenddate] . "<br>");
 	}
 	echo "<td>" . $suspensions . "</td>";
@@ -305,7 +303,7 @@ while ($row = pg_fetch_assoc($phdQuery )){
 	echo "<td>" . $row [proposalsubmission] . "</td>";
 	echo "<td>" . $row [proposalseminar] . "</td>";
 	echo "<td>" . $row [proposalconfirmation] . "</td>";
-	echo "<td></td>"; //3 and 8 month reports are for masters only
+	echo "<td></td>"; // 3 and 8 month reports are for masters only
 	echo "<td></td>";
 	echo "<td></td>";
 	echo "<td></td>";
@@ -320,14 +318,18 @@ while ($row = pg_fetch_assoc($phdQuery )){
 	echo "<td>" . $row [notes] . "</td>";
 	echo "<td>" . $row [origin] . "</td>";
 	$withdrawn = "False";
-	if ($row [withdrawn] === "t"){$withdrawn = "True";}
+	if ($row [withdrawn] === "t") {
+		$withdrawn = "True";
+	}
 	echo "<td>" . $withdrawn . "</td>";
 	echo "</tr>";
 }
 echo "</tbody>";
 echo "</table>";
 
-/** Supervisor Table */
+/**
+ * Supervisor Table
+ */
 
 // Headers
 echo "<table id='supTable' class='stripe'>";
@@ -342,29 +344,29 @@ echo "</thead>";
 echo "<tbody>";
 
 // Data
-$supQuery = pg_query ( "SELECT * FROM Supervisors" ) or die('Query failed: ' . pg_last_error());
-while ($row = pg_fetch_assoc($supQuery)){
+$supQuery = pg_query ( "SELECT * FROM Supervisors" ) or die ( 'Query failed: ' . pg_last_error () );
+while ( $row = pg_fetch_assoc ( $supQuery ) ) {
 
 	echo "<tr>";
 	echo "<td>" . $row [supervisorid] . "</td>";
 	echo "<td>" . $row [f_name] . " " . $row [l_name] . "</td>";
 
-    $supervised = "";
-    $supervisedAmount = 0;
-	$supervisedStudentsQuery = pg_query ("SELECT * FROM Students WHERE (Primary_SupervisorID = ".$row[supervisorid].")");
-	while($studentRow = pg_fetch_assoc($supervisedStudentsQuery)){
-		$supervisedAmount += $studentRow[primary_supervisorpercent];
+	$supervised = "";
+	$supervisedAmount = 0;
+	$supervisedStudentsQuery = pg_query ( "SELECT * FROM Students WHERE (Primary_SupervisorID = " . $row [supervisorid] . ")" );
+	while ( $studentRow = pg_fetch_assoc ( $supervisedStudentsQuery ) ) {
+		$supervisedAmount += $studentRow [primary_supervisorpercent];
 		$supervised .= $studentRow [f_name] . " " . $studentRow [l_name] . ", ";
 	}
-	$supervisedStudentsQuery = pg_query ("SELECT * FROM Students WHERE (Secondary_SupervisorID = ".$row[supervisorid].")");
-	while($studentRow = pg_fetch_assoc($supervisedStudentsQuery)){
-		$supervisedAmount += $studentRow[secondary_supervisorpercent];
+	$supervisedStudentsQuery = pg_query ( "SELECT * FROM Students WHERE (Secondary_SupervisorID = " . $row [supervisorid] . ")" );
+	while ( $studentRow = pg_fetch_assoc ( $supervisedStudentsQuery ) ) {
+		$supervisedAmount += $studentRow [secondary_supervisorpercent];
 		$supervised .= $studentRow [f_name] . " " . $studentRow [l_name] . ", ";
 	}
 	echo "<td>" . $supervisedAmount . "</td>";
 	echo "<td>" . $supervised . "</td>";
 	echo "</tr>";
-	}
+}
 
 echo "</tbody>";
 ?>
