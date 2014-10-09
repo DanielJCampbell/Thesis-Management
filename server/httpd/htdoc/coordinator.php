@@ -8,8 +8,8 @@
 	<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://datatables.net/release-datatables/extensions/ColVis/js/dataTables.colVis.js"></script>
     <script src = "tables.js"></script>
-    <img id="image" src="vuw-logo.png">
-    <h1 style="float:left"> Thesis Management Staff Page</h1>
+    <div id = "image"> <img src="vuw-logo.png" style="height:75px"> </div>
+    <div style="float:left"> <h1> Thesis Management Staff Page</h1> </div>
   </head>
 
   <body>
