@@ -289,7 +289,7 @@ function format(data) {
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
 	+ "<tr> <td> Editing Student With Id: </td> <td> <input type = 'text' name = 'sID' readonly value = '"+data[2]+"'/></td></tr>"
 	+ "<tr> <td> First Name: </td> <td> <input type = 'text' required id = 'fname' name = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
-	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' required id = 'lname' naem = 'lname' value = '"+data[1].split(" ")[1]+"'/></td></tr>"
+	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' required id = 'lname' name = 'lname' value = '"+data[1].split(" ")[1]+"'/></td></tr>"
 	+ "<tr> <td> Type: </td> <td> <select id = 'type' name = 'type'>"
 	+ typeString + "</select></td></tr>"
 	+ "<tr> <td> Course: </td> <td> <input type='text' required id='course' name='course' value = '"+data[4]+"'/></td></tr>"

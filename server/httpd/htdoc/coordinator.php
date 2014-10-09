@@ -89,19 +89,32 @@
 
 			$startDate = htmlspecialchars($_POST['startDate']);
 			$propSub = htmlspecialchars($_POST['proposalSubmission']);
+			$propSub = ($propSub === '') ? 'NULL' : "'".$propSub."'";
 			$propSem = ($isPhD) ? htmlspecialchars($_POST['proposalSeminar']) : '';
+			$propSem = ($propSem === '') ? 'NULL' : "'".$propSem."'";
 			$propConf = htmlspecialchars($_POST['proposalConfirmation']);
+			$propSub = ($propConf === '') ? 'NULL' : "'".$propConf."'";
 
 			$Mon3Sub = (!$isPhd) ? htmlspecialchars($_POST['3MonthSubmission']) : '';
+			$Mon3Sub = ($Mon3Sub === '') ? 'NULL' : "'".$Mon3Sub."'";
 			$Mon3App = (!$isPhd) ? htmlspecialchars($_POST['3MonthApproval']) : '';
+			$Mon3App = ($Mon3App === '') ? 'NULL' : "'".$Mon3App."'";
 			$Mon8Sub = (!$isPhd) ? htmlspecialchars($_POST['8MonthSubmission']) : '';
+			$Mon8Sub = ($Mon8Sub === '') ? 'NULL' : "'".$Mon8Sub."'";
 			$Mon8App = (!$isPhd) ? htmlspecialchars($_POST['8MonthApproval']) : '';
+			$Mon8App = ($Mon8App === '') ? 'NULL' : "'".$Mon8App."'";
 
 			$thesisSubmission = htmlspecialchars($_POST['thesisSubmission']);
+			$thesisSubmission = ($thesisSubmission === '') ? 'NULL' : "'".$thesisSubmission."'";
 			$examAppointed = htmlspecialchars($_POST['examinersAppointed']);
+			$examAppointed = ($examAppointed === '') ? 'NULL' : "'".$examAppointed."'";
 			$examCompleted = htmlspecialchars($_POST['examinationCompleted']);
+			$examCompleted = ($examCompleted === '') ? 'NULL' : "'".$examCompleted."'";
 			$revisionsFinal = htmlspecialchars($_POST['revisionsFinalised']);
+			$revisionsFinal = ($revisionsFinal === '') ? 'NULL' : "'".$revisionsFinal."'";
 			$deposited = htmlspecialchars($_POST['deposited']);
+			$deposited = ($deposited === '') ? 'NULL' : "'".$deposited."'";
+
 			$notes = htmlspecialchars($_POST['notes']);
 			$origin = htmlspecialchars($_POST['origin']);
 			$withdrawn = htmlspecialchars($_POST['withdrawn']);
@@ -114,14 +127,14 @@
 			if(!$isPhD) {
 				$query .= "UPDATE MastersStudents SET (ProposalSubmission,ProposalConfirmation,Report3MonthSubmission,Report3MonthApproval,Report8MonthSubmission,Report8MonthApproval,
 					     ThesisSubmission,ExaminersAppointed,ExaminationCompleted,RevisionsFinalised,DepositedInLibrary)
-					     = ('".$propSub."', '".$propConf."', '".$Mon3Sub."', '".$Mon3App."', '".$Mon8Sub."', '".$Mon8App."', '".$thesisSubmission."', '".$examAppointed.
-			  			"', '".$examCompleted."', '".$revisionsFinal."', '".$deposited."') WHERE StudentID = ".$studentID.";";
+					     = (".$propSub.", ".$propConf.", ".$Mon3Sub.", ".$Mon3App.", ".$Mon8Sub.", ".$Mon8App.", ".$thesisSubmission.", ".$examAppointed.
+			  			", ".$examCompleted.", ".$revisionsFinal.", ".$deposited.") WHERE StudentID = ".$studentID.";";
 			}
 			else {
 			  $query .= "UPDATE PhDStudents SET (ProposalSubmission,ProposalSeminar,ProposalConfirmation,WorkHours1, WorkHours2, WorkHours3,
 					     ThesisSubmission,ExaminersAppointed,ExaminationCompleted,RevisionsFinalised,DepositedInLibrary)
-					     = ('".$propSub."', '".$propSem."', '".$propConf."', ".$wkY1.", ".$wkY2.", ".$wkY3.", '".$thesisSubmission."', '".$examAppointed.
-					     "', '".$examCompleted."', '".$revisionsFinal."', '".$deposited."') WHERE StudentID = ".$studentID.";";
+					     = (".$propSub.", ".$propSem.", ".$propConf.", ".$wkY1.", ".$wkY2.", ".$wkY3.", ".$thesisSubmission.", ".$examAppointed.
+					     ", ".$examCompleted.", ".$revisionsFinal.", ".$deposited.") WHERE StudentID = ".$studentID.";";
 			}
 			if($newSuspension) {
 			  $query .= "INSERT INTO Suspensions (StudentID, SuspensionStartDate, SuspensionEndDate) VALUES (".$studentID.", '".$suspensionStart."', '".$suspensionEnd."');";
