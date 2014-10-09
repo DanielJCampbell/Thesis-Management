@@ -11,7 +11,7 @@
     <div id = "image"> <img src="vuw-logo.png" style="height:75px"> </div>
     <h1> Thesis Management Staff Page</h1>
   </head>
-
+  <div style="clear:both"></div>
   <body>
   <div id = "left">
 	  <input type = "button" onclick = "showStudentTable();" value = "Clear filters"/><br/>
