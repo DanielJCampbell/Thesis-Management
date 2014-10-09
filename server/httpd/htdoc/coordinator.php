@@ -27,20 +27,20 @@
   <div style="clear:both"></div>
   <body>
   <div id = "left">
-	  <input type = "button" onclick = "showStudentTable();" value = "Clear filters"/><br/>
-  	<input type = "button" onclick = "showWorkHours();" value = "Show Work Hours"/><br/>
+	  <input type = "button" onclick = "showStudentTable(); setActive(this);" value = "Clear filters"/><br/>
+  	<input type = "button" onclick = "showWorkHours(); setActive(this);" value = "Show Work Hours"/><br/>
   </div>
   <div id = "left">
-	<input type = "button" onclick = "showProvisional();" value = "Show Provisional Students"/><br/>
-	<input type = "button" onclick = "showUnassessed();" value = "Show Not Assessed"/><br/>
+	<input type = "button" onclick = "showProvisional(); setActive(this);" value = "Show Provisional Students"/><br/>
+	<input type = "button" onclick = "showUnassessed(); setActive(this);" value = "Show Not Assessed"/><br/>
   </div>
   <div id = "left">
-	<input type = "button" onclick = "showSuspensions();" value = "Show Suspended Students"/><br/>
-	<input type = "button" onclick = "showOverdue();" value = "Show Overdue Students"/><br/>
+	<input type = "button" onclick = "showSuspensions(); setActive(this);" value = "Show Suspended Students"/><br/>
+	<input type = "button" onclick = "showOverdue(); setActive(this);" value = "Show Overdue Students"/><br/>
   </div>
   <div id = "last">
-  	<input type = "button" onclick = "showSupervisor();" value = "Show Supervisor Workload"/><br/>
-  	<input type = "button" onclick = "showNonCurrent();" value = "Show Non-current Students"/><br/>
+  	<input type = "button" onclick = "showSupervisor(); setActive(this);" value = "Show Supervisor Workload"/><br/>
+  	<input type = "button" onclick = "showNonCurrent(); setActive(this);" value = "Show Non-current Students"/><br/>
   </div>
   <div id = "body">
 
