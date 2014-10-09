@@ -156,9 +156,9 @@
 	      }
 	      else if(isSet($_POST['Delete'])) {
 			$SID = htmlspecialchars($_POST['sID']);
-			$killQuery = "DELETE FROM MastersStudents WHERE StudentID = ".$SID;
-			$killQuery .= "DELETE FROM PhDStudents WHERE StudentID = ".$SID;
-			$killQuery .= "DELETE FROM Students WHERE StudentID = ".$SID;
+			$killQuery = "DELETE FROM MastersStudents WHERE StudentID = ".$SID.';';
+			$killQuery .= "DELETE FROM PhDStudents WHERE StudentID = ".$SID.';';
+			$killQuery .= "DELETE FROM Students WHERE StudentID = ".$SID.';';
 
 			$Kresult = pg_query($killQuery);
 			if ($Kresult !== FALSE) {
