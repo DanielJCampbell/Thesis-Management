@@ -135,7 +135,7 @@
 				pg_close($db);
 			}
 			else {
-				echo "<div><p>GAME OVER MAN, GAME OVER</p></div>";
+				echo "<div><p>".$query."</p></div>";
 				pg_close($db);
 			}
 	      }
@@ -152,7 +152,7 @@
 			pg_free_result($Presult);
 			pg_free_result($Sresult);
 	      }
-	      
+
       }
   ?>
 </body>
