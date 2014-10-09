@@ -87,22 +87,22 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 			}
 		}
 		// For each deadline, if said deadlines FTE is after the FTE for the start of this period and before the FTE at the end of this period, it is during this enrolment type period
-		if ($startFTE <= $proposalFTE && ($endFTE == null || $proposalFTE < $endFTE)) {
+		if ($startFTE <= $proposalFTE && ($endFTE === null || $proposalFTE < $endFTE)) {
 			$proposalFTESinceStart = $proposalFTE - $startFTE;
 			$proposalTimeSinceStart = $proposalFTESinceStart * $currTypeModifier;
 			$proposalDeadline = date ( 'Y-m-d', strtotime ( "+" . $proposalTimeSinceStart . " day", $startDate->getTimestamp () ) );
 		}
-		if ($studentType === "Masters" && $startFTE <= $month3FTE && ($endFTE == null || $month3FTE < $endFTE)) {
+		if ($studentType === "Masters" && $startFTE <= $month3FTE && ($endFTE === null || $month3FTE < $endFTE)) {
 			$month3FTESinceStart = $month3FTE - $startFTE;
 			$month3TimeSinceStart = $month3FTESinceStart * $currTypeModifier;
 			$month3Deadline = date ( 'Y-m-d', strtotime ( "+" . $month3TimeSinceStart . " day", $startDate->getTimestamp () ) );
 		}
-		if ($studentType === "Masters" && $startFTE <= $month8FTE && ($endFTE == null || $month8FTE < $endFTE)) {
+		if ($studentType === "Masters" && $startFTE <= $month8FTE && ($endFTE === null || $month8FTE < $endFTE)) {
 			$month8FTESinceStart = $month8FTE - $startFTE;
 			$month8TimeSinceStart = $month8FTESinceStart * $currTypeModifier;
 			$month8Deadline = date ( 'Y-m-d', strtotime ( "+" . $month8TimeSinceStart . " day", $startDate->getTimestamp () ) );
 		}
-		if ($startFTE <= $thesisFTE && ($endFTE == null || $thesisFTE < $endFTE)) {
+		if ($startFTE <= $thesisFTE && ($endFTE === null || $thesisFTE < $endFTE)) {
 			$thesisFTESinceStart = $thesisFTE - $startFTE;
 			$thesisTimeSinceStart = $thesisFTESinceStart * $currTypeModifier;
 			$thesisDeadline = date ( 'Y-m-d', strtotime ( "+" . $thesisTimeSinceStart . " day", $startDate->getTimestamp () ) );
