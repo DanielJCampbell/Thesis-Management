@@ -150,7 +150,7 @@
 				pg_close($db);
 			}
 			else {
-				echo "<div><p>".$query.'<br/>'.pg_last_error()."</p></div>";
+				echo "<div><script>failChange('".pg_last_error()."');</script></div>";
 				pg_close($db);
 			}
 	      }
