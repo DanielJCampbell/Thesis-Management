@@ -41,16 +41,16 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 	$startFTE = 0;
 	for($i = 0; $i < $typeChangelength; $i ++) {
 		// Find out what enrolment type student is for this time period
-		$currType = $enrolmentTypeChangeList [$i] ['EnrolmentType'];
+		$currType = $enrolmentTypeChangeList [$i] ['enrolmenttype'];
 		$currTypeModifier = 1;
 		if ($currType === "H") {
 			$currTypeModifier = 2; // halftime students take twice as long for their enrolment
 		}
 		// Get dates for the start and end of this enrolment type period
-		$startDate = date_create_from_format('Y-m-d',$enrolmentTypeChangeList [$i] ['ChangeDate']);
+		$startDate = date_create_from_format('Y-m-d',$enrolmentTypeChangeList [$i] ['changedate']);
 		$endDate = null;
 		if ($i + 1 < $typeChangelength) { // Check if next type change exists
-			$endDate = date_create_from_format('Y-m-d',$enrolmentTypeChangeList [$i + 1] ['ChangeDate']);
+			$endDate = date_create_from_format('Y-m-d',$enrolmentTypeChangeList [$i + 1] ['changedate']);
 		}
 		// Calculate Full Time Equivalence
 		$currFTE = null;
@@ -63,9 +63,9 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 		// Modify the deadline FTEs according to suspensions that happen during this period. Assumes suspensions do not happen over enrolment type changes (why would they?)
 		$numSuspensions = count ( $suspensionsList );
 		for($i = 0; $i < $numSuspensions; $i ++) {
-			$currSuspStart = date_create_from_format('Y-m-d', $suspensionsList [$i] ['SuspensionStartDate'] );
+			$currSuspStart = date_create_from_format('Y-m-d', $suspensionsList [$i] ['suspensionstartdate'] );
 			if ($startDate < $currSuspStart && ($endDate === null || $currSuspStart < $endDate)) { // suspension is in current enrolment type period
-				$currSuspEnd = date_create_from_format('Y-m-d', $suspensionsList [$i] ['SuspensionEndDate'] );
+				$currSuspEnd = date_create_from_format('Y-m-d', $suspensionsList [$i] ['suspensionenddate'] );
 
 				$timeFromCurr = date_diff ( $startDate, $currSuspStart );
 				$fromStartFTE = $startFTE + ($timeFromCurr->format ( '%a' ) / $partTimeModifier);
