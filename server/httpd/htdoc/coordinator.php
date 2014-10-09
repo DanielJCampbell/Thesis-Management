@@ -55,8 +55,8 @@
       if (! (empty ( $_POST ))) {
 
 	      if(isSet($_POST['Edit'])){
-			$f_name = htmlspecialchars($_POST['fname']);
-			$l_name = htmlspecialchars($_POST['lname']);
+			$f_name = htmlspecialchars($_POST['fName']);
+			$l_name = htmlspecialchars($_POST['lName']);
 			$type = htmlspecialchars($_POST['type']);
 
 			$isPhD = ($type === 'PhD');
