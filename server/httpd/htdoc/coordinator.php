@@ -93,7 +93,7 @@
 			$propSem = ($isPhD) ? htmlspecialchars($_POST['proposalSeminar']) : '';
 			$propSem = ($propSem === '') ? 'NULL' : "'".$propSem."'";
 			$propConf = htmlspecialchars($_POST['proposalConfirmation']);
-			$propSub = ($propConf === '') ? 'NULL' : "'".$propConf."'";
+			$propConf = ($propConf === '') ? 'NULL' : "'".$propConf."'";
 
 			$Mon3Sub = (!$isPhd) ? htmlspecialchars($_POST['3MonthSubmission']) : '';
 			$Mon3Sub = ($Mon3Sub === '') ? 'NULL' : "'".$Mon3Sub."'";
