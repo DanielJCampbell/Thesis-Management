@@ -241,16 +241,16 @@ public class MyWriter {
 		if(i<25){
 			if(i<2){			
 				// Suspension that start before current date, End after current date - Masters
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+"," +"NULL"+");");
+				writer.println("INSERT INTO MastersStudents (StudentID, ProposalSubmission, ProposalConfirmation, Report3MonthSubmission, Report3MonthApproval, Report8MonthSubmission, Report8MonthApproval, ThesisSubmission, ExaminersAppointed, ExaminationCompleted, RevisionsFinalised) Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+thesisSub +","+ examinersAppointed+ "," +examinationComplete+"," + revisions+");");
 				suspend(writer,studentid,"'2014-08-10'","'2014-09-10'");
 				suspend(writer,studentid,susStart1,susEnd1);
 				}
 			else if(i<4){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+thesisSub +","+ examinersAppointed+ "," +"NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents (StudentID, ProposalSubmission, ProposalConfirmation, Report3MonthSubmission, Report3MonthApproval, Report8MonthSubmission, Report8MonthApproval, ThesisSubmission, ExaminersAppointed, ExaminationCompleted)Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+thesisSub +","+ examinersAppointed);
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<6){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthSubDate+","+prop8mthApprDate+","+"NULL,NULL,NULL,NULL,NULL"+");");
+				writer.println("INSERT INTO MastersStudents (StudentID, ProposalSubmission, ProposalConfirmation, Report3MonthSubmission, Report3MonthApproval, Report8MonthSubmission, Report8MonthApproval) Values ("+ studentid +","+propSubDate+","+propConfDate+","+ prop3mthSubDate+","+prop3mthApprDate+","+ prop8mthSubDate+","+prop8mthApprDate+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<8){
@@ -263,10 +263,6 @@ public class MyWriter {
 				}
 			else if(i<12){
 				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+propSubDate+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
-				suspend(writer,studentid,susStart,susEnd);
-				}			
-			else if(i<14){
-				writer.println("INSERT INTO MastersStudents Values ("+ studentid +","+"NULL"+",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL"+");");
 				suspend(writer,studentid,susStart,susEnd);
 				}
 			else if(i<16){
