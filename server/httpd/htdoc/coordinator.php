@@ -150,22 +150,29 @@
 				pg_close($db);
 			}
 			else {
-				echo "<div><script>failChange('".pg_last_error()."');</script></div>";
+				echo "<script>failChange('".pg_last_error()."');</script>";
 				pg_close($db);
 			}
 	      }
 	      else if(isSet($_POST['Delete'])) {
-			$SID = htmlspecialchars($_POST['del_studentID']);
-			$MastersQuery = "DELETE FROM MastersStudents WHERE StudentID = ".$SID;
-			$PhDQuery = "DELETE FROM PhDStudents WHERE StudentID = ".$SID;
-			$StudentsQuery = "DELETE FROM Students WHERE StudentID = ".$SID;
+			$SID = htmlspecialchars($_POST['sID']);
+			$killQuery = "DELETE FROM MastersStudents WHERE StudentID = ".$SID.';';
+			$killQuery .= "DELETE FROM PhDStudents WHERE StudentID = ".$SID.';';
+			$killQuery .= "DELETE FROM EnrolmentTypeChanges WHERE StudentID = ".$SID.';';
+			$killQuery .= "DELETE FROM Suspensions WHERE StudentID = ".$SID.';';
+			$killQuery .= "DELETE FROM Students WHERE StudentID = ".$SID.';';
 
-			$Mresult = pg_query($MastersQuery) or die('Query failed: ' . pg_last_error());
-			$Presult = pg_query($PhDQuery) or die('Query failed: ' . pg_last_error());
-			$Sresult = pg_query($StudentsQuery) or die('Query failed: ' . pg_last_error());
-			pg_free_result($Mresult);
-			pg_free_result($Presult);
-			pg_free_result($Sresult);
+			$Kresult = pg_query($killQuery);
+			if ($Kresult !== FALSE) {
+				pg_free_result($result);
+				header("Refresh:0;");
+				pg_close($db);
+			}
+			else {
+				//echo "<script>failChange('".pg_last_error()."');</script>";
+				echo $killQuery.pg_last_error();
+				pg_close($db);
+			}
 	      }
 
       }

@@ -289,6 +289,10 @@ function format(data) {
 
 	var oldPTString = (data[6] === "Yes") ? 'H' : 'F';
 
+	var killString = (data[33] === 'True') ? '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
+			+ "<tr><td><input type = 'hidden' name = 'sID' value = '"+data[2]+"'/><button type = 'submit' id = 'deleteInline' name = 'Delete' value = 'Delete'>Delete Student</button></td></tr>"
+			+ "</table></form>" : '' ;
+
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
 	+ "<tr> <td> Editing Student With Id: </td> <td> <input type = 'text' name = 'sID' readonly value = '"+data[2]+"'/></td></tr>"
 	+ "<tr> <td> First Name: </td> <td> <input type = 'text' required id = 'fname' name = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
@@ -324,7 +328,8 @@ function format(data) {
 	+ "<tr> <td> Withdrawn: </td> <td> <select name = 'withdrawn' id = 'withdrawn'>"
 	+ withdrawnString + "</select></td></tr>"
 	+ "<tr> <td> <button type = 'submit' id = 'editInline' name = 'Edit' value = 'Edit'>Edit Student</button></td></tr>"
-	+ "</table> </form>";
+	+ "</table> </form>"
+	+ killString;
 }
 
 function failChange(error) {
