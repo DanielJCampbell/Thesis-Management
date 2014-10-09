@@ -63,7 +63,7 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
  		$numSuspensions = count ( $suspensionsList );
  		for($i = 0; $i < $numSuspensions; $i ++) {
  			$currSuspStart = date_create_from_format ( 'Y-m-d', $suspensionsList [$i] ['suspensionstartdate'] );
- 			if ($startDate < $currSuspStart && (/*$endDate === null ||*/ $currSuspStart < $endDate)) { // suspension is in current enrolment type period
+ 			if ($startDate < $currSuspStart && ( $currSuspStart < $endDate)) { // suspension is in current enrolment type period
 // 				$currSuspEnd = date_create_from_format ( 'Y-m-d', $suspensionsList [$i] ['suspensionenddate'] );
 
 // 				$timeFromCurr = date_diff ( $startDate, $currSuspStart );
