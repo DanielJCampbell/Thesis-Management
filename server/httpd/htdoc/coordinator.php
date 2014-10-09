@@ -9,8 +9,7 @@
 	<script type="text/javascript" charset="utf8" src="https://datatables.net/release-datatables/extensions/ColVis/js/dataTables.colVis.js"></script>
     <script src = "tables.js"></script>
     <div id = "image"> <img src="vuw-logo.png" style="height:75px"> </div>
-    <div style="float:left"> <h1> Thesis Management Staff Page</h1> </div>
-    <br />
+    <div> <h1> Thesis Management Staff Page</h1> </div>
   </head>
 
   <body>
