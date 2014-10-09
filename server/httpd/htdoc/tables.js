@@ -286,7 +286,7 @@ function format(data) {
 
 	var oldPTString = (data[6] === "Yes") ? 'H' : 'F';
 
-	var killString = (data[33] === 'True') ? '<form method = "post" onsubmit = "confirm("Are you sure you wish to delete this student?");"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
+	var killString = (data[33] === 'True') ? '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
 			+ "<tr><td><input type = 'hidden' name = 'sID' value = '"+data[2]+"'/><button type = 'submit' id = 'deleteInline' name = 'Delete' value = 'Delete'>Delete Student</button></td></tr>"
 			+ "</table></form>" : '' ;
 
