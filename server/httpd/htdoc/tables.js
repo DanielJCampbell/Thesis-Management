@@ -25,12 +25,15 @@ window.onload = sendPHPRequest();
 
 function sendPHPRequest() {
   var req = new XMLHttpRequest();
-
+	var tableheight = screen.availHeight/2;
+	console.log(tableheight);
+	tableheight = tableheight.toString().concat("px");
+	console.log(tableheight);
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
 	  $('#supTable').parents('div.dataTables_wrapper').first().hide();
-	  mainTable = $("#mainTable").dataTable({"autoWidth":false, "scrollX":true});
+	  mainTable = $("#mainTable").dataTable({"autoWidth":false, "scrollX":true, "scrollY":tableheight,scrollCollapse:true,paging:false});
 	  supTable =  $("#supTable").dataTable();
 
 	  var colvis = new $.fn.dataTable.ColVis( mainTable, {exclude: [0] } );
@@ -64,7 +67,7 @@ function showStudentTable() {
   isSupervisor = false;
   showNonCurrentStudents = false;
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
-  $('#mainTable').parents('div.dataTables_wrapper').first().show();
+  $('#mainTable_wrapper').show();
   refreshTable();
 }
 
@@ -72,7 +75,7 @@ function showNonCurrent(){
   isSupervisor = false;
   showNonCurrentStudents = true;
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
-  $('#mainTable').parents('div.dataTables_wrapper').first().show();
+  $('#mainTable_wrapper').show();
   refreshTable();
   mainTable.api().columns(":contains('Withdrawn')").visible(true);
 }
@@ -170,7 +173,7 @@ function showUnassessed() {
 function showSupervisor() {
   isSupervisor = true;
   refreshTable();
-  $('#mainTable').parent('div.dataTables_wrapper').first().hide();
+  $('#mainTable_wrapper').hide();
   $('#supTable').parent('div.dataTables_wrapper').first().show();
 }
 
