@@ -73,16 +73,16 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 // 				$suspensionFTE = $timeForSuspension->format ( '%a' ) / $currTypeModifier;
 
 // 				if ($fromStartFTE < $proposalFTE) {
- 					$proposalFTE += $suspensionFTE;
+ 					$proposalFTE += 1;//$suspensionFTE;
 // 				}
 // 				if ($fromStartFTE < $month3FTE) {
- 					$month3FTE += $suspensionFTE;
+ 					$month3FTE += 1;//$suspensionFTE;
 // 				}
 // 				if ($fromStartFTE < $month8FTE) {
- 					$month8FTE += $suspensionFTE;
+ 					$month8FTE += 1;//$suspensionFTE;
 // 				}
 // 				if ($fromStartFTE < $thesisFTE) {
- 					$thesisFTE += $suspensionFTE;
+ 					$thesisFTE += 1;//$suspensionFTE;
 // 				}
 // 			}
 		}
