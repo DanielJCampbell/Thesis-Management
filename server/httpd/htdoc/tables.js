@@ -25,12 +25,13 @@ window.onload = sendPHPRequest();
 
 function sendPHPRequest() {
   var req = new XMLHttpRequest();
-
+	var tableheight = $(window).height()/2;
+	tableheight = tableheight.toString().concat("px");
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
 	  $('#supTable').parents('div.dataTables_wrapper').first().hide();
-	  mainTable = $("#mainTable").dataTable({"autoWidth":false, "scrollX":true, "scrollY":"100%"});
+	  mainTable = $("#mainTable").dataTable({"autoWidth":false, "scrollX":true, "scrollY":tableheight,scrollCollapse:true,paging:false});
 	  supTable =  $("#supTable").dataTable();
 
 	  var colvis = new $.fn.dataTable.ColVis( mainTable, {exclude: [0] } );
