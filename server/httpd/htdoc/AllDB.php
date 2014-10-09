@@ -85,7 +85,7 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 // 					$thesisFTE += $suspensionFTE;
 // 				}
 // 			}
-		}
+//		}
 		// For each deadline, if said deadlines FTE is after the FTE for the start of this period and before the FTE at the end of this period, it is during this enrolment type period
 		if ($startFTE <= $proposalFTE && ($endFTE == null || $proposalFTE < $endFTE)) {
 			$proposalFTESinceStart = $proposalFTE - $startFTE;
@@ -359,7 +359,7 @@ while ( $row = pg_fetch_assoc ( $supQuery ) ) {
 	}
 	$supervisedStudentsQuery = pg_query ( "SELECT * FROM Students WHERE (Secondary_SupervisorID = " . $row [supervisorid] . ")" );
 	while ( $studentRow = pg_fetch_assoc ( $supervisedStudentsQuery ) ) {
-		$supervisedAmount += $studentRow [secondary_supervisorpercent]/100;
+		$supervisedAmount += $studentRow [secondary_supervisorpercent];
 		$supervised .= $studentRow [f_name] . " " . $studentRow [l_name] . ", ";
 	}
 	echo "<td>" . $supervisedAmount . "%</td>";
