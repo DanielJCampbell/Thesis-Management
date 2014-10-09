@@ -64,7 +64,7 @@ function showStudentTable() {
   isSupervisor = false;
   showNonCurrentStudents = false;
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
-  $('#mainTable').parents('div.dataTables_wrapper').first().show();
+  $('#mainTable_wrapper').show();
   refreshTable();
 }
 
@@ -72,7 +72,7 @@ function showNonCurrent(){
   isSupervisor = false;
   showNonCurrentStudents = true;
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
-  $('#mainTable').parents('div.dataTables_wrapper').first().show();
+  $('#mainTable_wrapper').show();
   refreshTable();
   mainTable.api().columns(":contains('Withdrawn')").visible(true);
 }
@@ -170,7 +170,7 @@ function showUnassessed() {
 function showSupervisor() {
   isSupervisor = true;
   refreshTable();
-  $('#mainTable').parent('div.dataTables_wrapper').first().hide();
+  $('#mainTable_wrapper').hide();
   $('#supTable').parent('div.dataTables_wrapper').first().show();
 }
 
