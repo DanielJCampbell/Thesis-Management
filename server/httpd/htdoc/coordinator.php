@@ -128,9 +128,15 @@
 			  $query .= "INSERT INTO EnrolmentTypeChanges (StudentID, EnrolmentType, ChangeDate) VALUES (".$studentID.", '".$partTime."', '".ptDate."');";
 			}
 
-			$result = pg_query($query) or 'failure';
-			if ($result !== 'failure') {
+			$result = pg_query($query);
+			if ($result !== FALSE) {
 				pg_free_result($result);
+				header("Refresh:0;");
+				pg_close($db);
+			}
+			else {
+				echo "<div><p>GAME OVER MAN, GAME OVER</p></div>";
+				pg_close($db);
 			}
 	      }
 	      else if(isSet($_POST['Delete'])) {
@@ -146,9 +152,7 @@
 			pg_free_result($Presult);
 			pg_free_result($Sresult);
 	      }
-
-	      pg_close($db);
-	      header("Refresh:0;");
+	      
       }
   ?>
 </body>
