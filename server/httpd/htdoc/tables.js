@@ -25,7 +25,7 @@ window.onload = sendPHPRequest();
 
 function sendPHPRequest() {
   var req = new XMLHttpRequest();
-	var tableheight = screen.availWidth/2;
+	var tableheight = screen.availWidth/4;
 	console.log(tableheight);
 	tableheight = tableheight.toString().concat("px");
 	console.log(tableheight);
