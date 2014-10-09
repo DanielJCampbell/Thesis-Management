@@ -8,6 +8,19 @@
 	<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://datatables.net/release-datatables/extensions/ColVis/js/dataTables.colVis.js"></script>
     <script src = "tables.js"></script>
+       <script type="text/javascript">
+	function setActive(button){
+		var inputs = GetElementsByTagName('input');
+		
+		for(var i = 0; i < inputs.length; i++){
+			if(inputs[i].type.toLowerCase() == 'button'){
+				inputs[i].style.background-color = "#ededed";
+			}
+		}
+
+		button.style.background-color = "#dfdfdf";
+	}
+	}
     <div id = "image"> <img src="vuw-logo.png" style="height:75px"> </div>
     <h1> Thesis Management Staff Page</h1>
   </head>
