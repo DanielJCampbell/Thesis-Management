@@ -47,10 +47,10 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 			$currTypeModifier = 2; // halftime students take twice as long for their enrolment
 		}
 		// Get dates for the start and end of this enrolment type period
-		$startDate = Date('Y-m-d',$enrolmentTypeChangeList [$i] ['ChangeDate']);
+		$startDate = date_create_from_format('Y-m-d',$enrolmentTypeChangeList [$i] ['ChangeDate']);
 		$endDate = null;
 		if ($i + 1 < $typeChangelength) { // Check if next type change exists
-			$endDate = date('Y-m-d',$enrolmentTypeChangeList [$i + 1] ['ChangeDate']);
+			$endDate = date_create_from_format('Y-m-d',$enrolmentTypeChangeList [$i + 1] ['ChangeDate']);
 		}
 		// Calculate Full Time Equivalence
 		$currFTE = null;
@@ -63,9 +63,9 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 		// Modify the deadline FTEs according to suspensions that happen during this period. Assumes suspensions do not happen over enrolment type changes (why would they?)
 		$numSuspensions = count ( $suspensionsList );
 		for($i = 0; $i < $numSuspensions; $i ++) {
-			$currSuspStart = Date('Y-m-d', $suspensionsList [$i] ['SuspensionStartDate'] );
+			$currSuspStart = date_create_from_format('Y-m-d', $suspensionsList [$i] ['SuspensionStartDate'] );
 			if ($startDate < $currSuspStart && ($endDate === null || $currSuspStart < $endDate)) { // suspension is in current enrolment type period
-				$currSuspEnd = Date('Y-m-d', $suspensionsList [$i] ['SuspensionEndDate'] );
+				$currSuspEnd = date_create_from_format('Y-m-d', $suspensionsList [$i] ['SuspensionEndDate'] );
 
 				$timeFromCurr = date_diff ( $startDate, $currSuspStart );
 				$fromStartFTE = $startFTE + ($timeFromCurr->format ( '%a' ) / $partTimeModifier);
