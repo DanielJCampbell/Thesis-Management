@@ -55,8 +55,8 @@
       if (! (empty ( $_POST ))) {
 
 	      if(isSet($_POST['Edit'])){
-			$f_name = htmlspecialchars($_POST['fName']);
-			$l_name = htmlspecialchars($_POST['lName']);
+			$f_name = htmlspecialchars($_POST['fname']);
+			$l_name = htmlspecialchars($_POST['lname']);
 			$type = htmlspecialchars($_POST['type']);
 
 			$isPhD = ($type === 'PhD');
@@ -100,17 +100,17 @@
 			$examCompleted = htmlspecialchars($_POST['examinationCompleted']);
 			$revisionsFinal = htmlspecialchars($_POST['revisionsFinalised']);
 			$deposited = htmlspecialchars($_POST['deposited']);
-			$startDate = htmlspecialchars($_POST['notes']);
+			$notes = htmlspecialchars($_POST['notes']);
 			$origin = htmlspecialchars($_POST['origin']);
 			$withdrawn = htmlspecialchars($_POST['withdrawn']);
 
-			$query = "UPDATE students SET (StartDate,F_Name,L_Name, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin,Withdrawn)
+			$query = "UPDATE Students SET (StartDate,F_Name,L_Name, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Notes,Origin,Withdrawn)
 				      = ('".$startDate."', '".$f_name."','".$l_name."','".$course."','".$specialisation."',".$prisupID.",".$priPercent.",".$secsupID.
-				      ",".$secPercent.",'".$origin."', ".$withdrawn.") WHERE StudentID = ".$studentID.";";
+				      ",".$secPercent.",'".$notes."', '".$origin."', ".$withdrawn.") WHERE StudentID = ".$studentID.";";
 
 
 			if(!$isPhD) {
-			  $query .= "UPDATE MastersStudents SET (ProposalSubmission,ProposalConfirmation,Report3MonthSubmission,Report3MonthApproval,Report8MonthSubmission,Report8MonthApproval,
+				$query .= "UPDATE MastersStudents SET (ProposalSubmission,ProposalConfirmation,Report3MonthSubmission,Report3MonthApproval,Report8MonthSubmission,Report8MonthApproval,
 					     ThesisSubmission,ExaminersAppointed,ExaminationCompleted,RevisionsFinalised,DepositedInLibrary)
 					     = ('".$propSub."', '".$propConf."', '".$Mon3Sub."', '".$Mon3App."', '".$Mon8Sub."', '".$Mon8App."', '".$thesisSubmission."', '".$examAppointed.
 			  			"', '".$examCompleted."', '".$revisionsFinal."', '".$deposited."') WHERE StudentID = ".$studentID.";";

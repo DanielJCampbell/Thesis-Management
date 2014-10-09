@@ -288,8 +288,8 @@ function format(data) {
 
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
 	+ "<tr> <td> Editing Student With Id: </td> <td> <input type = 'text' name = 'sID' readonly value = '"+data[2]+"'/></td></tr>"
-	+ "<tr> <td> First Name: </td> <td> <input type = 'text' required id = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
-	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' required id = 'lname'  value = '"+data[1].split(" ")[1]+"'/></td></tr>"
+	+ "<tr> <td> First Name: </td> <td> <input type = 'text' required id = 'fname' name = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
+	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' required id = 'lname' naem = 'lname' value = '"+data[1].split(" ")[1]+"'/></td></tr>"
 	+ "<tr> <td> Type: </td> <td> <select id = 'type' name = 'type'>"
 	+ typeString + "</select></td></tr>"
 	+ "<tr> <td> Course: </td> <td> <input type='text' required id='course' name='course' value = '"+data[4]+"'/></td></tr>"
@@ -298,9 +298,9 @@ function format(data) {
 	+ "<tr> <td> <input type = 'hidden' name = 'oldPT' value = '" + oldPTString + "'/></td> </tr>"
 	+ "<tr> <td> Scholarship: </td> <td> <input type='text' id='scholarship' name='scholarship' value = '"+data[7]+"'/></tr>"
 	+ workHourString
-	+ "<tr> <td> Primary Supervisor: </td> <td> <input type = 'text' required id = 'pSupervisor' name = 'pSupervisor' value = '" + data[11].split(" (")[0] + "'/></td>"
+	+ "<tr> <td> Primary Supervisor: </td> <td> <input type = 'number' required id = 'pSupervisor' name = 'pSupervisor' placeholder = '80000000'/></td>"
 		+ "<td> Percentage: </td> <td> <input type = 'number' required min = '51' max = '99' id = 'pPercentage' name = 'pPercentage' value = '" + data[11].split(" (")[1].slice(0, -2) + "'/></td></tr>"
-	+ "<tr> <td> Secondary Supervisor: </td> <td> <input type = 'text' required id = 'sSupervisor' name = 'sSupervisor' value = '" + data[12].split(" (")[0] + "'/></td>"
+	+ "<tr> <td> Secondary Supervisor: </td> <td> <input type = 'number' required id = 'sSupervisor' name = 'sSupervisor' placeholder = '80000000'/></td>"
 		+ "<td> Percentage: </td> <td> <input type = 'number' min = '1' required max = '49' id = 'sPercentage' name = 'sPercentage' value = '" + data[12].split(" (")[1].slice(0, -2) + "'/></td></tr>"
 	+ "<tr> <td> <input type = 'hidden' name = 'suspensions' value = '" + data[13] + "' /></td></tr>"
 	+ "<tr> <td> Add New Suspension: </td> <td> Start Date <input type = 'date' name = 'suspensionStart' id = 'suspensionStart' placeholder = 'yyyy-mm-dd'/></td> "
