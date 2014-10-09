@@ -359,10 +359,10 @@ while ( $row = pg_fetch_assoc ( $supQuery ) ) {
 	}
 	$supervisedStudentsQuery = pg_query ( "SELECT * FROM Students WHERE (Secondary_SupervisorID = " . $row [supervisorid] . ")" );
 	while ( $studentRow = pg_fetch_assoc ( $supervisedStudentsQuery ) ) {
-		$supervisedAmount += $studentRow [secondary_supervisorpercent];
+		$supervisedAmount += $studentRow [secondary_supervisorpercent]/100;
 		$supervised .= $studentRow [f_name] . " " . $studentRow [l_name] . ", ";
 	}
-	echo "<td>" . $supervisedAmount . "</td>";
+	echo "<td>" . $supervisedAmount . "%</td>";
 	echo "<td>" . $supervised . "</td>";
 	echo "</tr>";
 }
