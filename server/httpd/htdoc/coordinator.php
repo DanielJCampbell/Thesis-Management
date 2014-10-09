@@ -32,7 +32,8 @@
 
 
   <select id = "students" onchange = "changeStudentfilter(this.value)" selected = "All">
-    <option value = "All" selected = "selected">All Students</option>
+    <option selected disabled>Filter students by type</option>
+    <option value = "All">All Students</option>
     <option value = "PhD">PhD Students</option>
     <option value = "Masters">Masters Students</option>
   </select>
