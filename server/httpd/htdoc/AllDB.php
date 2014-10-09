@@ -3,10 +3,9 @@ $location = "ec2-54-83-204-104.compute-1.amazonaws.com";
 $username = "poacfvyhdhwtsx";
 $password = "nVJ0Via96oYvrOfrSs3ECsVR1W";
 $database = "ddf40gpbvva8uo";
-
 function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $suspensionsList) {
 	// FTE = Full Time Equivalence
-	if ($start === "") {
+	if ($start == "") {
 		return array (
 				"proposaldeadline" => "",
 				"report3monthdeadline" => "",
@@ -15,12 +14,12 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 		);
 	}
 	$studentTypeModifier = 1;
-	if ($studentType === "PhD") { // PhD students have 3 months for proposal and 3 years for their thesis
+	if ($studentType == "PhD") { // PhD students have 3 months for proposal and 3 years for their thesis
 		$studentTypeModifier = 3;
 	}
-	//$studentStartDate = $start; // convert $start to unix time
-	                                          // Full time equivalence to each deadline
-	                                          // TODO Change FTE to use dateTime months
+	// $studentStartDate = $start; // convert $start to unix time
+	// Full time equivalence to each deadline
+	// TODO Change FTE to use dateTime months
 	$proposalFTE = 30 * $studentTypeModifier; // 1 month
 	$month3FTE = 90;
 	$month8FTE = 240;
@@ -41,16 +40,16 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 	$startFTE = 0;
 	for($i = 0; $i < $typeChangelength; $i ++) {
 		// Find out what enrolment type student is for this time period
-		$currType = $enrolmentTypeChangeList [$i] ['EnrolmentType'];
+		$currType = $enrolmentTypeChangeList [$i] ['enrolmenttype'];
 		$currTypeModifier = 1;
-		if ($currType === "H") {
+		if ($currType == "H") {
 			$currTypeModifier = 2; // halftime students take twice as long for their enrolment
 		}
 		// Get dates for the start and end of this enrolment type period
-		$startDate = date_create_from_format('Y-m-d',$enrolmentTypeChangeList [$i] ['ChangeDate']);
+		$startDate = date_create_from_format ( 'Y-m-d', $enrolmentTypeChangeList [$i] ['changedate'] );
 		$endDate = null;
 		if ($i + 1 < $typeChangelength) { // Check if next type change exists
-			$endDate = date_create_from_format('Y-m-d',$enrolmentTypeChangeList [$i + 1] ['ChangeDate']);
+			$endDate = date_create_from_format ( 'Y-m-d', $enrolmentTypeChangeList [$i + 1] ['changedate'] );
 		}
 		// Calculate Full Time Equivalence
 		$currFTE = null;
@@ -61,52 +60,52 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 			$endFTE = $startFTE + $currFTE;
 		}
 		// Modify the deadline FTEs according to suspensions that happen during this period. Assumes suspensions do not happen over enrolment type changes (why would they?)
-		$numSuspensions = count ( $suspensionsList );
-		for($i = 0; $i < $numSuspensions; $i ++) {
-			$currSuspStart = date_create_from_format('Y-m-d', $suspensionsList [$i] ['SuspensionStartDate'] );
-			if ($startDate < $currSuspStart && ($endDate === null || $currSuspStart < $endDate)) { // suspension is in current enrolment type period
-				$currSuspEnd = date_create_from_format('Y-m-d', $suspensionsList [$i] ['SuspensionEndDate'] );
+// 		$numSuspensions = count ( $suspensionsList );
+// 		for($i = 0; $i < $numSuspensions; $i ++) {
+// 			$currSuspStart = date_create_from_format ( 'Y-m-d', $suspensionsList [$i] ['suspensionstartdate'] );
+// 			if ($startDate < $currSuspStart && ($endDate == null || $currSuspStart < $endDate)) { // suspension is in current enrolment type period
+// 				$currSuspEnd = date_create_from_format ( 'Y-m-d', $suspensionsList [$i] ['suspensionenddate'] );
 
-				$timeFromCurr = date_diff ( $startDate, $currSuspStart );
-				$fromStartFTE = $startFTE + ($timeFromCurr->format ( '%a' ) / $partTimeModifier);
+// 				$timeFromCurr = date_diff ( $startDate, $currSuspStart );
+// 				$fromStartFTE = $startFTE + ($timeFromCurr->format ( '%a' ) / $partTimeModifier);
 
-				$timeForSuspension = date_diff ( $currSuspStart, $currSuspEnd );
-				$suspensionFTE = $timeForSuspension->format ( '%a' ) / $currTypeModifier;
+// 				$timeForSuspension = date_diff ( $currSuspStart, $currSuspEnd );
+// 				$suspensionFTE = $timeForSuspension->format ( '%a' ) / $currTypeModifier;
 
-				if ($fromStartFTE < $proposalFTE) {
-					$proposalFTE += $suspensionFTE;
-				}
-				if ($fromStartFTE < $month3FTE) {
-					$month3FTE += $suspensionFTE;
-				}
-				if ($fromStartFTE < $month8FTE) {
-					$month8FTE += $suspensionFTE;
-				}
-				if ($fromStartFTE < $thesisFTE) {
-					$thesisFTE += $suspensionFTE;
-				}
-			}
-		}
+// 				if ($fromStartFTE < $proposalFTE) {
+// 					$proposalFTE += $suspensionFTE;
+// 				}
+// 				if ($fromStartFTE < $month3FTE) {
+// 					$month3FTE += $suspensionFTE;
+// 				}
+// 				if ($fromStartFTE < $month8FTE) {
+// 					$month8FTE += $suspensionFTE;
+// 				}
+// 				if ($fromStartFTE < $thesisFTE) {
+// 					$thesisFTE += $suspensionFTE;
+// 				}
+// 			}
+//		}
 		// For each deadline, if said deadlines FTE is after the FTE for the start of this period and before the FTE at the end of this period, it is during this enrolment type period
-		if ($startFTE <= $proposalFTE && ($endFTE === null || $proposalFTE < $endFTE)) {
+		if ($startFTE <= $proposalFTE && ($endFTE == null || $proposalFTE < $endFTE)) {
 			$proposalFTESinceStart = $proposalFTE - $startFTE;
 			$proposalTimeSinceStart = $proposalFTESinceStart * $currTypeModifier;
-			$proposalDeadline = date ( 'Y-m-d', strtotime ( "+" . $proposalTimeSinceStart . " day", strtotime ( $startDate ) ) );
+			$proposalDeadline = date ( 'Y-m-d', strtotime ( "+" . $proposalTimeSinceStart . " day", $startDate->getTimestamp() ) );
 		}
-		if ($studentType === "Masters" && $startFTE <= $month3FTE && ($endFTE === null || $month3FTE < $endFTE)) {
+		if ($studentType === "Masters" && $startFTE <= $month3FTE && ($endFTE == null || $month3FTE < $endFTE)) {
 			$month3FTESinceStart = $month3FTE - $startFTE;
 			$month3TimeSinceStart = $month3FTESinceStart * $currTypeModifier;
-			$month3Deadline = date ( 'Y-m-d', strtotime ( "+" . $month3TimeSinceStart . " day", strtotime ( $startDate ) ) );
+			$month3Deadline = date ( 'Y-m-d', strtotime ( "+" . $month3TimeSinceStart . " day", $startDate->getTimestamp() ) );
 		}
-		if ($studentType === "Masters" && $startFTE <= $month8FTE && ($endFTE === null || $month8FTE < $endFTE)) {
+		if ($studentType === "Masters" && $startFTE <= $month8FTE && ($endFTE == null || $month8FTE < $endFTE)) {
 			$month8FTESinceStart = $month8FTE - $startFTE;
 			$month8TimeSinceStart = $month8FTESinceStart * $currTypeModifier;
-			$month8Deadline = date ( 'Y-m-d', strtotime ( "+" . $month8TimeSinceStart . " day", strtotime ( $startDate ) ) );
+			$month8Deadline = date ( 'Y-m-d', strtotime ( "+" . $month8TimeSinceStart . " day", $startDate->getTimestamp() ) );
 		}
-		if ($startFTE <= $thesisFTE && ($endFTE === null || $thesisFTE < $endFTE)) {
+		if ($startFTE <= $thesisFTE && ($endFTE == null || $thesisFTE < $endFTE)) {
 			$thesisFTESinceStart = $thesisFTE - $startFTE;
 			$thesisTimeSinceStart = $thesisFTESinceStart * $currTypeModifier;
-			$thesisDeadline = date ( 'Y-m-d', strtotime ( "+" . $thesisTimeSinceStart . " day", strtotime ( $startDate ) ) );
+			$thesisDeadline = date ( 'Y-m-d', strtotime ( "+" . $thesisTimeSinceStart . " day", $startDate->getTimestamp() ) );
 		}
 		$startFTE = $endFTE;
 	}
@@ -363,7 +362,7 @@ while ( $row = pg_fetch_assoc ( $supQuery ) ) {
 		$supervisedAmount += $studentRow [secondary_supervisorpercent];
 		$supervised .= $studentRow [f_name] . " " . $studentRow [l_name] . ", ";
 	}
-	echo "<td>" . $supervisedAmount . "</td>";
+	echo "<td>" . $supervisedAmount . "%</td>";
 	echo "<td>" . $supervised . "</td>";
 	echo "</tr>";
 }

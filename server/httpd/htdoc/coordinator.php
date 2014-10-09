@@ -57,8 +57,8 @@
       if (! (empty ( $_POST ))) {
 
 	      if(isSet($_POST['Edit'])){
-			$f_name = htmlspecialchars($_POST['fname']);
-			$l_name = htmlspecialchars($_POST['lname']);
+			$f_name = htmlspecialchars($_POST['fName']);
+			$l_name = htmlspecialchars($_POST['lName']);
 			$type = htmlspecialchars($_POST['type']);
 
 			$isPhD = ($type === 'PhD');
@@ -130,9 +130,15 @@
 			  $query .= "INSERT INTO EnrolmentTypeChanges (StudentID, EnrolmentType, ChangeDate) VALUES (".$studentID.", '".$partTime."', '".ptDate."');";
 			}
 
-			$result = pg_query($query) or 'failure';
-			if ($result !== 'failure') {
+			$result = pg_query($query);
+			if ($result !== FALSE) {
 				pg_free_result($result);
+				header("Refresh:0;");
+				pg_close($db);
+			}
+			else {
+				echo "<div><p>".$query."</p></div>";
+				pg_close($db);
 			}
 	      }
 	      else if(isSet($_POST['Delete'])) {
@@ -149,8 +155,6 @@
 			pg_free_result($Sresult);
 	      }
 
-	      pg_close($db);
-	      header("Refresh:0;");
       }
   ?>
 </body>
