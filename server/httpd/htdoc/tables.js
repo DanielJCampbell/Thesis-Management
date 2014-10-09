@@ -25,12 +25,15 @@ window.onload = sendPHPRequest();
 
 function sendPHPRequest() {
   var req = new XMLHttpRequest();
-
+	var tableheight = screen.availHeight/2;
+	console.log(tableheight);
+	tableheight = tableheight.toString().concat("px");
+	console.log(tableheight);
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
 	  $('#supTable').parents('div.dataTables_wrapper').first().hide();
-	  mainTable = $("#mainTable").dataTable({"autoWidth":false, "scrollX":true});
+	  mainTable = $("#mainTable").dataTable({"autoWidth":false, "scrollX":true, "scrollY":tableheight,scrollCollapse:true,paging:false});
 	  supTable =  $("#supTable").dataTable();
 
 	  var colvis = new $.fn.dataTable.ColVis( mainTable, {exclude: [0] } );
@@ -64,7 +67,7 @@ function showStudentTable() {
   isSupervisor = false;
   showNonCurrentStudents = false;
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
-  $('#mainTable').parents('div.dataTables_wrapper').first().show();
+  $('#mainTable_wrapper').show();
   refreshTable();
 }
 
@@ -72,7 +75,7 @@ function showNonCurrent(){
   isSupervisor = false;
   showNonCurrentStudents = true;
   $('#supTable').parents('div.dataTables_wrapper').first().hide();
-  $('#mainTable').parents('div.dataTables_wrapper').first().show();
+  $('#mainTable_wrapper').show();
   refreshTable();
   mainTable.api().columns(":contains('Withdrawn')").visible(true);
 }
@@ -170,7 +173,7 @@ function showUnassessed() {
 function showSupervisor() {
   isSupervisor = true;
   refreshTable();
-  $('#mainTable').parent('div.dataTables_wrapper').first().hide();
+  $('#mainTable_wrapper').hide();
   $('#supTable').parent('div.dataTables_wrapper').first().show();
 }
 
@@ -286,10 +289,14 @@ function format(data) {
 
 	var oldPTString = (data[6] === "Yes") ? 'H' : 'F';
 
+	var killString = (data[33] === 'True') ? '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
+			+ "<tr><td><input type = 'hidden' name = 'sID' value = '"+data[2]+"'/><button type = 'submit' id = 'deleteInline' name = 'Delete' value = 'Delete'>Delete Student</button></td></tr>"
+			+ "</table></form>" : '' ;
+
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
 	+ "<tr> <td> Editing Student With Id: </td> <td> <input type = 'text' name = 'sID' readonly value = '"+data[2]+"'/></td></tr>"
 	+ "<tr> <td> First Name: </td> <td> <input type = 'text' required id = 'fname' name = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
-	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' required id = 'lname' naem = 'lname' value = '"+data[1].split(" ")[1]+"'/></td></tr>"
+	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' required id = 'lname' name = 'lname' value = '"+data[1].split(" ")[1]+"'/></td></tr>"
 	+ "<tr> <td> Type: </td> <td> <select id = 'type' name = 'type'>"
 	+ typeString + "</select></td></tr>"
 	+ "<tr> <td> Course: </td> <td> <input type='text' required id='course' name='course' value = '"+data[4]+"'/></td></tr>"
@@ -321,7 +328,8 @@ function format(data) {
 	+ "<tr> <td> Withdrawn: </td> <td> <select name = 'withdrawn' id = 'withdrawn'>"
 	+ withdrawnString + "</select></td></tr>"
 	+ "<tr> <td> <button type = 'submit' id = 'editInline' name = 'Edit' value = 'Edit'>Edit Student</button></td></tr>"
-	+ "</table> </form>";
+	+ "</table> </form>"
+	+ killString;
 }
 
 function failChange(error) {
