@@ -8,39 +8,26 @@
 	<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://datatables.net/release-datatables/extensions/ColVis/js/dataTables.colVis.js"></script>
     <script src = "tables.js"></script>
-       <script type="text/javascript">
-	function setActive(button){
-		var inputs = GetElementsByTagName('input');
-		
-		for(var i = 0; i < inputs.length; i++){
-			if(inputs[i].type.toLowerCase() == 'button'){
-				inputs[i].style.background-color = "#ededed";
-			}
-		}
-
-		button.style.background-color = "#dfdfdf";
-	}
-	</script>
     <div id = "image"> <img src="vuw-logo.png" style="height:75px"> </div>
     <h1> Thesis Management Staff Page</h1>
   </head>
   <div style="clear:both"></div>
   <body>
   <div id = "left">
-	  <input type = "button" onclick = "showStudentTable(); setActive(this);" value = "Clear filters"/><br/>
-  	<input type = "button" onclick = "showWorkHours(); setActive(this);" value = "Show Work Hours"/><br/>
+	  <input type = "button" onclick = "showStudentTable();" value = "Clear filters"/><br/>
+  	<input type = "button" onclick = "showWorkHours();" value = "Show Work Hours"/><br/>
   </div>
   <div id = "left">
-	<input type = "button" onclick = "showProvisional(); setActive(this);" value = "Show Provisional Students"/><br/>
-	<input type = "button" onclick = "showUnassessed(); setActive(this);" value = "Show Not Assessed"/><br/>
+	<input type = "button" onclick = "showProvisional();" value = "Show Provisional Students"/><br/>
+	<input type = "button" onclick = "showUnassessed();" value = "Show Not Assessed"/><br/>
   </div>
   <div id = "left">
-	<input type = "button" onclick = "showSuspensions(); setActive(this);" value = "Show Suspended Students"/><br/>
-	<input type = "button" onclick = "showOverdue(); setActive(this);" value = "Show Overdue Students"/><br/>
+	<input type = "button" onclick = "showSuspensions();" value = "Show Suspended Students"/><br/>
+	<input type = "button" onclick = "showOverdue();" value = "Show Overdue Students"/><br/>
   </div>
   <div id = "last">
-  	<input type = "button" onclick = "showSupervisor(); setActive(this);" value = "Show Supervisor Workload"/><br/>
-  	<input type = "button" onclick = "showNonCurrent(); setActive(this);" value = "Show Non-current Students"/><br/>
+  	<input type = "button" onclick = "showSupervisor();" value = "Show Supervisor Workload"/><br/>
+  	<input type = "button" onclick = "showNonCurrent();" value = "Show Non-current Students"/><br/>
   </div>
   <div id = "body">
 
