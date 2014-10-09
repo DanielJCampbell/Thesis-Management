@@ -158,6 +158,8 @@
 			$SID = htmlspecialchars($_POST['sID']);
 			$killQuery = "DELETE FROM MastersStudents WHERE StudentID = ".$SID.';';
 			$killQuery .= "DELETE FROM PhDStudents WHERE StudentID = ".$SID.';';
+			$killQuery .= "DELETE FROM EnrolmentTypeChanges WHERE StudentID = ".$SID.';';
+			$killQuery .= "DELETE FROM Suspensions WHERE StudentID = ".$SID.';';
 			$killQuery .= "DELETE FROM Students WHERE StudentID = ".$SID.';';
 
 			$Kresult = pg_query($killQuery);
