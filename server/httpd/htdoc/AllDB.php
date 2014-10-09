@@ -61,8 +61,8 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 		}
 		// Modify the deadline FTEs according to suspensions that happen during this period. Assumes suspensions do not happen over enrolment type changes (why would they?)
  		$numSuspensions = count ( $suspensionsList );
- 		for($i = 0; $i < $numSuspensions; $i ++) {
- 			$currSuspStart = date_create_from_format ( 'Y-m-d', $suspensionsList [$i] ['suspensionstartdate'] );
+// 		for($i = 0; $i < $numSuspensions; $i ++) {
+// 			$currSuspStart = date_create_from_format ( 'Y-m-d', $suspensionsList [$i] ['suspensionstartdate'] );
  			//if ($startDate < $currSuspStart && ($endDate === null || $currSuspStart < $endDate)) { // suspension is in current enrolment type period
 // 				$currSuspEnd = date_create_from_format ( 'Y-m-d', $suspensionsList [$i] ['suspensionenddate'] );
 
