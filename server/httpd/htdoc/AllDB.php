@@ -48,7 +48,7 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 		// Get dates for the start and end of this enrolment type period
 		$startDate = date_create_from_format ( 'Y-m-d', $enrolmentTypeChangeList [$i] ['changedate'] );
 		$endDate = null;
-		if ($i + 1 < $typeChangelength) { // Check if next type change exists
+		if (($i + 1) < $typeChangelength) { // Check if next type change exists
 			$endDate = date_create_from_format ( 'Y-m-d', $enrolmentTypeChangeList [$i + 1] ['changedate'] );
 		}
 		// Calculate Full Time Equivalence
@@ -87,10 +87,13 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 			}
 		}
 		// For each deadline, if said deadlines FTE is after the FTE for the start of this period and before the FTE at the end of this period, it is during this enrolment type period
+		if ($currFTE === null){
+			$proposalDeadline = "Null check returned true";
+		}
 		if ($startFTE <= $proposalFTE && ($endFTE === null || $proposalFTE < $endFTE)) {
 			$proposalFTESinceStart = $proposalFTE - $startFTE;
 			$proposalTimeSinceStart = $proposalFTESinceStart * $currTypeModifier;
-			$proposalDeadline = date ( 'Y-m-d', strtotime ( "+" . $proposalTimeSinceStart . " day", $startDate->getTimestamp () ) );
+			$proposalDeadline .= date ( 'Y-m-d', strtotime ( "+" . $proposalTimeSinceStart . " day", $startDate->getTimestamp () ) );
 		}
 		if ($studentType === "Masters" && $startFTE <= $month3FTE && ($endFTE === null || $month3FTE < $endFTE)) {
 			$month3FTESinceStart = $month3FTE - $startFTE;
