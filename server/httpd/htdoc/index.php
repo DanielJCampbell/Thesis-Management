@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Coordinator</title>
+    <title>Thesis Management</title>
     <link rel="stylesheet" type="text/css" href="dataTablesStyle.css">
     <link rel="stylesheet" type="text/css" href="staffPage.css">
 	<link rel="stylesheet" type="text/css" href="https://datatables.net/release-datatables/extensions/ColVis/css/dataTables.colVis.css">
