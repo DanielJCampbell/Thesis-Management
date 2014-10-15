@@ -345,13 +345,14 @@ function getStudentSupervisor(studentID, pSupervisor, sSupervisor) {
 	var req = new XMLHttpRequest();
 
 	req.onreadystatechange = function() {
-	if (req.readyState == 4 && req.status == 200) {
-		var result = req.responseText;
-		result = result.split(" ");
-		result[0] = parseInt(result[0]);
-		result[1] = parseInt(result[1]);
-		pSupervisor.value = result[0];
-		sSupervisor.value = result[1];
+		if (req.readyState == 4 && req.status == 200) {
+			var result = req.responseText;
+			result = result.split(" ");
+			result[0] = parseInt(result[0]);
+			result[1] = parseInt(result[1]);
+			pSupervisor.value = result[0];
+			sSupervisor.value = result[1];
+		};
 	};
 	var toSend = "sID =" + studentID;
 	req.open('POST', 'getSupervisor.php', true);
