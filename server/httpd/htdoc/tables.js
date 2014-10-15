@@ -49,7 +49,7 @@ function sendPHPRequest() {
 	      else {
 			// Open this row
 	    	var child = row.child(format(row.data()));
-	    	console.log(child);
+	    	console.log(child.$('input:read-only'));
 
 	    	console.log(child.get(child.index('input:read-only')));
 	    	console.log(child.get(child.index('input:read-only')).value);
