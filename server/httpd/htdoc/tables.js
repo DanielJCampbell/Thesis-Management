@@ -26,9 +26,7 @@ window.onload = sendPHPRequest();
 function sendPHPRequest() {
   var req = new XMLHttpRequest();
 	var tableheight = screen.availHeight/2;
-	console.log(tableheight);
 	tableheight = tableheight.toString().concat("px");
-	console.log(tableheight);
   req.onreadystatechange=function() {
     if (req.readyState==4 && req.status==200) {
       document.getElementById("Tables").innerHTML=req.responseText;
@@ -51,6 +49,10 @@ function sendPHPRequest() {
 	      else {
 			// Open this row
 	    	var child = row.child(format(row.data()));
+	    	console.log(child);
+	    	console.log(child.index('input:read-only'));
+	    	console.log(child.get(child.index('input:read-only')));
+	    	console.log(child.get(child.index('input:read-only')).value);
 	    	var sID = child.get(child.index('input:read-only')).value;
 	    	var pSup = child.get(child.index('#pSupervisor'));
 	    	var sSup = child.get(child.index('#sSupervisor'));
