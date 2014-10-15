@@ -49,14 +49,14 @@ function sendPHPRequest() {
 	      else {
 			// Open this row
 	    	var child = row.child(format(row.data()));
-	    	console.log(child.$('input[readonly]'));
-	    	console.log(child.$('input[readonly]')[0].value);
+	    	console.log(child.$('.sID'));
+	    	console.log(child.$('.sID')[0].value);
 
 	    	console.log(child.get(child.index('input:read-only')));
 	    	console.log(child.get(child.index('input:read-only')).value);
 	    	var sID = child.get(child.index('input:read-only')).value;
-	    	var pSup = child.get(child.index('#pSupervisor'));
-	    	var sSup = child.get(child.index('#sSupervisor'));
+	    	var pSup = child.get(child.index('.pSupervisor'));
+	    	var sSup = child.get(child.index('.sSupervisor'));
 			getStudentSupervisor(sID, pSup, sSup);
 			child.show();
 			tr.addClass('shown');
@@ -302,7 +302,7 @@ function format(data) {
 			+ "</table></form>" : '' ;
 
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
-	+ "<tr> <td> Editing Student With Id: </td> <td> <input type = 'text' name = 'sID' readonly value = '"+data[2]+"'/></td></tr>"
+	+ "<tr> <td> Editing Student With Id: </td> <td> <input type = 'text' class = 'sID' name = 'sID' readonly value = '"+data[2]+"'/></td></tr>"
 	+ "<tr> <td> First Name: </td> <td> <input type = 'text' required id = 'fname' name = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
 	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' required id = 'lname' name = 'lname' value = '"+data[1].split(" ")[1]+"'/></td></tr>"
 	+ "<tr> <td> Type: </td> <td> <select id = 'type' name = 'type'>"
