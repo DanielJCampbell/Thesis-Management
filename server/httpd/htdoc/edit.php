@@ -1,4 +1,5 @@
 <!DOCTYPE html >
+<!-- this code is being depreciated and will be implemented in coordinator.php or index.php-->
 <html>
   <head>
     <title>Edit</title>
