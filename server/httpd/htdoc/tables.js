@@ -48,17 +48,19 @@ function sendPHPRequest() {
 	      }
 	      else {
 			// Open this row
-	    	var child = row.child(format(row.data()));
-	    	console.log(child.$('input[readonly]'));
-	    	console.log(child.$('input[readonly]')[0].value);
+	    	row.child(format(row.data())).show();
 
-	    	console.log(child.get(child.index('input:read-only')));
-	    	console.log(child.get(child.index('input:read-only')).value);
-	    	var sID = child.get(child.index('input:read-only')).value;
-	    	var pSup = child.get(child.index('#pSupervisor'));
-	    	var sSup = child.get(child.index('#sSupervisor'));
-			getStudentSupervisor(sID, pSup, sSup);
-			child.show();
+	    	//Obsoleted due to being broken
+//	    	console.log(child.$(".accessed"));
+//	    	console.log(child.$(".accessed")[0]);
+//
+//	    	console.log(child.get(child.index('input:read-only')));
+//	    	console.log(child.get(child.index('input:read-only')).value);
+//	    	var sID = child.get(child.index('input:read-only')).value;
+//	    	var pSup = child.get(child.index('.pSupervisor'));
+//	    	var sSup = child.get(child.index('.sSupervisor'));
+//			getStudentSupervisor(sID, pSup, sSup);
+//			child.show();
 			tr.addClass('shown');
 	      }
 		});
@@ -302,7 +304,7 @@ function format(data) {
 			+ "</table></form>" : '' ;
 
 	return '<form method = "post"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
-	+ "<tr> <td> Editing Student With Id: </td> <td> <input type = 'text' name = 'sID' readonly value = '"+data[2]+"'/></td></tr>"
+	+ "<tr> <td> Editing Student With Id: </td> <td class = 'accessed'> <input type = 'text' class = 'sID' name = 'sID' readonly value = '"+data[2]+"'/></td></tr>"
 	+ "<tr> <td> First Name: </td> <td> <input type = 'text' required id = 'fname' name = 'fname' value = '"+data[1].split(" ")[0]+"'/></td></tr>"
 	+ "<tr> <td> Last Name: </td> <td> <input type = 'text' required id = 'lname' name = 'lname' value = '"+data[1].split(" ")[1]+"'/></td></tr>"
 	+ "<tr> <td> Type: </td> <td> <select id = 'type' name = 'type'>"
@@ -313,9 +315,9 @@ function format(data) {
 	+ "<tr> <td> <input type = 'hidden' name = 'oldPT' value = '" + oldPTString + "'/></td> </tr>"
 	+ "<tr> <td> Scholarship: </td> <td> <input type='text' id='scholarship' name='scholarship' value = '"+data[7]+"'/></tr>"
 	+ workHourString
-	+ "<tr> <td> Primary Supervisor: </td> <td> <input type = 'number' required id = 'pSupervisor' class = 'pSupervisor' name = 'pSupervisor' placeholder = '80000000'/></td>"
+	+ "<tr> <td> Primary Supervisor: </td> <td class = 'accessed'> <input type = 'number' required id = 'pSupervisor' class = 'pSupervisor' name = 'pSupervisor' placeholder = '80000000'/></td>"
 		+ "<td> Percentage: </td> <td> <input type = 'number' required min = '51' max = '99' id = 'pPercentage' name = 'pPercentage' value = '" + data[11].split(" (")[1].slice(0, -2) + "'/></td></tr>"
-	+ "<tr> <td> Secondary Supervisor: </td> <td> <input type = 'number' required id = 'sSupervisor' class = 'sSupervisor' name = 'sSupervisor' placeholder = '80000000'/></td>"
+	+ "<tr> <td> Secondary Supervisor: </td> <td class = 'accessed'> <input type = 'number' required id = 'sSupervisor' class = 'sSupervisor' name = 'sSupervisor' placeholder = '80000000'/></td>"
 		+ "<td> Percentage: </td> <td> <input type = 'number' min = '1' required max = '49' id = 'sPercentage' name = 'sPercentage' value = '" + data[12].split(" (")[1].slice(0, -2) + "'/></td></tr>"
 	+ "<tr> <td> <input type = 'hidden' name = 'suspensions' value = '" + data[13] + "' /></td></tr>"
 	+ "<tr> <td> Add New Suspension: </td> <td> Start Date <input type = 'date' name = 'suspensionStart' id = 'suspensionStart' placeholder = 'yyyy-mm-dd'/></td> "
@@ -344,6 +346,7 @@ function failChange(error) {
 	alert(error);
 }
 
+//Never used due to calling method being broken
 function getStudentSupervisor(studentID, pSupervisor, sSupervisor) {
 	var req = new XMLHttpRequest();
 
