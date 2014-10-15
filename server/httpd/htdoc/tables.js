@@ -2,6 +2,7 @@
 var mainTable;
 var supTable;
 
+//Only shows students meeting the current type (Masters, PhD, or All)
 function studentTypeFilter( oSettings, aData, iDataIndex ) {
   if (aData[3] === type || isSupervisor || type === "All") {
     return true;
@@ -9,6 +10,7 @@ function studentTypeFilter( oSettings, aData, iDataIndex ) {
   return false;
 }
 
+//Shows/hides students who are finished (deposited in library) or withdrawn
 function nonCurrentStudentFilter(oSettings, aData, iDataIndex){
 	if (isSupervisor) {return true;}
 	if (aData[14] == "" || aData[30] != "" || aData[33] == "True"){
@@ -23,6 +25,7 @@ var showNonCurrentStudents = false;
 
 window.onload = sendPHPRequest();
 
+//Called on window load - creates the datatable objects from the table generated from AllDB.php
 function sendPHPRequest() {
   var req = new XMLHttpRequest();
 	var tableheight = screen.availHeight/2;
@@ -38,6 +41,8 @@ function sendPHPRequest() {
 		$( colvis.button() ).insertAfter('div#last');
 	  $.fn.dataTable.ext.search.push(studentTypeFilter);
 	  $.fn.dataTable.ext.search.push(nonCurrentStudentFilter);
+
+	  //If you click the edit column, will open a child row containing the edit form
 	  $("#mainTable").on('click', 'td.editTD', function () {
 		  var tr = $(this).closest('tr');
 	      var row = mainTable.api().row( tr );
@@ -49,18 +54,6 @@ function sendPHPRequest() {
 	      else {
 			// Open this row
 	    	row.child(format(row.data())).show();
-
-	    	//Obsoleted due to being broken
-//	    	console.log(child.$(".accessed"));
-//	    	console.log(child.$(".accessed")[0]);
-//
-//	    	console.log(child.get(child.index('input:read-only')));
-//	    	console.log(child.get(child.index('input:read-only')).value);
-//	    	var sID = child.get(child.index('input:read-only')).value;
-//	    	var pSup = child.get(child.index('.pSupervisor'));
-//	    	var sSup = child.get(child.index('.sSupervisor'));
-//			getStudentSupervisor(sID, pSup, sSup);
-//			child.show();
 			tr.addClass('shown');
 	      }
 		});
@@ -73,6 +66,7 @@ function sendPHPRequest() {
   req.send();
 }
 
+//Shows the student datatable, hides the supervisor datatable
 function showStudentTable() {
   isSupervisor = false;
   showNonCurrentStudents = false;
@@ -81,6 +75,7 @@ function showStudentTable() {
   refreshTable();
 }
 
+//Shows only withdrawn students, and shows the withdrawn column
 function showNonCurrent(){
   isSupervisor = false;
   showNonCurrentStudents = true;
@@ -90,11 +85,13 @@ function showNonCurrent(){
   mainTable.api().columns(":contains('Withdrawn')").visible(true);
 }
 
+//Changes what type of students are visible (PhD, Masters or All)
 function changeStudentfilter(value){
 	type = value;
 	refreshTable();
 }
 
+//Resets the filters and columns of the main table to defaults
 function refreshTable() {
 
   mainTable.api().columns().visible(true);
@@ -114,11 +111,13 @@ function refreshTable() {
   redraw();
 }
 
+//Redraws the tables (necessary when using filters)
 function redraw() {
   mainTable.fnDraw();
   supTable.fnDraw();
 }
 
+//Show only students who are past their deadlines and haven't submitted, for any deadline
 function showOverdue(){
 	showStudentTable();
 	$.fn.dataTable.ext.search.push(function ( oSettings, aData, iDataIndex ) {
@@ -156,6 +155,7 @@ function showOverdue(){
 	redraw();
 }
 
+//Shows only students that have submitted something and haven't had it confirmed yet
 function showUnassessed() {
 	showStudentTable();
 	$.fn.dataTable.ext.search.push(function ( oSettings, aData, iDataIndex ) {
@@ -180,6 +180,7 @@ function showUnassessed() {
 	redraw();
 }
 
+//Shows the supervisor table, hides the student table
 function showSupervisor() {
   isSupervisor = true;
   refreshTable();
@@ -187,12 +188,14 @@ function showSupervisor() {
   $('#supTable').parent('div.dataTables_wrapper').first().show();
 }
 
+//Shows students who have not yet had their proposals confirmed
 function showProvisional() {
   showStudentTable();
   $.fn.dataTable.ext.search.push(provisionalFilter);
   redraw();
 }
 
+//Filter for provisional students
 function provisionalFilter( oSettings, aData, iDataIndex ) {
   if (aData[18] === "") {
     return true;
@@ -200,12 +203,14 @@ function provisionalFilter( oSettings, aData, iDataIndex ) {
   return false;
 }
 
+//Show only students currently suspended
 function showSuspensions(){
   showStudentTable();
   $.fn.dataTable.ext.search.push(suspensionsFilter);
   redraw();
 }
 
+//Checks through most recent suspension for any student, checking if the current date is within it
 function suspensionsFilter(oSettings, aData, iDataIndex){
   var str = aData[13];
   if(str !== undefined && str != ""){
@@ -224,12 +229,14 @@ function suspensionsFilter(oSettings, aData, iDataIndex){
   return false;
 }
 
+//Shows students running behind on their work hours
 function showWorkHours(){
   showStudentTable();
   $.fn.dataTable.ext.search.push(workHoursFilter);
   redraw();
 }
 
+//Returns all students who have not met their work hour requirements
 function workHoursFilter( oSettings, aData, iDataIndex ) {
   var workHours1 = parseInt(aData[7]);
   var workHours2 = parseInt(aData[8]);
@@ -242,16 +249,10 @@ function workHoursFilter( oSettings, aData, iDataIndex ) {
   return false;
 }
 
+//Reads a parent row, creates from it a child row containing an edit form, with all fields initialised to correct values
+//Note you can only delete a withdrawn student
+//Note due to an oddity of the code, supervisor IDs must be manually input
 function format(data) {
-//	return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'
-//	+ "<tr> <th> First Name </th> <th> Last Name </th> <th> ID </th> <th> Type </th> <th> Course </th>"
-//	+ "<th> Specialisation </th> <th> Part-Time </th> <th> Scholarship </th> <th> Work Hours Year 1 </th>"
-//	+ "<th> Work Hours Year 2 </th> <th> Work Hours Year 3 </th> <th> Primary Supervisor </th> <th> Secondary Supervisor </th>"
-//	+ "<th> Suspension Dates </th> <th> Start Date </th> <th> Proposal Deadline </th> <th> Proposal Submission </th> <th> Proposal Seminar </th>"
-//	+ "<th> Proposal Confirmation </th> <th> 3 Month Report Deadline </th> <th> 3Month Report Submission </th> <th>3 Month Report Approval</th>"
-//	+ "<th> 8 Month Deadline </th> <th> 8 Month Submission </th> <th> 8 Month Approval </th> <th> Thesis Deadline </th> <th>Thesis Submission </th>"
-//	+ "<th> Examiners Appointed </th> <th> Examination Completed </th> <th> Revisions Finalised </th> <th> Deposited In Library </th>"
-//	+ "<th> Notes </th> <th> Origin </th> <th> Withdrawn </th> </tr> </table>";
 
 	var typeString = (data[3] === "Masters") ?  "<option value = 'PhD'>PhD</option> <option value = 'Masters' selected = 'selected'>Masters</option>"
 			: "<option value = 'PhD' selected = 'selected'>PhD</option> <option value = 'Masters'>Masters</option>";
@@ -263,23 +264,6 @@ function format(data) {
 			: "<tr> <td> Work Hours Year 1: </td> <td> <input type = 'number' name = 'WorkY1' id = 'WorkY1' min = '0' max = '150' value = '" + data[8]  + "'</td> </tr>"
 			+ "<tr> <td> Work Hours Year 2: </td> <td> <input type = 'number' name = 'WorkY2' id = 'WorkY2' min = '0' max = '150' value = '" + data[9]  + "'</td> </tr>"
 			+ "<tr> <td> Work Hours Year 3: </td> <td> <input type = 'number' name = 'WorkY3' id = 'WorkY3' min = '0' max = '150' value = '" + data[10] + "'</td> </tr>";
-
-//Retired until we figure out how this will work
-//	var suspensionData = [];
-//	var suspensionString = (data[13] === "") ? "" : "<tr> <td> Past Suspensions: </td> </tr>";
-//	var num = 0;
-//	var count = 0;
-
-//	while (count < data[13].length) {
-//		suspensionData[num++] = data[13].substr(count, 10);
-//		suspensionData[num++] = data[13].substr(count+13, 10);
-//		count += 24;
-//	}
-//	for (int i = 0; i < num; i+= 2) {
-//		suspensionString += "<tr><td> <input type = 'date' input"
-//	}
-
-
 
 	var seminarString = (data[3] === "Masters") ? ""
 			: "<tr> <td> Proposal Seminar: </td> <td> <input type = 'date' name = 'proposalSeminar' id = 'proposalSeminar' value = '" + data[17] + "' </td></tr>";
@@ -342,6 +326,7 @@ function format(data) {
 	+ killString;
 }
 
+//Unused, designed to be called if an edit query failed
 function failChange(error) {
 	alert(error);
 }

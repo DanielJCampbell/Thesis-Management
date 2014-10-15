@@ -44,7 +44,11 @@
   </div>
 
   <?php
+	  //Connects to database to submit PHP update/delete queries
+	  //Activated from tables.js, when the user inline edits
 
+  	  //Performs no validation itself, assumes the database constraints
+  	  //Will validate the queries
       $location = "ec2-54-83-204-104.compute-1.amazonaws.com";
       $username = "poacfvyhdhwtsx";
       $password = "nVJ0Via96oYvrOfrSs3ECsVR1W";
@@ -150,7 +154,6 @@
 				pg_close($db);
 			}
 			else {
-				//echo "<script>failChange('".pg_last_error()."');</script>";
 				pg_close($db);
 			}
 	      }
@@ -169,8 +172,6 @@
 				pg_close($db);
 			}
 			else {
-			//	echo "<script>failChange('".pg_last_error()."');</script>";
-				//echo $killQuery.pg_last_error();
 				pg_close($db);
 			}
 	      }
