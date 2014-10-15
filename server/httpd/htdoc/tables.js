@@ -49,8 +49,17 @@ function sendPHPRequest() {
 	      else {
 			// Open this row
 	    	var child = row.child(format(row.data()));
-	    	console.log(child);
-	    	console.log(child.index('input:read-only'));
+
+	    	var childSID = jQuery('input:read-only', child);
+	    	var childPS = jQuery('#pSupervisor', child);
+	    	var childSS = jQuery('#sSupervisor', child);
+	    	console.log(childSID);
+	    	console.log(childPS);
+	    	console.log(childSS);
+	    	console.log(childSID.index('input:read-only'));
+	    	console.log(childSID.get(childSID.index('input:read-only')));
+	    	console.log(childSID.get(childSID.index('input:read-only')).value);
+
 	    	console.log(child.get(child.index('input:read-only')));
 	    	console.log(child.get(child.index('input:read-only')).value);
 	    	var sID = child.get(child.index('input:read-only')).value;
