@@ -50,7 +50,12 @@ function sendPHPRequest() {
 	      }
 	      else {
 			// Open this row
-			row.child(format(row.data())).show();
+	    	var child = row.child(format(row.data()));
+	    	var sID = child.get(child.index('input:read-only')).value;
+	    	var pSup = child.get(child.index('#pSupervisor'));
+	    	var sSup = child.get(child.index('#sSupervisor'));
+			getStudentSupervisor(sID, pSup, sSup);
+			child.show();
 			tr.addClass('shown');
 	      }
 		});
@@ -305,9 +310,9 @@ function format(data) {
 	+ "<tr> <td> <input type = 'hidden' name = 'oldPT' value = '" + oldPTString + "'/></td> </tr>"
 	+ "<tr> <td> Scholarship: </td> <td> <input type='text' id='scholarship' name='scholarship' value = '"+data[7]+"'/></tr>"
 	+ workHourString
-	+ "<tr> <td> Primary Supervisor: </td> <td> <input type = 'number' required id = 'pSupervisor' name = 'pSupervisor' placeholder = '80000000'/></td>"
+	+ "<tr> <td> Primary Supervisor: </td> <td> <input type = 'number' required id = 'pSupervisor' class = 'pSupervisor' name = 'pSupervisor' placeholder = '80000000'/></td>"
 		+ "<td> Percentage: </td> <td> <input type = 'number' required min = '51' max = '99' id = 'pPercentage' name = 'pPercentage' value = '" + data[11].split(" (")[1].slice(0, -2) + "'/></td></tr>"
-	+ "<tr> <td> Secondary Supervisor: </td> <td> <input type = 'number' required id = 'sSupervisor' name = 'sSupervisor' placeholder = '80000000'/></td>"
+	+ "<tr> <td> Secondary Supervisor: </td> <td> <input type = 'number' required id = 'sSupervisor' class = 'sSupervisor' name = 'sSupervisor' placeholder = '80000000'/></td>"
 		+ "<td> Percentage: </td> <td> <input type = 'number' min = '1' required max = '49' id = 'sPercentage' name = 'sPercentage' value = '" + data[12].split(" (")[1].slice(0, -2) + "'/></td></tr>"
 	+ "<tr> <td> <input type = 'hidden' name = 'suspensions' value = '" + data[13] + "' /></td></tr>"
 	+ "<tr> <td> Add New Suspension: </td> <td> Start Date <input type = 'date' name = 'suspensionStart' id = 'suspensionStart' placeholder = 'yyyy-mm-dd'/></td> "
@@ -334,4 +339,23 @@ function format(data) {
 
 function failChange(error) {
 	alert(error);
+}
+
+function getStudentSupervisor(studentID, pSupervisor, sSupervisor) {
+	var req = new XMLHttpRequest();
+
+	req.onreadystatechange = function() {
+	if (req.readyState == 4 && req.status == 200) {
+		var result = req.responseText;
+		result = result.split(" ");
+		result[0] = parseInt(result[0]);
+		result[1] = parseInt(result[1]);
+		pSupervisor.value = result[0];
+		sSupervisor.value = result[1];
+	};
+	var toSend = "sID =" + studentID;
+	req.open('POST', 'getSupervisor.php', true);
+	req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	req.setRequestHeader("Content-length", toSend.length);
+	req.send(toSend);
 }

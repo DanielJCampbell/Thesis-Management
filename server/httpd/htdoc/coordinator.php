@@ -150,7 +150,7 @@
 				pg_close($db);
 			}
 			else {
-				echo "<script>failChange('".pg_last_error()."');</script>";
+				//echo "<script>failChange('".pg_last_error()."');</script>";
 				pg_close($db);
 			}
 	      }
@@ -169,7 +169,7 @@
 				pg_close($db);
 			}
 			else {
-				echo "<script>failChange('".pg_last_error()."');</script>";
+			//	echo "<script>failChange('".pg_last_error()."');</script>";
 				//echo $killQuery.pg_last_error();
 				pg_close($db);
 			}
