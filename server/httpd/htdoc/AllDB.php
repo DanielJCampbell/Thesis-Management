@@ -3,29 +3,33 @@ $location = "ec2-54-83-204-104.compute-1.amazonaws.com";
 $username = "poacfvyhdhwtsx";
 $password = "nVJ0Via96oYvrOfrSs3ECsVR1W";
 $database = "ddf40gpbvva8uo";
+
+//This function finds the deadlines for a student and returns an array back.
+//Array has the indexes "proposaldeadline","report3monthdeadline","report8monthdeadline","thesisdeadline"
+//Input requires their start date, their type (Masters or PhD), a list of their enrolment type changes and a list of their suspensions
 function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $suspensionsList) {
 	// FTE = Full Time Equivalence
-	if ($start == "") {
+
+	if ($start == "") {//TODO Could change this to check count( $enrolmentTypeChangeList ) as $start is not used anywhere els ein this method
 		return array (
 				"proposaldeadline" => "",
 				"report3monthdeadline" => "",
 				"report8monthdeadline" => "",
 				"thesisdeadline" => ""
-		);
+		); //Otherwise return an array with blank sections
 	}
-	$studentTypeModifier = 1;
+	$studentTypeModifier = 1; //Masters students have 1 month for proposal, 1 year for their thesis
 	if ($studentType == "PhD") { // PhD students have 3 months for proposal and 3 years for their thesis
 		$studentTypeModifier = 3;
 	}
 	// $studentStartDate = $start; // convert $start to unix time
 	// Full time equivalence to each deadline
-	// TODO Change FTE to use dateTime months
-	$proposalFTE = 30 * $studentTypeModifier; // 1 month
+	$proposalFTE = 30 * $studentTypeModifier; // 1 month masters, 3 month phd
 	$month3FTE = 90;
 	$month8FTE = 240;
-	$thesisFTE = 365 * $studentTypeModifier; // 1 year
+	$thesisFTE = 365 * $studentTypeModifier; // 1 year masters, 3 year phd
 
-	$proposalDeadline = "";
+	$proposalDeadline = ""; //initilize the deadline outputs to prevent errors
 	$month3Deadline = "";
 	$month8Deadline = "";
 	$thesisDeadline = "";
@@ -36,6 +40,10 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 
 	// $startDate = Date of start of enrolment Type Period
 	// $endDate = Date for end of enrolment Type Period (i.e. start of next enrolment Type Period)
+
+	//The following code loops through each enrolment type time period for the student and attempts to work out deadlines\
+	//that fall within that period
+	//Each enrolment type period has only a start date and a type name, part time (half time = H) or full time (F)
 	$typeChangelength = count ( $enrolmentTypeChangeList );
 	$startFTE = 0;
 	for($i = 0; $i < $typeChangelength; $i ++) {
@@ -47,31 +55,39 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 		}
 		// Get dates for the start and end of this enrolment type period
 		$startDate = date_create_from_format ( 'Y-m-d', $enrolmentTypeChangeList [$i] ['changedate'] );
-		$endDate = null;
+		$endDate = null; //end date is null if this is the last enrolment type period, or a date if there is at least one after.
 		if (($i + 1) < $typeChangelength) { // Check if next type change exists
-			$endDate = date_create_from_format ( 'Y-m-d', $enrolmentTypeChangeList [$i + 1] ['changedate'] );
+			$endDate = date_create_from_format ( 'Y-m-d', $enrolmentTypeChangeList [$i + 1] ['changedate'] ); //set the end date for this time period as the start of the next period
 		}
 		// Calculate Full Time Equivalence
-		$currFTE = null;
+		$currFTE = null; //These values are null if there is not next enrolment type period aft the current one
 		$endFTE = null;
-		if ($endDate != null) {
+		if ($endDate != null) {//If there is an enrolment type period after this one, calculate how many FTE days are in this period
 			$currTimeUntillNextTypeChange = date_diff ( $startDate, $endDate );
 			$currFTE = $currTimeUntillNextTypeChange->format ( '%a' ) / $currTypeModifier;
 			$endFTE = $startFTE + $currFTE;
 		}
 		// Modify the deadline FTEs according to suspensions that happen during this period. Assumes suspensions do not happen over enrolment type changes (why would they?)
 		$numSuspensions = count ( $suspensionsList );
+		//This loops over each suspension the student has and checks if it lies within the current enrolment type period
+		//If it does then it works out the FTE days from the start of the period is the start of the suspension
+		//If a deadline's FTE is after the FTE days for the start of this suspension then the deadline needs to be extended to compensate
+		//This is done by adding the FTE days that the suspension takes to the deadline's FTE
+		//This value is accumilated if there are more than one suspension before a deadline.
 		for($i = 0; $i < $numSuspensions; $i ++) {
-			$currSuspStart = date_create_from_format ( 'Y-m-d', $suspensionsList [$i] ['suspensionstartdate'] );
+			$currSuspStart = date_create_from_format ( 'Y-m-d', $suspensionsList [$i] ['suspensionstartdate'] );//Get start date of this suspension
 			if ($startDate < $currSuspStart && ($endDate === null || $currSuspStart < $endDate)) { // suspension is in current enrolment type period
-				$currSuspEnd = date_create_from_format ( 'Y-m-d', $suspensionsList [$i] ['suspensionenddate'] );
+				$currSuspEnd = date_create_from_format ( 'Y-m-d', $suspensionsList [$i] ['suspensionenddate'] );//Get the end date of this suspension
 
-				$timeFromCurr = date_diff ( $startDate, $currSuspStart );
-				$fromStartFTE = $startFTE + ($timeFromCurr->format ( '%a' ) / $currTypeModifier);
+				$timeFromCurr = date_diff ( $startDate, $currSuspStart );//find the difference between the start of the enrolment type period and the start of this suspension
+				$fromStartFTE = $startFTE + ($timeFromCurr->format ( '%a' ) / $currTypeModifier); //Find the FTE for the suspension from he start of the student's entire time enrolled
+																									//i.e. FTE to start of this enrolment type period plus FTE for start of suspension from start of enrolment type period
 
-				$timeForSuspension = date_diff ( $currSuspStart, $currSuspEnd );
-				$suspensionFTE = $timeForSuspension->format ( '%a' ) / $currTypeModifier;
+				$timeForSuspension = date_diff ( $currSuspStart, $currSuspEnd ); //Get the date difference between the start and end of this suspension
+				$suspensionFTE = $timeForSuspension->format ( '%a' ) / $currTypeModifier; //Get the FTE for the time between the start and end of this suspension
 
+				//Check for each deadline if they are after the start of this suspension (both FTE used here is from start of student's entire enrolment)
+				//if so add the FTE of this suspension to the FTE for the deadline
 				if ($fromStartFTE < $proposalFTE) {
 					$proposalFTE += $suspensionFTE;
 				}
@@ -86,10 +102,14 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 				}
 			}
 		}
-		// For each deadline, if said deadlines FTE is after the FTE for the start of this period and before the FTE at the end of this period, it is during this enrolment type period
+		// For each deadline, if said deadlines FTE is after the FTE value for the start of this period and before the FTE value at the end of this period, it is during this enrolment type period
+		//If this is the last period then endFTE will be null and all deadlines after startFTE will happen in this enrolment type period
 		if ($startFTE <= $proposalFTE && ($endFTE === null || $proposalFTE < $endFTE)) {
+			//Get FTE value for the time between the start of this enrolment type period and the deadline
 			$proposalFTESinceStart = $proposalFTE - $startFTE;
+			//Modify this for what the enrolment type is (half or full) so that an actual number of days is calculated
 			$proposalTimeSinceStart = $proposalFTESinceStart * $currTypeModifier;
+			//Add this number of days to the start date of this enrolment type period, getting the date for the actual deadline
 			$proposalDeadline .= date ( 'Y-m-d', strtotime ( "+" . $proposalTimeSinceStart . " day", $startDate->getTimestamp () ) );
 		}
 		if ($studentType === "Masters" && $startFTE <= $month3FTE && ($endFTE === null || $month3FTE < $endFTE)) {
@@ -109,10 +129,7 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 		}
 		$startFTE = $endFTE;
 	}
-	// $proposalDeadline = date('Y-m-d', strtotime("+" . 1*$partTimeModifier*$studentTypeModifier . " month", strtotime($start)));
-	// $month3Deadline = date('Y-m-d', strtotime("+" . 3*$partTimeModifier*$studentTypeModifier . " month", strtotime($start)));
-	// $month8Deadline = date('Y-m-d', strtotime("+" . 8*$partTimeModifier*$studentTypeModifier . " month", strtotime($start)));
-	// $thesisDeadline = date('Y-m-d', strtotime("+" . 12*$partTimeModifier*$studentTypeModifier . " month", strtotime($start)));
+	//Return the array with the calculated deadline dates
 	return array (
 			"proposaldeadline" => $proposalDeadline,
 			"report3monthdeadline" => $month3Deadline,
