@@ -1,4 +1,5 @@
 <?php
+//Never used due to calling code being broken
 $location = "ec2-54-83-204-104.compute-1.amazonaws.com";
 $username = "poacfvyhdhwtsx";
 $password = "nVJ0Via96oYvrOfrSs3ECsVR1W";

@@ -48,17 +48,19 @@ function sendPHPRequest() {
 	      }
 	      else {
 			// Open this row
-	    	var child = row.child(format(row.data()));
-	    	console.log(child.$(".accessed"));
-	    	console.log(child.$(".accessed")[0]);
+	    	row.child(format(row.data())).show();
 
-	    	console.log(child.get(child.index('input:read-only')));
-	    	console.log(child.get(child.index('input:read-only')).value);
-	    	var sID = child.get(child.index('input:read-only')).value;
-	    	var pSup = child.get(child.index('.pSupervisor'));
-	    	var sSup = child.get(child.index('.sSupervisor'));
-			getStudentSupervisor(sID, pSup, sSup);
-			child.show();
+	    	//Obsoleted due to being broken
+//	    	console.log(child.$(".accessed"));
+//	    	console.log(child.$(".accessed")[0]);
+//
+//	    	console.log(child.get(child.index('input:read-only')));
+//	    	console.log(child.get(child.index('input:read-only')).value);
+//	    	var sID = child.get(child.index('input:read-only')).value;
+//	    	var pSup = child.get(child.index('.pSupervisor'));
+//	    	var sSup = child.get(child.index('.sSupervisor'));
+//			getStudentSupervisor(sID, pSup, sSup);
+//			child.show();
 			tr.addClass('shown');
 	      }
 		});
@@ -344,6 +346,7 @@ function failChange(error) {
 	alert(error);
 }
 
+//Never used due to calling method being broken
 function getStudentSupervisor(studentID, pSupervisor, sSupervisor) {
 	var req = new XMLHttpRequest();
 
