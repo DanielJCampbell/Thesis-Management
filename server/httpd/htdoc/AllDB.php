@@ -87,9 +87,6 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 			}
 		}
 		// For each deadline, if said deadlines FTE is after the FTE for the start of this period and before the FTE at the end of this period, it is during this enrolment type period
-		if ($currFTE === null){
-			$proposalDeadline = "Null check returned true";
-		}
 		if ($startFTE <= $proposalFTE && ($endFTE === null || $proposalFTE < $endFTE)) {
 			$proposalFTESinceStart = $proposalFTE - $startFTE;
 			$proposalTimeSinceStart = $proposalFTESinceStart * $currTypeModifier;
