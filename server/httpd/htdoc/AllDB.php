@@ -19,9 +19,9 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 		); //Otherwise return an array with blank sections
 	}
 	$studentTypeModifier = 1; //Masters students have 1 month for proposal, 1 year for their thesis
-	if ($studentType == "PhD") { // PhD students have 3 months for proposal and 3 years for their thesis
-		$studentTypeModifier = 3;
-	}
+	//if ($studentType == "PhD") { // PhD students have 3 months for proposal and 3 years for their thesis
+	//	$studentTypeModifier = 3;
+	//}
 	// $studentStartDate = $start; // convert $start to unix time
 	// Full time equivalence to each deadline
 	$proposalFTE = 30 * $studentTypeModifier; // 1 month masters, 3 month phd
