@@ -34,7 +34,7 @@
       </div>
       <div>
 	<label for="startDate">Start Date:</label>
-	<input type="date" id="startDate" name="startDate"/>
+	<input type="date" name="startDate"/>
 	<button id="calcDateStart" name="calcDateStart" type ="button" onclick='calcDeadlines("startDate");'/>
       </div>
       <div>
