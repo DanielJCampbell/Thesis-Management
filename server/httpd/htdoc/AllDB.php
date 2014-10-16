@@ -139,7 +139,7 @@ function calculateDeadlines($start, $studentType, $enrolmentTypeChangeList, $sus
 }
 
 // Connect to database
-$db = pg_connect ( "host = '" . $location . "'user = '" . $username . "' password = '" . $password . "' dbname = '" . $database . "'" ) or die ( 'Unable to connect to database: ' . pg_last_error () );
+//$db = pg_connect ( "host = '" . $location . "'user = '" . $username . "' password = '" . $password . "' dbname = '" . $database . "'" ) or die ( 'Unable to connect to database: ' . pg_last_error () );
 
 /**
  * Main Table
