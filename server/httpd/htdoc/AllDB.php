@@ -265,7 +265,7 @@ while ($pRow = pg_fetch_assoc($phdQuery)) {
 	$PhDSuspensionsQuery = pg_query ( "SELECT * FROM Suspensions s WHERE s.StudentID = " . $pRow [studentid] );
 	$PhDSuspensionsArray = pg_fetch_all ( $PhDSuspensionsQuery );
 
-	$PhDDeadlines = calculateDeadlines ( $pRow [startdate], "PhD", $phDenrolTypeArray, $PhDSuspensionsArray );
+	//$PhDDeadlines = calculateDeadlines ( $pRow [startdate], "PhD", $phDenrolTypeArray, $PhDSuspensionsArray );
 	echo "<tr>";
 	echo "<td class = 'editTD'> Edit </td>";
 	echo "<td>" . $pRow [f_name] . " " . $pRow [l_name] . "</td>";
