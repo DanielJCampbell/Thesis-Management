@@ -63,35 +63,35 @@
       }
       if (! (empty ( $_POST ))) {
 		//logic for adding a new student
-      	if(isSet($_POST['Add'])){
-					$f_name = htmlspecialchars($_POST['f_name']);
-					$l_name = htmlspecialchars($_POST['l_name']);
-					$SID = htmlspecialchars($_POST['studentID']);
-					$type = htmlspecialchars($_POST['type']);
-					$startDate = htmlspecialchars($_POST['startDate']);
-					$course = htmlspecialchars($_POST['course']);
-					$specialisation = htmlspecialchars($_POST['specialisation']);
-					$psupID = htmlspecialchars($_POST['psupID']);
-					$primePercent = htmlspecialchars($_POST['primePercent']);
-					$secsupID = htmlspecialchars($_POST['secsupID']);
-					$secPercent = htmlspecialchars($_POST['secPercent']);
-					$origin = htmlspecialchars($_POST['origin']);
+//       	if(isSet($_POST['Add'])){
+// 					$f_name = htmlspecialchars($_POST['f_name']);
+// 					$l_name = htmlspecialchars($_POST['l_name']);
+// 					$SID = htmlspecialchars($_POST['studentID']);
+// 					$type = htmlspecialchars($_POST['type']);
+// 					$startDate = htmlspecialchars($_POST['startDate']);
+// 					$course = htmlspecialchars($_POST['course']);
+// 					$specialisation = htmlspecialchars($_POST['specialisation']);
+// 					$psupID = htmlspecialchars($_POST['psupID']);
+// 					$primePercent = htmlspecialchars($_POST['primePercent']);
+// 					$secsupID = htmlspecialchars($_POST['secsupID']);
+// 					$secPercent = htmlspecialchars($_POST['secPercent']);
+// 					$origin = htmlspecialchars($_POST['origin']);
 
-					$query;
+// 					$query;
 
-						$query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin,StartDate) VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.",".$secPercent.",'".$origin."','".$startDate."');";
-						//$studentResult = pg_query($query) or die('Query failed: ' . pg_last_error());
-						if($type === "masters"){
-							$query .= " INSERT INTO MastersStudents(StudentID) VALUES (".$SID.");";
-						}
-						else if($type === "PhD"){
-							$query .= " INSERT INTO PhDStudents(StudentID) VALUES (".$SID.");";
-						}
-					$result = pg_query($query) or die('Query failed: ' . pg_last_error());
-					pg_free_result($result);
-					header("Refresh:0;");
-					pg_close($db);
-			}
+// 						$query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin,StartDate) VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.",".$secPercent.",'".$origin."','".$startDate."');";
+// 						//$studentResult = pg_query($query) or die('Query failed: ' . pg_last_error());
+// 						if($type === "masters"){
+// 							$query .= " INSERT INTO MastersStudents(StudentID) VALUES (".$SID.");";
+// 						}
+// 						else if($type === "PhD"){
+// 							$query .= " INSERT INTO PhDStudents(StudentID) VALUES (".$SID.");";
+// 						}
+// 					$result = pg_query($query) or die('Query failed: ' . pg_last_error());
+// 					pg_free_result($result);
+// 					header("Refresh:0;");
+// 					pg_close($db);
+// 			}
 		//code for editing a student inline
 	      if(isSet($_POST['Edit'])){
 			$f_name = htmlspecialchars($_POST['fname']);
