@@ -203,7 +203,7 @@ function provisionalFilter( oSettings, aData, iDataIndex ) {
   return false;
 }
 function goToEdit(){
-	location.href += "/edit.php";
+	location.href = "/edit.php";
 }
 //Show only students currently suspended
 function showSuspensions(){
