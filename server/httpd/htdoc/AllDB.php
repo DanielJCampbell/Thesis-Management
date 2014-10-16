@@ -188,7 +188,7 @@ echo "</thead>";
 echo "<tbody>";
 
 // data
-$phdQuery = pg_query("SELECT * FROM Students NATURAL JOIN PhDStudents") or die('Query failed: '.pg_last_error());
+$phdQuery = pg_query($db, "SELECT * FROM Students NATURAL JOIN PhDStudents") or die('Query failed: '.pg_last_error());
 while ($pRow = pg_fetch_assoc($phdQuery)) {
 	$phDenrolTypeQuery = pg_query ( "SELECT * FROM EnrolmentTypeChanges WHERE (StudentID = " . $pRow [studentid] . ") ORDER BY ChangeDate" );
 	$phDenrolTypeArray = pg_fetch_all ( $phDenrolTypeQuery );
@@ -265,7 +265,7 @@ while ($pRow = pg_fetch_assoc($phdQuery)) {
 	echo "</tr>";
 }
 
-$mastersQuery = pg_query ( "SELECT * FROM Students NATURAL JOIN MastersStudents" ) or die ( 'Query failed: ' . pg_last_error () );
+$mastersQuery = pg_query ( $db, "SELECT * FROM Students NATURAL JOIN MastersStudents" ) or die ( 'Query failed: ' . pg_last_error () );
 
 while ( $row = pg_fetch_assoc ( $mastersQuery ) ) {
 	$enrolmentTypeQuery = pg_query ( "SELECT * FROM EnrolmentTypeChanges WHERE (StudentID = " . $row [studentid] . ") ORDER BY ChangeDate" );
