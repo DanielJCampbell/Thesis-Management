@@ -93,7 +93,7 @@
 						}
 
 					pg_free_result($result);
-					header("Refresh:0;");
+					//header("Refresh:0;");
 			}
 		//code for editing a student inline
 	      if(isSet($_POST['Edit'])){
