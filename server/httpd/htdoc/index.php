@@ -84,34 +84,17 @@
 
 						$query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin,StartDate)
 		      VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.
-						      ",".$secPercent.",'".$origin."',".$startDate.")";
-					}
-					else {
-						$query = "UPDATE students SET (F_Name,L_Name, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin)
-		      = ('".$f_name."','".$l_name."','".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.
-						      ",".$secPercent.",'".$origin."') WHERE StudentID = ".$SID;
-					}
-					$result = pg_query($query) or die('Query failed: ' . pg_last_error());
-
-					if($type === "masters" && $opType === "Add"){
-						$mastersQuery = "INSERT INTO MastersStudents(StudentID, StartDate) VALUES (".$SID.",'".$startDate."')";
-						$mastersResult = pg_query($mastersQuery) or die('Query failed: ' . pg_last_error());
-						pg_free_result($mastersResult);
-					}
-					else if($type === "PhD" && $opType === "Add"){
-						$phdQuery = "INSERT INTO PhDStudents(StudentID, StartDate) VALUES (".$SID.",'".$startDate."')";
-						$phdResult = pg_query($phdQuery) or die('Query failed: ' . pg_last_error());
-						pg_free_result($phdResult);
-					}
-					else if($type === "masters") {
-						$mastersQuery = "UPDATE MastersStudents SET StartDate = '".$startDate."' WHERE StudentID = ".$SID;
-						$mastersResult = pg_query($mastersQuery) or die('Query failed: ' . pg_last_error());
-						pg_free_result($mastersResult);
-					}
-					else if($type === "PhD") {
-						$phdQuery = "UPDATE PhDStudents SET StartDate = '".$startDate."' WHERE StudentID = ".$SID;
-						$phdResult = pg_query($phdQuery) or die('Query failed: ' . pg_last_error());
-						pg_free_result($phdResult);
+						      ",".$secPercent.",'".$origin."','".$startDate."')";
+						if($type === "masters"){
+							$mastersQuery = "INSERT INTO MastersStudents(StudentID) VALUES (".$SID.",'".$startDate."')";
+							$mastersResult = pg_query($mastersQuery) or die('Query failed: ' . pg_last_error());
+							pg_free_result($mastersResult);
+						}
+						else if($type === "PhD"){
+							$phdQuery = "INSERT INTO PhDStudents(StudentID) VALUES (".$SID."')";
+							$phdResult = pg_query($phdQuery) or die('Query failed: ' . pg_last_error());
+							pg_free_result($phdResult);
+						}
 					}
 
 					pg_free_result($result);
