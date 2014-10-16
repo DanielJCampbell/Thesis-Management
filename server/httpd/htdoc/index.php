@@ -79,9 +79,7 @@
 
 					$query;
 
-						$query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin,StartDate)
-		      VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.
-						      ",".$secPercent.",'".$origin."','".$startDate."')";
+						$query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin,StartDate) VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.",".$secPercent.",'".$origin."','".$startDate."')";
 						if($type === "masters"){
 							$mastersQuery = "INSERT INTO MastersStudents(StudentID) VALUES (".$SID.")";
 							$mastersResult = pg_query($mastersQuery) or die('Query failed: ' . pg_last_error());
