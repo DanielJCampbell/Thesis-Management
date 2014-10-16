@@ -56,6 +56,11 @@ $database = "ddf40gpbvva8uo";
 Supply the webserver with all of the files contained within server/httpd/htdoc
 Access index.php (default page), the page should communicate with the other files and database to display the webpage.
 
+To run a local Apache server on an ecs machine
+follow the ecs guide and run the programs inside the server/httpd folder
+
+http://ecs.victoria.ac.nz/Support/TechNoteApacheServer
+
 ##Contributers
 
 Daniel Campbell
