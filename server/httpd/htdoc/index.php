@@ -79,21 +79,18 @@
 
 					$query;
 
-						$query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin,StartDate) VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.",".$secPercent.",'".$origin."','".$startDate."')";
-						$studentResult = pg_query($query) or die('Query failed: ' . pg_last_error());
+						$query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin,StartDate) VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.",".$secPercent.",'".$origin."','".$startDate."');";
+						//$studentResult = pg_query($query) or die('Query failed: ' . pg_last_error());
 						if($type === "masters"){
-							$mastersQuery = "INSERT INTO MastersStudents(StudentID) VALUES (".$SID.")";
-							$mastersResult = pg_query($mastersQuery) or die('Query failed: ' . pg_last_error());
-							pg_free_result($mastersResult);
+							$query .= " INSERT INTO MastersStudents(StudentID) VALUES (".$SID.");";
 						}
 						else if($type === "PhD"){
-							$phdQuery = "INSERT INTO PhDStudents(StudentID) VALUES (".$SID.")";
-							$phdResult = pg_query($phdQuery) or die('Query failed: ' . pg_last_error());
-							pg_free_result($phdResult);
+							$query .= " INSERT INTO PhDStudents(StudentID) VALUES (".$SID.");";
 						}
-
+					$result = pg_query($query) or die('Query failed: ' . pg_last_error());
 					pg_free_result($result);
-					//header("Refresh:0;");
+					header("Refresh:0;");
+					pg_close($db);
 			}
 		//code for editing a student inline
 	      if(isSet($_POST['Edit'])){
