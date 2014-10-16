@@ -82,9 +82,9 @@
 
 					if ($opType === "Add") {
 
-						$query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin)
+						$query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin,StartDate)
 		      VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.
-						      ",".$secPercent.",'".$origin."')";
+						      ",".$secPercent.",'".$origin."',".$startDate.")";
 					}
 					else {
 						$query = "UPDATE students SET (F_Name,L_Name, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin)
