@@ -1,12 +1,11 @@
 <!DOCTYPE html >
-<!-- this code is being depreciated and will be implemented in coordinator.php or index.php-->
 <html>
   <head>
-    <title>Edit</title>
+    <title>Add Student Prototype Page</title>
   </head>
 
   <body>
-    <h3>Add/Edit Student</h3>
+    <h3>Add Student (Not currently functional)</h3>
     <form action="/index.php" method="post">
       <div>
 	<label for="f_name">First Name:</label>
@@ -66,7 +65,7 @@
 	</select>
       </div>
       <div class="button">
-	<button type="submit" value="Submit" name="Add">Update Database</button>
+	<button type="submit" value="Submit" name="Add">Insert Student</button>
       </div>
     </form>
 
