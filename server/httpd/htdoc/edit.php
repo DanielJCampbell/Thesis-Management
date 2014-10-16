@@ -7,7 +7,7 @@
 
   <body>
     <h3>Add/Edit Student</h3>
-    <form method="post">
+    <form action="/index.php" method="post">
       <div>
 	<label for="f_name">First Name:</label>
 	<input type="text" id="f_name" name="f_name"/>
@@ -72,7 +72,7 @@
 	</select>
       </div>
       <div class="button">
-	<button type="submit" value="Submit" name="Submit">Update Database</button>
+	<button type="submit" value="Submit" name="Add">Update Database</button>
       </div>
     </form>
 
@@ -89,93 +89,5 @@
       </form>
     </div>
 
-    <?php
-      $location = "ec2-54-83-204-104.compute-1.amazonaws.com";
-      $username = "poacfvyhdhwtsx";
-      $password = "nVJ0Via96oYvrOfrSs3ECsVR1W";
-      $database = "ddf40gpbvva8uo";
-
-      $db = pg_connect("host=".$location." dbname=".$database." user=".$username." password=".$password);
-      if($db->connect_errno > 0){
-	die('Unable to connect to database [' . $db->connect_error . ']');
-      }
-      if (empty ( $_POST )){
-	    echo "<p> Post is empty</p>";
-      }
-
-      if(isSet($_POST['Submit'])){
-	$f_name = htmlspecialchars($_POST['f_name']);
-	$l_name = htmlspecialchars($_POST['l_name']);
-	$SID = htmlspecialchars($_POST['studentID']);
-	$type = htmlspecialchars($_POST['type']);
-	$startDate = htmlspecialchars($_POST['startDate']);
-	$course = htmlspecialchars($_POST['course']);
-	$specialisation = htmlspecialchars($_POST['specialisation']);
-	$psupID = htmlspecialchars($_POST['psupID']);
-	$primePercent = htmlspecialchars($_POST['primePercent']);
-	$secsupID = htmlspecialchars($_POST['secsupID']);
-	$secPercent = htmlspecialchars($_POST['secPercent']);
-	$origin = htmlspecialchars($_POST['origin']);
-	$opType = htmlspecialchars($_POST['optype']);
-
-	$query;
-
-	if ($opType === "Add") {
-
-	    $query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin)
-		      VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.
-		      ",".$secPercent.",'".$origin."')";
-	}
-	else {
-	    $query = "UPDATE students SET (F_Name,L_Name, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin)
-		      = ('".$f_name."','".$l_name."','".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.
-		      ",".$secPercent.",'".$origin."') WHERE StudentID = ".$SID;
-	}
-	$result = pg_query($query) or die('Query failed: ' . pg_last_error());
-
-	if($type === "masters" && $opType === "Add"){
-	  $mastersQuery = "INSERT INTO MastersStudents(StudentID, StartDate) VALUES (".$SID.",'".$startDate."')";
-	  $mastersResult = pg_query($mastersQuery) or die('Query failed: ' . pg_last_error());
-	  pg_free_result($mastersResult);
-	}
-	else if($type === "PhD" && $opType === "Add"){
-	  $phdQuery = "INSERT INTO PhDStudents(StudentID, StartDate) VALUES (".$SID.",'".$startDate."')";
-	  $phdResult = pg_query($phdQuery) or die('Query failed: ' . pg_last_error());
-	  pg_free_result($phdResult);
-	}
-	else if($type === "masters") {
-	  $mastersQuery = "UPDATE MastersStudents SET StartDate = '".$startDate."' WHERE StudentID = ".$SID;
-	  $mastersResult = pg_query($mastersQuery) or die('Query failed: ' . pg_last_error());
-	  pg_free_result($mastersResult);
-	}
-	else if($type === "PhD") {
-	  $phdQuery = "UPDATE PhDStudents SET StartDate = '".$startDate."' WHERE StudentID = ".$SID;
-	  $phdResult = pg_query($phdQuery) or die('Query failed: ' . pg_last_error());
-	  pg_free_result($phdResult);
-	}
-
-	pg_free_result($result);
-      }
-      else if(isSet($_POST['Delete'])){
-	$SID = htmlspecialchars($_POST['del_studentID']);
-	$MastersQuery = "DELETE FROM MastersStudents WHERE StudentID = ".$SID;
-	$PhDQuery = "DELETE FROM PhDStudents WHERE StudentID = ".$SID;
-	$StudentsQuery = "DELETE FROM Students WHERE StudentID = ".$SID;
-
-	$Mresult = pg_query($MastersQuery) or die('Query failed: ' . pg_last_error());
-	$Presult = pg_query($PhDQuery) or die('Query failed: ' . pg_last_error());
-	$Sresult = pg_query($StudentsQuery) or die('Query failed: ' . pg_last_error());
-	pg_free_result($Mresult);
-	pg_free_result($Presult);
-	pg_free_result($Sresult);
-      }
-
-      pg_close($db);
-    ?>
-
   </body>
-  <script type="text/javascript">
-	  var href = location.href.substring(0, location.href.lastIndexOf("/"));
-	  href=index.php
-  </script>
 </html>
