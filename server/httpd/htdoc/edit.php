@@ -3,7 +3,6 @@
 <html>
   <head>
     <title>Edit</title>
-    <script src = "deadlines.js"></script>
   </head>
 
   <body>
@@ -175,4 +174,8 @@
     ?>
 
   </body>
+  <script type="text/javascript">
+	  var href = location.href.substring(0, location.href.lastIndexOf("/"));
+	  href=index.php
+  </script>
 </html>

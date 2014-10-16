@@ -29,6 +29,9 @@
   	<input type = "button" onclick = "showSupervisor();" value = "Show Supervisor Workload"/><br/>
   	<input type = "button" onclick = "showNonCurrent();" value = "Show Non-current Students"/><br/>
   </div>
+  <div id = "left">
+  	<input type = "button" onclick = "goToEdit();" value = "Add new students"><br/>
+  </div>
   <div id = "body">
 
 

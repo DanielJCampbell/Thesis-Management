@@ -202,7 +202,10 @@ function provisionalFilter( oSettings, aData, iDataIndex ) {
   }
   return false;
 }
-
+function goToEdit(){
+	var href = location.href.substring(0, location.href.lastIndexOf("/"));
+	href += "/edit.php";
+}
 //Show only students currently suspended
 function showSuspensions(){
   showStudentTable();
