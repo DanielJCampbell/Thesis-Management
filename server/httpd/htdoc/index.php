@@ -76,26 +76,22 @@
 					$secsupID = htmlspecialchars($_POST['secsupID']);
 					$secPercent = htmlspecialchars($_POST['secPercent']);
 					$origin = htmlspecialchars($_POST['origin']);
-					$opType = htmlspecialchars($_POST['optype']);
 
 					$query;
-
-					if ($opType === "Add") {
 
 						$query = "INSERT INTO students(F_Name,L_Name,StudentID, Course,Specialisation,Primary_SupervisorID,Primary_SupervisorPercent,Secondary_SupervisorID,Secondary_SupervisorPercent,Origin,StartDate)
 		      VALUES('".$f_name."','".$l_name."',".$SID.",'".$course."','".$specialisation."',".$psupID.",".$primePercent.",".$secsupID.
 						      ",".$secPercent.",'".$origin."','".$startDate."')";
 						if($type === "masters"){
-							$mastersQuery = "INSERT INTO MastersStudents(StudentID) VALUES (".$SID.",'".$startDate."')";
+							$mastersQuery = "INSERT INTO MastersStudents(StudentID) VALUES (".$SID.")";
 							$mastersResult = pg_query($mastersQuery) or die('Query failed: ' . pg_last_error());
 							pg_free_result($mastersResult);
 						}
 						else if($type === "PhD"){
-							$phdQuery = "INSERT INTO PhDStudents(StudentID) VALUES (".$SID."')";
+							$phdQuery = "INSERT INTO PhDStudents(StudentID) VALUES (".$SID.")";
 							$phdResult = pg_query($phdQuery) or die('Query failed: ' . pg_last_error());
 							pg_free_result($phdResult);
 						}
-					}
 
 					pg_free_result($result);
 			}

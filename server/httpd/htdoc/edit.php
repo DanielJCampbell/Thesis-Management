@@ -65,29 +65,10 @@
 	<option value="D">Domestic</option>
 	</select>
       </div>
-      <div>
-	<select name ="optype">
-	<option value="Add">Add Student</option>
-	<option value="Edit">Edit Student</option>
-	</select>
-      </div>
       <div class="button">
 	<button type="submit" value="Submit" name="Add">Update Database</button>
       </div>
     </form>
-
-    <div>
-      <h3>Delete Student</h3>
-      <form method="post">
-	<div>
-	  <label for="del_studentID">StudentID:</label>
-	  <input type="number" id="del_studentID" name="del_studentID"/>
-	</div>
-	<div class="button">
-	  <button type="submit" value="Delete" name="Delete">Delete Student</button>
-	</div>
-      </form>
-    </div>
 
   </body>
 </html>
