@@ -261,7 +261,7 @@ while ( $row = pg_fetch_assoc ( $mastersQuery ) ) {
 $phdQuery = pg_query ( "SELECT * FROM Students NATURAL JOIN PhDStudents" ) or die ( 'Query failed: ' . pg_last_error () );
 
 while ( $row = pg_fetch_assoc ( $phdQuery ) ) {
-	echo $row;
+	die("Debugging ".$row);
 	$enrolmentTypeQuery = pg_query ( "SELECT * FROM EnrolmentTypeChanges WHERE (StudentID = " . $row [studentid] . ") ORDER BY ChangeDate" );
 	$enrolmentTypeArray = pg_fetch_all ( $enrolmentTypeQuery );
 	$suspensionsQuery = pg_query ( "SELECT * FROM Suspensions s WHERE s.StudentID = " . $row [studentid] );
