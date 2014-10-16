@@ -191,7 +191,7 @@ echo "<tbody>";
 $mastersQuery = pg_query ( "SELECT * FROM Students NATURAL JOIN MastersStudents" ) or die ( 'Query failed: ' . pg_last_error () );
 
 while ( $row = pg_fetch_assoc ( $mastersQuery ) ) {
-
+	die("Does this do something?");
 	$enrolmentTypeQuery = pg_query ( "SELECT * FROM EnrolmentTypeChanges WHERE (StudentID = " . $row [studentid] . ") ORDER BY ChangeDate" );
 	$enrolmentTypeArray = pg_fetch_all ( $enrolmentTypeQuery );
 	$suspensionsQuery = pg_query ( "SELECT * FROM Suspensions s WHERE s.StudentID = " . $row [studentid] );
@@ -260,12 +260,13 @@ while ( $row = pg_fetch_assoc ( $mastersQuery ) ) {
 }
 $phdQuery = pg_query("SELECT * FROM Students NATURAL JOIN PhDStudents") or die('Query failed: '.pg_last_error());
 while ($pRow = pg_fetch_assoc($phdQuery)) {
+	echo "<tr><td>".$pRow."</td></tr>";
 	$phDenrolTypeQuery = pg_query ( "SELECT * FROM EnrolmentTypeChanges WHERE (StudentID = " . $pRow [studentid] . ") ORDER BY ChangeDate" );
 	$phDenrolTypeArray = pg_fetch_all ( $phDenrolTypeQuery );
 	$PhDSuspensionsQuery = pg_query ( "SELECT * FROM Suspensions s WHERE s.StudentID = " . $pRow [studentid] );
 	$PhDSuspensionsArray = pg_fetch_all ( $PhDSuspensionsQuery );
 
-	//$PhDDeadlines = calculateDeadlines ( $pRow [startdate], "PhD", $phDenrolTypeArray, $PhDSuspensionsArray );
+	$PhDDeadlines = calculateDeadlines ( $pRow [startdate], "PhD", $phDenrolTypeArray, $PhDSuspensionsArray );
 	echo "<tr>";
 	echo "<td class = 'editTD'> Edit </td>";
 	echo "<td>" . $pRow [f_name] . " " . $pRow [l_name] . "</td>";
