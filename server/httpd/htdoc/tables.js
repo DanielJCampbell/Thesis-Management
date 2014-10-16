@@ -4,7 +4,12 @@ var supTable;
 
 //Only shows students meeting the current type (Masters, PhD, or All)
 function studentTypeFilter( oSettings, aData, iDataIndex ) {
+	console.log(aData[3]);
+	if (type == "PhD")
+		console.log("Type is PhD");
   if (aData[3] === type || isSupervisor || type === "All") {
+	  if (type == "PhD")
+		  console.log("Successfully showed PhD");
     return true;
   }
   return false;
