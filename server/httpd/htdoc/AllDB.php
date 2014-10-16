@@ -190,7 +190,6 @@ echo "<tbody>";
 // data
 $phdQuery = pg_query("SELECT * FROM Students NATURAL JOIN PhDStudents") or die('Query failed: '.pg_last_error());
 while ($pRow = pg_fetch_assoc($phdQuery)) {
-	echo "<tr><td>".$pRow."</td></tr>";
 	$phDenrolTypeQuery = pg_query ( "SELECT * FROM EnrolmentTypeChanges WHERE (StudentID = " . $pRow [studentid] . ") ORDER BY ChangeDate" );
 	$phDenrolTypeArray = pg_fetch_all ( $phDenrolTypeQuery );
 	$PhDSuspensionsQuery = pg_query ( "SELECT * FROM Suspensions s WHERE s.StudentID = " . $pRow [studentid] );
